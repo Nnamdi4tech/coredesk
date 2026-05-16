@@ -123,7 +123,7 @@ class TenantController extends Controller
             session()->flush();
             
             // ✅ Redirect to tenant login page with success message
-            $loginUrl = "http://{$tenant->subdomain}.coredesk.local:8000/login";
+            $loginUrl = "http://{$tenant->subdomain}.coredesk.com.ng/login";
             
             Log::info('Registration completed successfully', ['login_url' => $loginUrl]);
             
@@ -161,7 +161,7 @@ class TenantController extends Controller
 
         try {
             $adminEmail = 'nnamdigodwill1960@gmail.com';
-            $ownerDashboardUrl = 'http://coredesk.local:8000/owner/dashboard';
+            $ownerDashboardUrl = 'http://coredesk.com.ng/owner/dashboard';
 
             // Get logo as base64 (optional - remove if you don't have logo)
             $logoPath = public_path('images/download.jpg');
@@ -237,7 +237,7 @@ class TenantController extends Controller
                 "Administrator:\n" .
                 "Name: {$user->name}\n" .
                 "Email: {$user->email}\n\n" .
-                "View in Owner Dashboard: http://coredesk.local:8000/owner/dashboard\n\n" .
+                "View in Owner Dashboard: http://coredesk.com.ng/owner/dashboard\n\n" .
                 "CoreDesk System";
 
             $response = Http::withHeaders([

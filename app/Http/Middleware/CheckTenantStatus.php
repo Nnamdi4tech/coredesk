@@ -167,7 +167,7 @@ class CheckTenantStatus
                     <a href="mailto:hammocktechglobal@gmail.com">hammocktechglobal@gmail.com</a>
                     <a href="tel:+2348137159867" style="display: block; margin-top: 5px;">+234 813 715 9867</a>
                 </div>
-                <a href="http://coredesk.local:8000" class="btn-home">
+                <a href="http://coredesk.com.ng" class="btn-home">
                     <i class="fa fa-home"></i> Return to Home
                 </a>
             </div>
@@ -275,7 +275,7 @@ class CheckTenantStatus
                     <a href="mailto:hammocktechglobal@gmail.com">hammocktechglobal@gmail.com</a>
                     <a href="tel:+2348137159867" style="display: block; margin-top: 5px;">+234 813 715 9867</a>
                 </div>
-                <a href="http://coredesk.local:8000" class="btn-home">
+                <a href="http://coredesk.com.ng" class="btn-home">
                     <i class="fa fa-home"></i> Return to Home
                 </a>
             </div>
@@ -362,7 +362,7 @@ private function getTenantNotFoundPage()
             <p>The school you are looking for does not exist or has been removed.</p>
             <p>Please check the web address and try again.</p>
             <div class="divider"></div>
-            <a href="http://coredesk.local:8000" class="btn-home">
+            <a href="http://coredesk.com.ng" class="btn-home">
                 <i class="fa fa-home"></i> Return to CoreDesk
             </a>
         </div>

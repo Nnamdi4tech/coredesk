@@ -39,7 +39,7 @@ class AuthenticatedSessionController extends Controller
         $baseUrl = $port ? "http://{$host}:{$port}" : "http://{$host}";
         
         $parts = explode('.', $host);
-        $isMainDomain = ($host === 'coredesk.local' || $host === 'localhost' || $host === '127.0.0.1');
+        $isMainDomain = ($host === 'coredesk.local' || $host === 'localhost' || $host === '127.0.0.1' || $host === 'coredesk.com.ng' || $host === 'www.coredesk.com.ng');
         
         \Log::info('Login redirect', [
             'host' => $host,

@@ -103,8 +103,8 @@ class ExpireTenants extends Command
             'plan' => $tenant->plan,
             'expiresAt' => $expiresAt,
             'daysLeft' => $daysLeft,
-            'ownerDashboardUrl' => 'http://coredesk.local:8000/owner/dashboard',
-            'extendUrl' => "http://coredesk.local:8000/owner/tenant/{$tenant->id}/extend"
+            'ownerDashboardUrl' => 'http://coredesk.com.ng/owner/dashboard',
+            'extendUrl' => "http://coredesk.com.ng/owner/tenant/{$tenant->id}/extend"
         ])->render();
         
         $this->sendBrevoEmail(
@@ -153,7 +153,7 @@ class ExpireTenants extends Command
             'adminEmail' => $superAdmin ? $superAdmin->email : 'Unknown',
             'plan' => $tenant->plan,
             'expiresAt' => Carbon::parse($tenant->expires_at),
-            'ownerDashboardUrl' => 'http://coredesk.local:8000/owner/dashboard'
+            'ownerDashboardUrl' => 'http://coredesk.com.ng/owner/dashboard'
         ])->render();
         
         $this->sendBrevoEmail(

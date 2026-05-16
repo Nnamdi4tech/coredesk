@@ -23,7 +23,9 @@ class IdentifyTenant
         if (
             $host === '127.0.0.1' ||
             $host === 'localhost' ||
-            $host === 'coredesk.local'
+            $host === 'coredesk.local' ||
+            $host === 'coredesk.com.ng' ||
+            $host === 'www.coredesk.com.ng'
         ) {
             return $next($request);
         }

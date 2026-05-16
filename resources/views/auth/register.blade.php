@@ -523,7 +523,7 @@
                     </div>
                     <input type="hidden" name="subdomain" id="subdomain">
                     <div class="subdomain-preview">
-                     Copy Your URL: <span id="subdomain-preview">your-school.coredesk.local</span>
+                     Copy Your URL: <span id="subdomain-preview">your-school.coredesk.com.ng</span>
                     </div>
                 </div>
 
@@ -636,7 +636,7 @@
                 if (schoolName.length < 2) {
                     suggestionsDiv.innerHTML = '<span class="subdomain-preview" style="color: #9ca3af; font-style: italic;">Start typing school name...</span>';
                     hiddenSubdomain.value = '';
-                    subdomainPreviewSpan.textContent = 'your-school.coredesk.local';
+                    subdomainPreviewSpan.textContent = 'your-school.coredesk.com.ng';
                     return;
                 }
 
@@ -658,10 +658,10 @@
                                 const btn = document.createElement('button');
                                 btn.type = 'button';
                                 btn.className = 'subdomain-btn';
-                                btn.textContent = sub + '.coredesk.local';
+                                btn.textContent = sub + '.coredesk.com.ng';
                                 btn.addEventListener('click', () => {
                                     hiddenSubdomain.value = sub;
-                                    subdomainPreviewSpan.textContent = sub + '.coredesk.local';
+                                    subdomainPreviewSpan.textContent = sub + '.coredesk.com.ng';
                                     document.querySelectorAll('.subdomain-btn').forEach(b => {
                                         b.classList.remove('active');
                                     });
