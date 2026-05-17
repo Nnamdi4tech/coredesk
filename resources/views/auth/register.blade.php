@@ -436,6 +436,48 @@
         .left-panel .org-divider  { animation: fadeUp 0.5s 0.3s ease both; }
         .left-panel .org-tagline  { animation: fadeUp 0.5s 0.4s ease both; }
         .left-panel .features-list { animation: fadeUp 0.5s 0.5s ease both; }
+
+        /* Spinner styles */
+.spinner-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    backdrop-filter: blur(3px);
+}
+
+.spinner {
+    width: 50px;
+    height: 50px;
+    border: 5px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    border-top-color: var(--cd-purple);
+    animation: spin 1s ease-in-out infinite;
+}
+
+.spinner-text {
+    color: white;
+    margin-top: 20px;
+    font-size: 1rem;
+    text-align: center;
+}
+
+.spinner-container {
+    background: rgba(0, 0, 0, 0.9);
+    padding: 30px;
+    border-radius: 12px;
+    text-align: center;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
     </style>
 </head>
 <body>
@@ -591,6 +633,14 @@
         </div>
     </div>
 
+    <!-- Spinner Overlay -->
+<div id="spinnerOverlay" class="spinner-overlay">
+    <div class="spinner-container">
+        <div class="spinner"></div>
+        <div class="spinner-text">Creating your dashboard... Please wait</div>
+    </div>
+</div>
+
     <script>
         // Scroll to top functionality
         window.addEventListener('scroll', function() {
@@ -717,12 +767,23 @@ function confirmSchoolCreation() {
             confirmButton: 'swal-confirm-custom',
             cancelButton: 'swal-cancel-custom',
         }
+    
     }).then((result) => {
-        if (result.isConfirmed) {
-            // Submit the actual form
-            document.querySelector('form').submit();
-        }
-    });
+    if (result.isConfirmed) {
+        // Show spinner
+        const spinner = document.getElementById('spinnerOverlay');
+        spinner.style.display = 'flex';
+        
+        // Optional: 2 second delay (remove if not needed)
+        setTimeout(() => {
+            form.submit();
+        }, 2000);
+    }
+});
+
+
+
+
 }
 </script>
 
