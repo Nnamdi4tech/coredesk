@@ -6,25 +6,21 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
-        Schema::table('results', function (Blueprint $table) {
-            // Make class_id nullable (what you did before)
-            $table->unsignedBigInteger('class_id')->nullable()->change();
-        });
+        if (Schema::hasColumn('results', 'class_id')) {
+            Schema::table('results', function (Blueprint $table) {
+                $table->unsignedBigInteger('class_id')->nullable()->change();
+            });
+        }
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
-        Schema::table('results', function (Blueprint $table) {
-            // Revert class_id to NOT NULL
-            $table->unsignedBigInteger('class_id')->nullable(false)->change();
-        });
+        if (Schema::hasColumn('results', 'class_id')) {
+            Schema::table('results', function (Blueprint $table) {
+                $table->unsignedBigInteger('class_id')->nullable(false)->change();
+            });
+        }
     }
 };
