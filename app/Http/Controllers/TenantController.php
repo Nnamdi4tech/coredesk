@@ -229,7 +229,7 @@ class TenantController extends Controller
             $simpleContent = "New School Registration\n\n" .
                 "A new school has registered on CoreDesk:\n\n" .
                 "School Name: {$tenant->name}\n" .
-                "Subdomain: {$tenant->subdomain}.coredesk.local\n" .
+                "Subdomain: {$tenant->subdomain}.coredesk.com.ng\n" .
                 "Location: {$tenant->location}\n" .
                 "Phone: {$tenant->phone}\n" .
                 "Plan: {$tenant->plan}\n" .
