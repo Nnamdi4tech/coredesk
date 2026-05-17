@@ -734,58 +734,6 @@
  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
 
-<script>
-function confirmSchoolCreation() {
-    Swal.fire({
-        title: 'Before You Proceed',
-        html: `
-            <div style="text-align:left; font-size:0.9rem; color:#374151; line-height:1.7;">
-                <p style="margin-bottom:12px;">You are about to create a <strong>School Management Dashboard</strong> that will include:</p>
-                <ul style="padding-left:18px; margin-bottom:16px; color:#4b5563;">
-                    <li>Admin control panel</li>
-                    <li>Teacher portal & result management</li>
-                    <li>Student portal & report cards</li>
-                </ul>
-                <div style="background:#fef3c7; border-left:4px solid #f59e0b; padding:10px 14px; border-radius:6px; font-size:0.825rem; color:#92400e;">
-                    <strong>⚠️ Important:</strong> By proceeding, you confirm that you are an authorised 
-                    administrator, proprietor, or staff member of this school, and that you have 
-                    permission to create this dashboard on behalf of your institution.
-                </div>
-            </div>
-        `,
-        icon: 'info',
-        showCancelButton: true,
-        confirmButtonText: 'Yes, Create Dashboard →',
-        cancelButtonText: 'No, Cancel',
-        confirmButtonColor: '#667eea',
-        cancelButtonColor: '#6b7280',
-        reverseButtons: true,
-        focusCancel: true,
-        customClass: {
-            popup: 'swal-popup-custom',
-            title: 'swal-title-custom',
-            confirmButton: 'swal-confirm-custom',
-            cancelButton: 'swal-cancel-custom',
-        }
-    
-    }).then((result) => {
-    if (result.isConfirmed) {
-        // Show spinner
-        const spinner = document.getElementById('spinnerOverlay');
-        spinner.style.display = 'flex';
-        
-        // Optional: 2 second delay (remove if not needed)
-        setTimeout(() => {
-            form.submit();
-        }, 2000);
-    }
-});
-
-
-
-
-}
-</script>
 
 <style>
 .swal-popup-custom {
@@ -815,7 +763,8 @@ function confirmSchoolCreation() {
 </style>
 
 <!-- phone number validation -->
- <script>
+ // phone number validation - UPDATED with spinner
+<script>
 document.addEventListener('DOMContentLoaded', function() {
     const form = document.querySelector('form');
     const phoneInput = document.getElementById('phone');
@@ -888,7 +837,14 @@ document.addEventListener('DOMContentLoaded', function() {
             reverseButtons: true,
         }).then((result) => {
             if (result.isConfirmed) {
-                form.submit();
+                // Show spinner
+                const spinner = document.getElementById('spinnerOverlay');
+                spinner.style.display = 'flex';
+                
+                // Submit form after 2 seconds
+                setTimeout(() => {
+                    form.submit();
+                }, 2000);
             }
         });
     };
