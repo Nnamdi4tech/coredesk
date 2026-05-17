@@ -762,8 +762,8 @@
 }
 </style>
 
-<!-- phone number validation -->
- // phone number validation - UPDATED with spinner
+
+ <!-- phone number validation - UPDATED with spinner -->
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     const form = document.querySelector('form');
