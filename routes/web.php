@@ -80,12 +80,12 @@ Route::middleware('auth')->group(function () {
 |--------------------------------------------------------------------------
 */
 
-// Route::domain('{subdomain}.coredesk.local')
+// Route::domain('{subdomain}.coredesk.com.ng')
 //     ->middleware('identify.tenant')
 //     ->group(base_path('routes/tenant.php'));
 
 // ✅middleware runs via web group
-Route::domain('{subdomain}.coredesk.local')
+Route::domain('{subdomain}.coredesk.com.ng')
     ->group(base_path('routes/tenant.php'));
 
 

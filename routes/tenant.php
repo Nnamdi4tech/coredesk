@@ -28,7 +28,7 @@ use App\Http\Controllers\Admin\ExamController as AdminExamController;
 use App\Http\Controllers\Admin\BillingController;
 
 
-Route::domain('{subdomain}.coredesk.local')
+Route::domain('{subdomain}.coredesk.com.ng')
     ->middleware(['web', 'tenant', 'tenant.status'])
     ->group(function () {
 
