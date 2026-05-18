@@ -237,7 +237,7 @@
 <div>
     <label class="block text-xs font-semibold text-slate-600 mb-1.5">Department</label>
     <input type="text" name="department" value="{{ old('department') }}"
-           placeholder="e.g. Science, Mathematics, English, Arts"
+           placeholder="e.g. Science, Arts.."
            class="text-sm w-full rounded-lg border border-gray-300 bg-white py-2 px-3 text-gray-700 focus:outline-none focus:border-fuchsia-300 transition-all" />
     <p class="text-xs text-slate-400 mt-1">Enter any department name</p>
 </div>

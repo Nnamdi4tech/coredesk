@@ -115,9 +115,9 @@
 
                 {{-- Email --}}
                 <div>
-                    <label class="block text-xs font-semibold text-slate-600 mb-1.5">Email Address</label>
+                    <label class="block text-xs font-semibold text-slate-600 mb-1.5">Email Address (Optional)</label>
                     <input type="email" name="email" value="{{ old('email') }}"
-                           placeholder="e.g. emeka@school.com"
+                           placeholder="e.g. emeka@school.com, fola@gmail.com"
                            class="text-sm w-full rounded-lg border border-gray-300 bg-white py-2 px-3 text-gray-700 focus:outline-none focus:border-fuchsia-300 transition-all @error('email') border-red-400 @enderror" />
                     @error('email') <p class="text-xs text-red-500 mt-1">{{ $message }}</p> @enderror
                 </div>
@@ -145,7 +145,7 @@
 
                 {{-- Phone --}}
                 <div>
-                    <label class="block text-xs font-semibold text-slate-600 mb-1.5">Phone Number</label>
+                    <label class="block text-xs font-semibold text-slate-600 mb-1.5">Student/Parent/Guardian Phone Number</label>
                     <input type="text" name="phone" value="{{ old('phone') }}"
                            placeholder="e.g. 08012345678"
                            class="text-sm w-full rounded-lg border border-gray-300 bg-white py-2 px-3 text-gray-700 focus:outline-none focus:border-fuchsia-300 transition-all" />
@@ -203,26 +203,39 @@
 </div>
 
                 {{-- Class --}}
-                <div>
-                    <label class="block text-xs font-semibold text-slate-600 mb-1.5">
-                        Class <span class="text-red-500">*</span>
-                    </label>
-                    <select name="class_id"
-    class="text-sm w-full rounded-lg border border-gray-300 bg-white py-2 px-3 text-gray-700"
-    required>
-
-    <option value="">-- Select Class --</option>
-
-    @foreach($classes as $class)
-        <option value="{{ $class->id }}"
-            {{ old('class_id') == $class->id ? 'selected' : '' }}>
-            {{ $class->name }}
-        </option>
-    @endforeach
-
-</select>
-                    @error('class') <p class="text-xs text-red-500 mt-1">{{ $message }}</p> @enderror
-                </div>
+<div>
+    <label class="block text-xs font-semibold text-slate-600 mb-1.5">
+        Class <span class="text-red-500">*</span>
+    </label>
+    
+    @if($classes->count() > 0)
+        <select name="class_id"
+                class="text-sm w-full rounded-lg border border-gray-300 bg-white py-2 px-3 text-gray-700 focus:outline-none focus:border-fuchsia-300 transition-all"
+                required>
+            <option value="">-- Select Class --</option>
+            @foreach($classes as $class)
+                <option value="{{ $class->id }}"
+                    {{ old('class_id') == $class->id ? 'selected' : '' }}>
+                    {{ $class->name }}
+                </option>
+            @endforeach
+        </select>
+    @else
+        <div class="bg-red-50 border border-red-200 rounded-lg p-4 text-center">
+            <div class="text-red-600 text-sm mb-2">
+                📚 No classes available
+            </div>
+            <a href="{{ route('tenant.classes.index', $subdomain) }}" 
+               class="inline-flex items-center gap-2 px-4 py-2 bg-fuchsia-600 text-white text-sm font-medium rounded-lg hover:bg-fuchsia-700 transition">
+                <span>➕</span> Add Class Now
+            </a>
+        </div>
+    @endif
+    
+    @error('class_id') 
+        <p class="text-xs text-red-500 mt-1">{{ $message }}</p> 
+    @enderror
+</div>
 
                 {{-- Assign Teacher --}}
                 <div>

@@ -760,7 +760,7 @@ $subdomain = request()->route('subdomain');
           @if(($tenant->plan ?? 'free') === 'free')
           <div class="alert amber">
             <i class="fa fa-exclamation-triangle"></i>
-            <p><strong>You are on the FREE Plan —</strong> Limited to {{ $freePlan->max_students ?? 3 }} students and {{ $freePlan->max_teachers ?? 1 }} teacher(s). Upgrade to unlock more features.</p>
+            <p><strong>You are on the FREE Plan —</strong> Limited to {{ $freePlan->max_students ?? 3 }} students and {{ $freePlan->max_teachers ?? 2 }} teacher(s). Upgrade to unlock more features.</p>
           </div>
           @elseif(($tenant->expires_at ?? null) && \Carbon\Carbon::parse($tenant->expires_at)->isPast())
           <div class="alert red" style="background:#fef2f2; border-color:#fecaca; color:#dc2626;">
