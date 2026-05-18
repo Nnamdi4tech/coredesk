@@ -129,14 +129,14 @@
     @if(session('success'))
         <div class="p-4 mb-6 text-sm text-green-700 bg-green-50 border border-green-200 rounded-2xl flex items-center gap-3">
             <div class="w-8 h-8 rounded-lg bg-gradient-to-tl from-green-500 to-emerald-400 flex items-center justify-center flex-shrink-0">
-                <i class="fa fa-check text-white text-xs"></i>
+                <i class="fa fa-check text-black text-xs"></i>
             </div>
             <div>
                 <p class="font-semibold">Success!</p>
                 <p class="text-green-600 text-xs mt-0.5">{{ session('success') }}</p>
             </div>
             <button onclick="this.parentElement.remove()" class="ml-auto text-green-400 hover:text-green-600">
-                <i class="fa fa-times text-xs"></i>
+                <i class="fa fa-times text-black text-xs"></i>
             </button>
         </div>
     @endif
