@@ -44,12 +44,16 @@ class AuthController extends Controller
     }
 
     // 🚪 LOGOUT - Allow both GET and POST
+// 🚪 LOGOUT - Allow both GET and POST
 public function logout($subdomain)
 {
     session()->forget('student_id');
     
     $port = request()->getPort();
-    $baseUrl = $port ? "http://{$subdomain}.coredesk.local:{$port}" : "http://{$subdomain}.coredesk.local";
+    
+    // ✅ FIXED: Use coredesk.com.ng for production, fallback to .local for development
+    $domain = app()->environment('production') ? 'coredesk.com.ng' : 'coredesk.local';
+    $baseUrl = $port ? "http://{$subdomain}.{$domain}:{$port}" : "http://{$subdomain}.{$domain}";
     
     return redirect("{$baseUrl}/student/login");
 }
