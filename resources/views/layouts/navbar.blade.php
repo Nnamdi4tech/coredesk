@@ -140,17 +140,18 @@
                             </li>
                         @elseif($student)
                             <li class="relative">
-                                <form method="POST" action="{{ route('student.logout', $subdomain) }}" id="student-logout-form">
-                                    @csrf
-                                    <button type="submit"
-                                            class="ease-soft py-1.2 clear-both block w-full whitespace-nowrap rounded-lg bg-transparent px-4 duration-300 hover:bg-gray-200 hover:text-slate-700 lg:transition-colors">
-                                        <div class="flex items-center text-red-500">
-                                            <i class="fa fa-sign-out-alt mr-2"></i>
-                                            <span>Logout</span>
-                                        </div>
-                                    </button>
-                                </form>
-                            </li>
+        <!-- ✅ FIXED: Use request()->route('subdomain') to match working version -->
+        <form method="POST" action="{{ route('student.logout', request()->route('subdomain')) }}" id="student-logout-form">
+            @csrf
+            <button type="submit"
+                    class="ease-soft py-1.2 clear-both block w-full whitespace-nowrap rounded-lg bg-transparent px-4 duration-300 hover:bg-gray-200 hover:text-slate-700 lg:transition-colors">
+                <div class="flex items-center text-red-500">
+                    <i class="fa fa-sign-out-alt mr-2"></i>
+                    <span>Logout</span>
+                </div>
+            </button>
+        </form>
+    </li>
                         @else
                             <li class="relative">
                                 <a class="ease-soft py-1.2 clear-both block w-full whitespace-nowrap rounded-lg bg-transparent px-4 duration-300 hover:bg-gray-200 hover:text-slate-700 lg:transition-colors"
