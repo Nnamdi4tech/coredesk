@@ -39,32 +39,43 @@ class LoginRequest extends FormRequest
      * @throws ValidationException
      */
     public function authenticate(): void
-{
-    $this->ensureIsNotRateLimited();
+    {
+        $this->ensureIsNotRateLimited();
 
-    // ✅ Get tenant_id from the current subdomain
-    $tenantId = null;
-    if (app()->bound('tenant')) {
-        $tenantId = app('tenant')->id;
+        // ✅ Get tenant_id from the current subdomain
+        $tenantId = null;
+        if (app()->bound('tenant')) {
+            $tenantId = app('tenant')->id;
+        }
+
+        $credentials = $this->only('email', 'password');
+
+        // ✅ Add tenant_id to credentials so login is scoped to this school only
+        if ($tenantId) {
+            $credentials['tenant_id'] = $tenantId;
+        }
+
+        if (! Auth::attempt($credentials, $this->boolean('remember'))) {
+            RateLimiter::hit($this->throttleKey());
+
+            throw ValidationException::withMessages([
+                'email' => trans('auth.failed'),
+            ]);
+        }
+
+        // ✅ **CRITICAL: Call the tenant validation here**
+        $user = Auth::user();
+        if (!$this->ensureUserBelongsToTenant($user)) {
+            Auth::logout();
+            RateLimiter::hit($this->throttleKey());
+            
+            throw ValidationException::withMessages([
+                'email' => 'Invalid credentials for this school. Please login with correct school credentials.',
+            ]);
+        }
+
+        RateLimiter::clear($this->throttleKey());
     }
-
-    $credentials = $this->only('email', 'password');
-
-    // ✅ Add tenant_id to credentials so login is scoped to this school only
-    if ($tenantId) {
-        $credentials['tenant_id'] = $tenantId;
-    }
-
-    if (! Auth::attempt($credentials, $this->boolean('remember'))) {
-        RateLimiter::hit($this->throttleKey());
-
-        throw ValidationException::withMessages([
-            'email' => trans('auth.failed'),
-        ]);
-    }
-
-    RateLimiter::clear($this->throttleKey());
-}
 
     /**
      * Ensure the login request is not rate limited.
@@ -95,5 +106,35 @@ class LoginRequest extends FormRequest
     public function throttleKey(): string
     {
         return Str::transliterate(Str::lower($this->string('email')).'|'.$this->ip());
+    }
+
+    /**
+     * Ensure user belongs to the current tenant/subdomain
+     */
+    protected function ensureUserBelongsToTenant($user): bool
+    {
+        $host = request()->getHost();
+        $currentSubdomain = explode('.', $host)[0];
+        $isMainDomain = ($host === 'coredesk.local' || $host === 'coredesk.com.ng' || $host === 'www.coredesk.com.ng');
+        
+        // Skip for main domain
+        if ($isMainDomain) {
+            return true;
+        }
+        
+        // For super admin, allow access to any tenant
+        if ($user->role === 'super_admin') {
+            return true;
+        }
+        
+        // Check if user belongs to this tenant
+        $userTenant = $user->tenant_id ?? $user->subdomain ?? null;
+        
+        // If user has tenant_id and it doesn't match current subdomain, reject
+        if ($userTenant && $userTenant !== $currentSubdomain) {
+            return false;
+        }
+        
+        return true;
     }
 }

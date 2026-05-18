@@ -45,22 +45,35 @@ Route::domain('{subdomain}.coredesk.com.ng')
         ->name('tenant.logout');
 
     // ================= ROOT REDIRECT =================
-    // ================= ROOT REDIRECT =================
 Route::get('/', function () {
     // Get tenant from the middleware
     $tenant = app('tenant');
     
-    // If tenant is inactive, the middleware should have already caught this
-    // But just in case, check again
+    // If tenant is inactive, show inactive page
     if ($tenant && !$tenant->is_active) {
         return response(\App\Http\Middleware\CheckTenantStatus::getInactivePageStatic(), 403);
     }
     
+    // If not logged in, go to login
     if (!auth()->check()) {
         $host = request()->getHost();
         $port = request()->getPort();
         $baseUrl = $port ? "http://{$host}:{$port}" : "http://{$host}";
         return redirect("{$baseUrl}/login");
+    }
+    
+    // Get current subdomain and verify user belongs here
+    $host = request()->getHost();
+    $currentSubdomain = explode('.', $host)[0];
+    $user = auth()->user();
+    $userTenant = $user->tenant_id ?? $user->subdomain ?? null;
+    
+    // If user doesn't belong to this subdomain, logout
+    if ($userTenant && $userTenant !== $currentSubdomain && $user->role !== 'super_admin') {
+        auth()->logout();
+        request()->session()->invalidate();
+        $baseUrl = "http://{$host}";
+        return redirect("{$baseUrl}/login")->with('error', 'Session expired. Please login again.');
     }
     
     $role = auth()->user()->role;
