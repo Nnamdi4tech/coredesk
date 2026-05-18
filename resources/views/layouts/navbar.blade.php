@@ -1,4 +1,5 @@
 @php
+    $subdomain = request()->route('subdomain');
     $user = auth()->user();
     $student = null;
     if (function_exists('currentStudent') && (!$user || $user->role !== 'owner')) {
@@ -139,7 +140,7 @@
                             </li>
                         @elseif($student)
                             <li class="relative">
-                                <form method="POST" action="{{ route('student.logout', request()->route('subdomain')) }}" id="student-logout-form">
+                                <form method="POST" action="{{ route('student.logout', $subdomain) }}" id="student-logout-form">
                                     @csrf
                                     <button type="submit"
                                             class="ease-soft py-1.2 clear-both block w-full whitespace-nowrap rounded-lg bg-transparent px-4 duration-300 hover:bg-gray-200 hover:text-slate-700 lg:transition-colors">
