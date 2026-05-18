@@ -16,16 +16,7 @@
                 <span class="text-slate-600">Student Portal</span>
             </p>
         </div>
-        <div class="px-3 mt-3 md:mt-0">
-            <a href="{{ route('student.logout', $subdomain) }}" 
-               onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
-               class="px-4 py-2 text-sm border border-gray-300 rounded-lg text-red-600 hover:bg-red-50 hover:border-red-300 transition-all">
-                <i class="fa fa-sign-out-alt mr-1"></i> Logout
-            </a>
-            <form id="logout-form" method="POST" action="{{ route('student.logout', $subdomain) }}" style="display: none;">
-                @csrf
-            </form>
-        </div>
+        
     </div>
 
     {{-- Welcome Card --}}
