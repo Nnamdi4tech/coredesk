@@ -77,41 +77,36 @@ class AuthenticatedSessionController extends Controller
 
     // If on main domain, redirect to owner dashboard
     if ($isMainDomain) {
-        return redirect()->to("{$baseUrl}/owner/dashboard");
+        return redirect('/owner/dashboard');
     }
     
-    // Otherwise, on tenant subdomain
+    // ✅ FIXED: Use relative paths (works with subdomain)
     if ($user->role === 'super_admin') {
-        return redirect()->to("{$baseUrl}/admin/dashboard");
+        return redirect('/admin/dashboard');
     }
 
     if ($user->role === 'teacher') {
-        return redirect()->to("{$baseUrl}/teacher/dashboard");
+        return redirect('/teacher/dashboard');
     }
 
     if ($user->role === 'accountant') {
-        return redirect()->to("{$baseUrl}/finance/dashboard");
+        return redirect('/finance/dashboard');
     }
 
-    return redirect()->to("{$baseUrl}/dashboard");
- }
+    return redirect('/dashboard');
+}
 
     /**
      * Destroy an authenticated session.
      */
     public function destroy(Request $request): RedirectResponse
-    {
-        // Get host before logout
-        $host = $request->getHost();
-        $port = $request->getPort();
-        $baseUrl = $port ? "http://{$host}:{$port}" : "http://{$host}";
-        
-        Auth::guard('web')->logout();
+{
+    Auth::guard('web')->logout();
 
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
+    $request->session()->invalidate();
+    $request->session()->regenerateToken();
 
-        // Redirect to the same subdomain login page
-        return redirect("{$baseUrl}/login");
-    }
+    // ✅ Simple redirect - works with subdomain
+    return redirect('/login');
+}
 } 

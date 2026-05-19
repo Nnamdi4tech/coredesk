@@ -53,7 +53,7 @@
     <div class="bg-white shadow-soft-xl rounded-2xl overflow-hidden max-w-2xl mx-auto">
         <div class="flex items-center gap-3 px-6 py-4 border-b border-gray-100 bg-gradient-to-r from-amber-600 to-orange-500">
             <div class="w-8 h-8 rounded-lg bg-white/20 flex items-center justify-center shadow-soft-md">
-                <i class="fa fa-pen text-white text-xs"></i>
+                <i class="fa fa-pen text-black text-xs"></i>
             </div>
             <div>
                 <h6 class="font-bold text-white mb-0">Edit Plan: <span class="uppercase">{{ $plan->name }}</span></h6>
