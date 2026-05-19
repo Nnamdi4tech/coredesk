@@ -112,29 +112,36 @@ class LoginRequest extends FormRequest
      * Ensure user belongs to the current tenant/subdomain
      */
     protected function ensureUserBelongsToTenant($user): bool
-    {
-        $host = request()->getHost();
-        $currentSubdomain = explode('.', $host)[0];
-        $isMainDomain = ($host === 'coredesk.local' || $host === 'coredesk.com.ng' || $host === 'www.coredesk.com.ng');
-        
-        // Skip for main domain
-        if ($isMainDomain) {
-            return true;
-        }
-        
-        // For super admin, allow access to any tenant
-        if ($user->role === 'super_admin') {
-            return true;
-        }
-        
-        // Check if user belongs to this tenant
-        $userTenant = $user->tenant_id ?? $user->subdomain ?? null;
-        
-        // If user has tenant_id and it doesn't match current subdomain, reject
-        if ($userTenant && $userTenant !== $currentSubdomain) {
-            return false;
-        }
-        
+{
+    $host = request()->getHost();
+    $isMainDomain = ($host === 'coredesk.com.ng' || $host === 'www.coredesk.com.ng');
+    
+    // Skip for main domain
+    if ($isMainDomain) {
         return true;
     }
+
+    // Allow super_admin through
+    if ($user->role === 'super_admin') {
+        return true;
+    }
+
+    // Get the current tenant from the app container
+    if (!app()->bound('tenant')) {
+        return true;
+    }
+
+    $tenant = app('tenant');
+
+    // Compare user's tenant_id with the current tenant's id
+    if ($user->tenant_id !== $tenant->id) {
+        return false;
+    }
+
+    return true;
+}
+
+
+
+    
 }

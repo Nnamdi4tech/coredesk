@@ -112,4 +112,4 @@ class AuthenticatedSessionController extends Controller
         // Redirect to the same subdomain login page
         return redirect("{$baseUrl}/login");
     }
-}
+} 
