@@ -15,9 +15,9 @@
         <td>{{ $index + 1 }}</td>
         <td>{{ $student->name }}</td>
         <td>
-            <a href="{{ route('tenant.admin.results.student', $subdomain) . '?student_id=' . $student->id]) }}">
-                View Result
-            </a>
+<a href="{{ route('tenant.admin.results.student', $subdomain) }}?student_id={{ $student->id }}">
+    View Result
+</a>
         </td>
     </tr>
     @endforeach

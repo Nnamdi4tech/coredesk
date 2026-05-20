@@ -49,14 +49,22 @@ public function create($subdomain)
     $terms = ['First Term', 'Second Term', 'Third Term'];
 
     // ✅ SESSION (DYNAMIC)
-    $currentYear = date('Y');
-    $sessions = [];
+$currentYear = date('Y');
+$sessions = [];
 
-    for ($i = 0; $i < 5; $i++) {
-        $start = $currentYear - $i - 1;
-        $end = $currentYear - $i;
-        $sessions[] = $start . '/' . $end;
-    }
+// Add current academic year (e.g., 2026/2027)
+$sessions[] = $currentYear . '/' . ($currentYear + 1);
+
+// Add previous 5 sessions
+for ($i = 0; $i < 5; $i++) {
+    $start = $currentYear - $i - 1;
+    $end = $currentYear - $i;
+    $sessions[] = $start . '/' . $end;
+}
+
+// Remove duplicates and keep unique values
+$sessions = array_unique($sessions);
+$sessions = array_values($sessions);
 
     return view('teacher.results.create', compact(
         'students',
