@@ -272,6 +272,11 @@
 
 <script>
 function loadPage(url) {
+    // ✅ First, hide the global spinner if it's showing
+    if (typeof window.hideSpinner === 'function') {
+        window.hideSpinner();
+    }
+    
     const wrapper = document.getElementById('resultsWrapper');
     if (!wrapper) return;
 
@@ -279,6 +284,10 @@ function loadPage(url) {
     const savedTeacher = form ? form.querySelector('[name=teacher]').value : '';
     const savedSubject = form ? form.querySelector('[name=subject]').value : '';
     const savedDate    = form ? form.querySelector('[name=date]').value : '';
+
+    // Remove any existing overlay first
+    const existingOverlay = document.getElementById('loadingOverlay');
+    if (existingOverlay) existingOverlay.remove();
 
     // ✅ Show loading overlay
     const overlay = document.createElement('div');
@@ -310,6 +319,10 @@ function loadPage(url) {
         }
         window.history.pushState({}, '', url);
         wrapper.style.pointerEvents = '';
+        
+        // ✅ REMOVE THE CUSTOM OVERLAY ON SUCCESS
+        const loadingOverlay = document.getElementById('loadingOverlay');
+        if (loadingOverlay) loadingOverlay.remove();
 
         const f = document.getElementById('filterForm');
         if (f) {
@@ -322,8 +335,8 @@ function loadPage(url) {
     })
     .catch(() => {
         wrapper.style.pointerEvents = '';
-        const ol = document.getElementById('loadingOverlay');
-        if (ol) ol.remove();
+        const loadingOverlay = document.getElementById('loadingOverlay');
+        if (loadingOverlay) loadingOverlay.remove();
         window.location.href = url;
     });
 }
