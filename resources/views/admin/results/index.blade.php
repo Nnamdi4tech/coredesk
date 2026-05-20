@@ -280,6 +280,10 @@ function loadPage(url) {
     const savedSubject = form ? form.querySelector('[name=subject]').value : '';
     const savedDate    = form ? form.querySelector('[name=date]').value : '';
 
+    // Remove any existing overlay first
+    const existingOverlay = document.getElementById('loadingOverlay');
+    if (existingOverlay) existingOverlay.remove();
+
     // ✅ Show loading overlay
     const overlay = document.createElement('div');
     overlay.id = 'loadingOverlay';
@@ -302,14 +306,23 @@ function loadPage(url) {
     })
     .then(r => { if (!r.ok) throw new Error('Network error'); return r.text(); })
     .then(html => {
-        const tmp = document.createElement('div');
-        tmp.innerHTML = html;
-        const newWrapper = tmp.querySelector('#resultsWrapper');
-        if (newWrapper) {
-            wrapper.innerHTML = newWrapper.innerHTML;
-        }
-        window.history.pushState({}, '', url);
-        wrapper.style.pointerEvents = '';
+    const tmp = document.createElement('div');
+    tmp.innerHTML = html;
+    const newWrapper = tmp.querySelector('#resultsWrapper');
+    if (newWrapper) {
+        wrapper.innerHTML = newWrapper.innerHTML;
+    }
+    window.history.pushState({}, '', url);
+    wrapper.style.pointerEvents = '';
+    
+    // ✅ Hide global spinner AFTER fetch completes
+    if (typeof window.hideSpinner === 'function') {
+        window.hideSpinner();
+    }
+        
+        // ✅ REMOVE THE CUSTOM OVERLAY ON SUCCESS
+        const loadingOverlay = document.getElementById('loadingOverlay');
+        if (loadingOverlay) loadingOverlay.remove();
 
         const f = document.getElementById('filterForm');
         if (f) {
@@ -321,11 +334,18 @@ function loadPage(url) {
         wrapper.scrollIntoView({ behavior: 'smooth', block: 'start' });
     })
     .catch(() => {
-        wrapper.style.pointerEvents = '';
-        const ol = document.getElementById('loadingOverlay');
-        if (ol) ol.remove();
-        window.location.href = url;
-    });
+    wrapper.style.pointerEvents = '';
+    
+    // ✅ Hide global spinner on error too
+    if (typeof window.hideSpinner === 'function') {
+        window.hideSpinner();
+    }
+
+    const loadingOverlay = document.getElementById('loadingOverlay');
+    if (loadingOverlay) loadingOverlay.remove();
+    window.location.href = url;
+   });
+
 }
 
 document.addEventListener('click', function(e) {
@@ -333,6 +353,13 @@ document.addEventListener('click', function(e) {
     if (!link) return;
     if (!link.closest('#resultsWrapper')) return;
     if (!link.href || link.href === '#' || link.href === window.location.href) return;
+
+    // ✅ Only intercept links that stay on the same base path (pagination)
+    // Let "View Details" and other external links navigate normally
+    const linkPath = new URL(link.href).pathname;
+    const currentPath = window.location.pathname;
+    if (linkPath !== currentPath) return; // ← ADD THIS LINE
+
     e.preventDefault();
     e.stopPropagation();
     loadPage(link.href);
