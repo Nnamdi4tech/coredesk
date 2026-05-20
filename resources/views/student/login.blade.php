@@ -4,6 +4,7 @@
 
 @php $subdomain = request()->route('subdomain'); @endphp
 
+
 <div class="w-full px-6 py-6 mx-auto min-h-screen flex items-center justify-center">
     
     {{-- Login Card --}}

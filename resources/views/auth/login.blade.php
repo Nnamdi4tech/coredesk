@@ -429,9 +429,59 @@
         .left-panel .org-divider  { animation: fadeUp 0.5s 0.3s ease both; }
         .left-panel .org-tagline  { animation: fadeUp 0.5s 0.4s ease both; }
         .left-panel .quote-section { animation: fadeUp 0.5s 0.5s ease both; }
+
+
+        /* Spinner overlay styles */
+.spinner-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    backdrop-filter: blur(3px);
+}
+
+.spinner {
+    width: 50px;
+    height: 50px;
+    border: 5px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    border-top-color: var(--cd-purple);
+    animation: spin 1s ease-in-out infinite;
+}
+
+.spinner-text {
+    color: white;
+    margin-top: 20px;
+    font-size: 1rem;
+    text-align: center;
+}
+
+.spinner-container {
+    background: rgba(0, 0, 0, 0.9);
+    padding: 30px;
+    border-radius: 12px;
+    text-align: center;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
     </style>
 </head>
 <body>
+    <!-- Spinner Overlay -->
+<div id="spinnerOverlay" class="spinner-overlay">
+    <div class="spinner-container">
+        <div class="spinner"></div>
+        <div class="spinner-text">Signing you in... Please wait</div>
+    </div>
+</div>
 
     <!-- Scroll to Top Button -->
     <button class="scroll-top" id="scrollTopBtn" onclick="scrollToTop()">
@@ -551,6 +601,27 @@
             pwd.type = type;
             this.textContent = type === 'password' ? '👁️' : '🙈';
         });
+
+        // Show spinner when form is submitted
+document.querySelector('form').addEventListener('submit', function(e) {
+    const spinner = document.getElementById('spinnerOverlay');
+    spinner.style.display = 'flex';
+    
+    // Prevent double submission
+    const submitBtn = document.querySelector('.btn-login');
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = 'Signing in...';
+    
+    // If form has validation errors, hide spinner after 1 second
+    setTimeout(function() {
+        const hasErrors = document.querySelector('.alert-danger');
+        if (hasErrors) {
+            spinner.style.display = 'none';
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = 'Sign In →';
+        }
+    }, 500);
+});
     </script>
 
 </body>

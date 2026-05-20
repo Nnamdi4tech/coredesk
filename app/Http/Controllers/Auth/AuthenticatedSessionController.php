@@ -42,7 +42,8 @@ class AuthenticatedSessionController extends Controller
     // Get the current host
     $host = $request->getHost();
     $port = $request->getPort();
-    $baseUrl = $port ? "http://{$host}:{$port}" : "http://{$host}";
+    // $baseUrl = $port ? "http://{$host}:{$port}" : "http://{$host}";
+    $baseUrl = "http://{$host}";
     
     $parts = explode('.', $host);
     $currentSubdomain = $parts[0];
