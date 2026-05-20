@@ -280,11 +280,11 @@ function loadPage(url) {
     const savedSubject = form ? form.querySelector('[name=subject]').value : '';
     const savedDate    = form ? form.querySelector('[name=date]').value : '';
 
-    // Remove any existing overlay first
+    // Remove any existing overlay
     const existingOverlay = document.getElementById('loadingOverlay');
     if (existingOverlay) existingOverlay.remove();
 
-    // ✅ Show loading overlay
+    // Show loading overlay
     const overlay = document.createElement('div');
     overlay.id = 'loadingOverlay';
     overlay.style.cssText = `
@@ -304,26 +304,21 @@ function loadPage(url) {
         headers: { 'X-Requested-With': 'XMLHttpRequest' },
         credentials: 'same-origin'
     })
-    .then(r => { if (!r.ok) throw new Error('Network error'); return r.text(); })
+    .then(response => { 
+        if (!response.ok) throw new Error('Network error'); 
+        return response.text(); 
+    })
     .then(html => {
-    const tmp = document.createElement('div');
-    tmp.innerHTML = html;
-    const newWrapper = tmp.querySelector('#resultsWrapper');
-    if (newWrapper) {
-        wrapper.innerHTML = newWrapper.innerHTML;
-    }
-    window.history.pushState({}, '', url);
-    wrapper.style.pointerEvents = '';
-    
-    // ✅ Hide global spinner AFTER fetch completes
-    if (typeof window.hideSpinner === 'function') {
-        window.hideSpinner();
-    }
+        const tmp = document.createElement('div');
+        tmp.innerHTML = html;
+        const newWrapper = tmp.querySelector('#resultsWrapper');
+        if (newWrapper) {
+            wrapper.innerHTML = newWrapper.innerHTML;
+        }
+        window.history.pushState({}, '', url);
+        wrapper.style.pointerEvents = '';
         
-        // ✅ REMOVE THE CUSTOM OVERLAY ON SUCCESS
-        const loadingOverlay = document.getElementById('loadingOverlay');
-        if (loadingOverlay) loadingOverlay.remove();
-
+        // Restore filter values
         const f = document.getElementById('filterForm');
         if (f) {
             f.querySelector('[name=teacher]').value = savedTeacher;
@@ -334,39 +329,14 @@ function loadPage(url) {
         wrapper.scrollIntoView({ behavior: 'smooth', block: 'start' });
     })
     .catch(() => {
-    wrapper.style.pointerEvents = '';
-    
-    // ✅ Hide global spinner on error too
-    if (typeof window.hideSpinner === 'function') {
-        window.hideSpinner();
-    }
-
-    const loadingOverlay = document.getElementById('loadingOverlay');
-    if (loadingOverlay) loadingOverlay.remove();
-    window.location.href = url;
-   });
-
+        wrapper.style.pointerEvents = '';
+        const loadingOverlay = document.getElementById('loadingOverlay');
+        if (loadingOverlay) loadingOverlay.remove();
+        window.location.href = url;
+    });
 }
 
-document.addEventListener('click', function(e) {
-    const link = e.target.closest('a');
-    if (!link) return;
-    if (!link.closest('#resultsWrapper')) return;
-    if (!link.href || link.href === '#' || link.href === window.location.href) return;
-
-    // ✅ Only intercept links that stay on the same base path (pagination)
-    // Let "View Details" and other external links navigate normally
-    const linkPath = new URL(link.href).pathname;
-    const currentPath = window.location.pathname;
-    if (linkPath !== currentPath) return; // ← ADD THIS LINE
-
-    e.preventDefault();
-    e.stopPropagation();
-    loadPage(link.href);
-});
-
-window.addEventListener('popstate', () => location.reload());
-
+// Handle filter form submission
 document.getElementById('filterForm').addEventListener('submit', function(e) {
     e.preventDefault();
     const params = new URLSearchParams(new FormData(this)).toString();
@@ -374,10 +344,30 @@ document.getElementById('filterForm').addEventListener('submit', function(e) {
     loadPage(base + (params ? '?' + params : ''));
 });
 
+// Handle clear filter button
 document.getElementById('clearFilter').addEventListener('click', function() {
     document.getElementById('filterForm').reset();
     loadPage(window.location.pathname);
 });
+
+// Handle pagination links (only intercept links that keep us on the same page)
+document.addEventListener('click', function(e) {
+    const link = e.target.closest('a');
+    if (!link) return;
+    if (!link.closest('#resultsWrapper')) return;
+    if (!link.href || link.href === '#' || link.href === window.location.href) return;
+    
+    // Only intercept pagination links, let "View Details" navigate normally
+    const url = new URL(link.href);
+    if (url.searchParams.has('page')) {
+        e.preventDefault();
+        e.stopPropagation();
+        loadPage(link.href);
+    }
+});
+
+// Handle browser back/forward buttons
+window.addEventListener('popstate', () => location.reload());
 </script>
 
 <style>
