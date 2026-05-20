@@ -436,6 +436,43 @@ $subdomain = request()->route('subdomain');
       letter-spacing: 0.5px;
     }
 
+    /* ========== FALLBACK / DYNAMIC PLAN STYLES ========== */
+
+/* Plan head background for custom plans */
+.plan-head[data-plan="custom"] {
+    background: linear-gradient(135deg, #e2e8f0, #cbd5e1);
+}
+
+/* Plan icon for custom plans */
+.plan-icon[data-plan="custom"] {
+    background: linear-gradient(135deg, #64748b, #475569);
+}
+
+/* Button for custom plans */
+.plan-btn[data-plan="custom"] {
+    background: linear-gradient(135deg, #64748b, #475569);
+}
+
+/* Plan badge for custom plans */
+.plan-badge.gray {
+    background: #f1f5f9;
+    color: #475569;
+    border: 1px solid #cbd5e1;
+}
+
+/* ✅ GENERAL FALLBACK - applies to ANY plan without specific styles */
+.plan-head:not([data-plan="free"]):not([data-plan="starter"]):not([data-plan="growth"]):not([data-plan="pro"]):not([data-plan="custom"]) {
+    background: linear-gradient(135deg, #f1f5f9, #e2e8f0);
+}
+
+.plan-icon:not([data-plan="free"]):not([data-plan="starter"]):not([data-plan="growth"]):not([data-plan="pro"]):not([data-plan="custom"]) {
+    background: linear-gradient(135deg, #64748b, #475569);
+}
+
+.plan-btn:not([data-plan="free"]):not([data-plan="starter"]):not([data-plan="growth"]):not([data-plan="pro"]):not([data-plan="custom"]) {
+    background: linear-gradient(135deg, #64748b, #475569);
+}
+
     
 
     /* step cards */
@@ -807,6 +844,11 @@ $subdomain = request()->route('subdomain');
         } elseif ($planKey === 'pro') {
           $badgeText = '🏆 Large or multi-campus schools';
           $badgeClass = 'amber';
+        } else {
+          // ✅ FALLBACK for any other plan name
+          $badgeText = '📋 Custom Plan';
+          $badgeClass = 'gray';
+          $planColorClass = 'custom';
         }
         
         // Button color classes based on plan
@@ -817,38 +859,45 @@ $subdomain = request()->route('subdomain');
         elseif ($planKey === 'pro') $btnColorClass = 'btn-pro';
       @endphp
       <div class="plan-card {{ $isCurrentPlan ? 'active' : '' }}">
-        @if($isBestValue)<div class="best-value-badge">BEST VALUE</div>@endif
-        <div class="plan-head" data-plan="{{ $planKey }}">
-          <div class="plan-icon" data-plan="{{ $planKey }}">
-            @if($planKey === 'free')<i class="fa fa-gift"></i>
-            @elseif($planKey === 'starter')<i class="fa fa-star"></i>
-            @elseif($planKey === 'growth')<i class="fa fa-chart-line"></i>
-            @else<i class="fa fa-crown"></i>@endif
-          </div>
-          <div class="plan-name">{{ strtoupper($plan->name) }}</div>
-          <div class="plan-price">₦{{ number_format($plan->price, 0) }}</div>
-          <div class="plan-period">per 30 days</div>
+    @if($isBestValue)<div class="best-value-badge">BEST VALUE</div>@endif
+    <div class="plan-head" data-plan="{{ $planColorClass ?? $planKey }}">
+        <div class="plan-icon" data-plan="{{ $planColorClass ?? $planKey }}">
+            @if($planKey === 'free')
+                <i class="fa fa-gift"></i>
+            @elseif($planKey === 'starter')
+                <i class="fa fa-star"></i>
+            @elseif($planKey === 'growth')
+                <i class="fa fa-chart-line"></i>
+            @elseif($planKey === 'pro')
+                <i class="fa fa-crown"></i>
+            @else
+                <i class="fa fa-layer-group"></i>
+            @endif
         </div>
-        <div class="plan-body">
-          <ul class="plan-features">
+        <div class="plan-name">{{ strtoupper($plan->name) }}</div>
+        <div class="plan-price">₦{{ number_format($plan->price, 0) }}</div>
+        <div class="plan-period">per 30 days</div>
+    </div>
+    <div class="plan-body">
+        <ul class="plan-features">
             <li><i class="fa fa-check-circle"></i> Up to {{ $plan->max_students ?? 'Unlimited' }} students</li>
             <li><i class="fa fa-check-circle"></i> {{ $plan->max_teachers ? 'Up to '.$plan->max_teachers.' teachers' : 'Unlimited teachers' }}</li>
             <li><i class="fa fa-check-circle"></i> Full dashboard access</li>
             <li><i class="fa fa-check-circle"></i> Result management</li>
             <li><i class="fa fa-check-circle"></i> Timetable & exams</li>
-          </ul>
-          <div class="plan-badge {{ $badgeClass }}">{{ $badgeText }}</div>
-          @if($isCurrentPlan)
-            <button class="plan-btn current-plan-btn" data-plan="{{ $planKey }}" disabled>
-              <i class="fa fa-check-circle"></i> Current Plan
+        </ul>
+        <div class="plan-badge {{ $badgeClass }}">{{ $badgeText }}</div>
+        @if($isCurrentPlan)
+            <button class="plan-btn current-plan-btn" data-plan="{{ $planColorClass ?? $planKey }}" disabled>
+                <i class="fa fa-check-circle"></i> Current Plan
             </button>
-          @else
-            <button class="plan-btn upgrade-btn {{ $btnColorClass }}" data-plan="{{ $planKey }}" onclick="selectPlan('{{ $planKey }}')">
-              Upgrade to {{ ucfirst($plan->name) }}
+        @else
+            <button class="plan-btn upgrade-btn {{ $btnColorClass }}" data-plan="{{ $planColorClass ?? $planKey }}" onclick="selectPlan('{{ $planKey }}')">
+                Upgrade to {{ ucfirst($plan->name) }}
             </button>
-          @endif
-        </div>
-      </div>
+        @endif
+    </div>
+</div>
       @endforeach
     </div>
   </div>
