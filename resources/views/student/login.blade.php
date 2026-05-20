@@ -6,6 +6,13 @@
 
 
 <div class="w-full px-6 py-6 mx-auto min-h-screen flex items-center justify-center">
+    <!-- Spinner Overlay -->
+<div id="spinnerOverlay" class="spinner-overlay">
+    <div class="spinner-container">
+        <div class="spinner"></div>
+        <div class="spinner-text">Logging you in... Please wait</div>
+    </div>
+</div>
     
     {{-- Login Card --}}
     <div class="w-full max-w-md">
@@ -103,6 +110,50 @@
 
 </div>
 
+<style>
+    /* Spinner overlay styles */
+.spinner-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    backdrop-filter: blur(3px);
+}
+
+.spinner {
+    width: 50px;
+    height: 50px;
+    border: 5px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    border-top-color: #3b82f6;
+    animation: spin 1s ease-in-out infinite;
+}
+
+.spinner-text {
+    color: white;
+    margin-top: 20px;
+    font-size: 1rem;
+    text-align: center;
+}
+
+.spinner-container {
+    background: rgba(0, 0, 0, 0.9);
+    padding: 30px;
+    border-radius: 12px;
+    text-align: center;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+</style>
+
 <script>
     function togglePassword() {
         const passwordInput = document.getElementById('password');
@@ -118,6 +169,28 @@
             icon.classList.add('fa-eye-slash');
         }
     }
+
+    // Show spinner when form is submitted
+    document.querySelector('form').addEventListener('submit', function(e) {
+        const spinner = document.getElementById('spinnerOverlay');
+        spinner.style.display = 'flex';
+        
+        // Change button text and disable it
+        const submitBtn = document.querySelector('button[type="submit"]');
+        const originalText = submitBtn.innerHTML;
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<i class="fa fa-spinner fa-spin"></i> Logging in...';
+        
+        // If form has validation errors, hide spinner after 1 second
+        setTimeout(function() {
+            const hasErrors = document.querySelector('.text-red-500');
+            if (hasErrors) {
+                spinner.style.display = 'none';
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = originalText;
+            }
+        }, 500);
+    });
 </script>
 
 @endsection
