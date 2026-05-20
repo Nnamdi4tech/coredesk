@@ -141,7 +141,7 @@
                 style="display:inline;">
                 @csrf
                 <button type="submit"
-                        onclick="return confirm('Approve this student\'s result?')"
+                        onclick="return confirm('Approve this student\'s result? Result has been lock, and move to report card.')"
                         class="inline-flex items-center gap-1 px-3 py-1.5 text-xs font-semibold text-white rounded-lg bg-gradient-to-tl from-green-600 to-emerald-500 hover:scale-105 transition-all">
                     <i class="fa fa-check-circle text-xs"></i> Approve
                 </button>
@@ -208,16 +208,24 @@
 </div>
 
 <script>
-    // Auto-refresh after form submission
-    if (window.location.search.indexOf('refreshed') === -1) {
-        // Check if we just submitted a form
-        const successMessage = document.querySelector('.alert-success');
-        if (successMessage) {
+    // Force refresh after approval to show updated button state
+    (function() {
+        // Check for success message (indicating an approval just happened)
+        const successAlert = document.querySelector('.alert-success');
+        
+        if (successAlert && !sessionStorage.getItem('pageRefreshed')) {
+            // Mark that we're about to refresh
+            sessionStorage.setItem('pageRefreshed', 'true');
+            
+            // Refresh the page after 1.5 seconds
             setTimeout(function() {
-                window.location.href = window.location.pathname + '?refreshed=1';
+                window.location.reload();
             }, 1500);
+        } else {
+            // Clear the flag when page loads normally
+            sessionStorage.removeItem('pageRefreshed');
         }
-    }
+    })();
 </script>
 
 @endsection

@@ -198,22 +198,21 @@ public function approveOne($subdomain, $resultId)
             return back()->with('error', 'This result is already approved.');
         }
 
-        // Log the approval attempt
-        \Log::info('Approving single result', [
-            'result_id' => $resultId,
-            'student_id' => $result->student_id,
-            'subject_id' => $result->subject_id
-        ]);
-
         // Update the result
         $result->update([
             'approved' => true,
             'rejected' => false,
-            'submitted' => true  // ✅ Keep submitted flag true
+            'submitted' => true
         ]);
 
-        return back()->with('success', 'Student result approved successfully.');
-        
+        // Get the subject and class to redirect back to the same view
+        $subjectId = $result->subject_id;
+        $classId = $result->class_id;
+
+        return redirect()
+            ->route('tenant.admin.results.show', [$subdomain, $subjectId, $classId])
+            ->with('success', 'Student result approved successfully. Page will refresh.');
+
     } catch (\Exception $e) {
         \Log::error('Approve one error: ' . $e->getMessage());
         return back()->with('error', 'An error occurred while approving the result.');
