@@ -9,7 +9,7 @@
                   <script>
                     document.write(new Date().getFullYear() + ",");
                   </script>
-                 School management Portal  made for {{ app('tenant')->name ?? 'CoreDesk' }}  <i class="fa fa-school"></i> by
+                 School management Portal  made for {{ app('tenant')->name ?? 'CoreDesk' }} .coredesk.com.ng <i class="fa fa-school"></i> by
                   <a
                     href="#"
                     class="font-semibold text-slate-700"

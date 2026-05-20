@@ -207,4 +207,17 @@
 
 </div>
 
+<script>
+    // Auto-refresh after form submission
+    if (window.location.search.indexOf('refreshed') === -1) {
+        // Check if we just submitted a form
+        const successMessage = document.querySelector('.alert-success');
+        if (successMessage) {
+            setTimeout(function() {
+                window.location.href = window.location.pathname + '?refreshed=1';
+            }, 1500);
+        }
+    }
+</script>
+
 @endsection
