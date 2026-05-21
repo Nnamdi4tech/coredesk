@@ -130,6 +130,29 @@ $user = auth()->user();
 
 
 
+    <li class="mt-0.5 w-full">
+        <a class="py-2.7 text-sm ease-nav-brand my-0 mx-4 flex items-center whitespace-nowrap px-4 transition-colors"
+           href="{{ route('owner.helpline.index') }}">
+            <div class="shadow-soft-2xl mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-white bg-center fill-current stroke-0 text-center xl:p-2.5">
+                <svg width="12px" height="12px" viewBox="0 0 46 42" version="1.1"
+                     xmlns="#">
+                    <title>Support</title>
+                    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                        <g fill-rule="nonzero">
+                            <path class="fill-slate-800 opacity-60"
+                                  d="M23,21 C28.5228475,21 33,16.5228475 33,11 C33,5.4771525 28.5228475,1 23,1 C17.4771525,1 13,5.4771525 13,11 C13,16.5228475 17.4771525,21 23,21 Z"/>
+                            <path class="fill-slate-800"
+                                  d="M5,41 C5,30.5065898 13.0588745,22 23,22 C32.9411255,22 41,30.5065898 41,41 L5,41 Z M37,13 L46,13 M37,17 L46,17 M37,9 L46,9"/>
+                        </g>
+                    </g>
+                </svg>
+            </div>
+            <span class="ml-1 duration-300 opacity-100 pointer-events-none ease-soft">Manage Support/Helpline</span>
+        </a>
+    </li>
+
+
+
 
     
 

@@ -76,6 +76,18 @@
       </div>
       <ul
         class="flex flex-row justify-end pl-0 mb-0 list-none md-max:w-full">
+
+        {{-- In the navbar, add this bell icon --}}
+<li class="relative">
+    <a href="{{ route('owner.support.index') }}" 
+       class="relative block p-2 text-slate-500 hover:text-slate-700 transition">
+        <i class="fa fa-bell text-lg"></i>
+        <span id="unreadBadge" class="absolute -top-1 -right-1 bg-red-500 text-white text-[10px] font-bold rounded-full min-w-[18px] h-[18px] flex items-center justify-center px-1 hidden">
+            0
+        </span>
+    </a>
+</li>
+
         <!-- online builder btn  -->
         <!-- <li class="flex items-center">
           <a class="inline-block px-8 py-2 mb-0 mr-4 text-xs font-bold text-center uppercase align-middle transition-all bg-transparent border border-solid rounded-lg shadow-none cursor-pointer leading-pro border-fuchsia-500 ease-soft-in hover:scale-102 active:shadow-soft-xs text-fuchsia-500 hover:border-fuchsia-500 active:bg-fuchsia-500 active:hover:text-fuchsia-500 hover:text-fuchsia-500 tracking-tight-soft hover:bg-transparent hover:opacity-75 hover:shadow-none active:text-white active:hover:bg-transparent" target="_blank" href="https://www.creative-tim.com/builder/soft-ui?ref=navbar-dashboard&amp;_ga=2.76518741.1192788655.1647724933-1242940210.1644448053">Online Builder</a>
@@ -99,6 +111,9 @@
           <ul
             dropdown-menu
             class="text-sm transform-dropdown before:font-awesome before:leading-default before:duration-350 before:ease-soft lg:shadow-soft-3xl duration-250 min-w-44 before:sm:right-7.5 before:text-5.5 pointer-events-none absolute right-0 top-0 z-50 origin-top list-none rounded-lg border-0 border-solid border-transparent bg-white bg-clip-padding px-2 py-4 text-left text-slate-500 opacity-0 transition-all before:absolute before:right-2 before:left-auto before:top-0 before:z-50 before:inline-block before:font-normal before:text-white before:antialiased before:transition-all before:content-['\f0d8'] sm:-mr-6 lg:absolute lg:right-0 lg:left-auto lg:mt-2 lg:block lg:cursor-pointer">
+
+
+
             <!-- User info header -->
             <!-- @if(auth()->check() || currentStudent())
 <li class="relative flex items-center pr-2">

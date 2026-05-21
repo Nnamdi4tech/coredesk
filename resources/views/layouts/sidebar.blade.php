@@ -818,7 +818,7 @@ $user = auth()->user();
             @endif
 
             {{-- Support & Docs --}}
-            <a href="tel:+2348137159857"
+            <a href="{{ route('tenant.admin.helpline.index') }}"
                class="inline-block w-full px-4 py-2 mb-2 text-xs font-bold text-center text-slate-800 uppercase transition-all ease-in bg-white border-0 rounded-lg shadow-soft-md hover:shadow-soft-2xl hover:scale-102">
                 <i class="fa fa-headset mr-1 text-blue-500"></i> Contact Support
             </a>

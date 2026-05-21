@@ -174,9 +174,22 @@ Route::get('/', function () {
             Route::get('/delete/{id}', [AdminExamController::class, 'destroy'])->name('tenant.exam.delete');
         });
 
+// ================= AdminSUPPORT/HELPLINE =================
+Route::prefix('helpline')->group(function () {
+    Route::get('/', [App\Http\Controllers\Admin\SupportController::class, 'index'])->name('tenant.admin.helpline.index');
+    Route::get('/create', [App\Http\Controllers\Admin\SupportController::class, 'create'])->name('tenant.admin.helpline.create');
+    Route::post('/store', [App\Http\Controllers\Admin\SupportController::class, 'store'])->name('tenant.admin.helpline.store');
+    Route::get('/unread/count', [App\Http\Controllers\Admin\SupportController::class, 'unreadCount'])->name('tenant.admin.helpline.unread');
+    Route::post('/announcement/{id}/read', [App\Http\Controllers\Admin\SupportController::class, 'markAnnouncementRead'])->name('tenant.admin.helpline.announcement.read');
+    Route::get('/{id}', [App\Http\Controllers\Admin\SupportController::class, 'show'])->name('tenant.admin.helpline.show');
+    Route::post('/{id}/reply', [App\Http\Controllers\Admin\SupportController::class, 'reply'])->name('tenant.admin.helpline.reply');
+    Route::post('/{id}/resolve', [App\Http\Controllers\Admin\SupportController::class, 'resolve'])->name('tenant.admin.helpline.resolve');
+});
+
         //Billing Page
         Route::get('/admin/billing/{subdomain?}', [BillingController::class, 'index'])
         ->name('tenant.billing');
+
          
         // ================= Teachers ROUTES start here =================
         // TEACHER STUDENTS

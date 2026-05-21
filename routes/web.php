@@ -120,6 +120,20 @@ Route::prefix('owner')->group(function () {
         Route::post('/billing/delete/{id}', [BillingController::class, 'delete'])->name('owner.plan.delete');
     });
 
+    
+
+});
+
+// ================= OWNER SUPPORT/HELPLINE =================
+Route::prefix('owner/helpline')->group(function () {
+    Route::get('/', [App\Http\Controllers\Owner\SupportController::class, 'index'])->name('owner.helpline.index');
+    Route::get('/{id}', [App\Http\Controllers\Owner\SupportController::class, 'show'])->name('owner.helpline.show');
+    Route::post('/{id}/reply', [App\Http\Controllers\Owner\SupportController::class, 'reply'])->name('owner.helpline.reply');
+    Route::post('/{id}/resolve', [App\Http\Controllers\Owner\SupportController::class, 'resolve'])->name('owner.helpline.resolve');
+    Route::get('/announcements', [App\Http\Controllers\Owner\SupportController::class, 'announcements'])->name('owner.helpline.announcements');
+    Route::post('/announcements/store', [App\Http\Controllers\Owner\SupportController::class, 'storeAnnouncement'])->name('owner.helpline.announcements.store');
+    Route::post('/announcements/{id}/toggle', [App\Http\Controllers\Owner\SupportController::class, 'toggleAnnouncement'])->name('owner.helpline.announcements.toggle');
+    Route::delete('/announcements/{id}', [App\Http\Controllers\Owner\SupportController::class, 'deleteAnnouncement'])->name('owner.helpline.announcements.delete');
 });
 
 //Test mail

@@ -94,6 +94,29 @@
 <script src="{{ asset('dashboard/build/assets/js/plugins/chartjs.min.js') }}"></script>
 <script src="{{ asset('dashboard/build/assets/js/plugins/perfect-scrollbar.min.js') }}"></script>
 <script src="{{ asset('dashboard/build/assets/js/soft-ui-dashboard-tailwind.js?v=1.0.5') }}"></script>
+
+<script>
+function fetchUnreadCount() {
+    fetch('/helpline/unread/count')
+        .then(response => response.json())
+        .then(data => {
+            const badge = document.getElementById('unreadBadge');
+            if (badge && data.total > 0) {
+                badge.textContent = data.total > 9 ? '9+' : data.total;
+                badge.classList.remove('hidden');
+            } else if (badge) {
+                badge.classList.add('hidden');
+            }
+        })
+        .catch(error => console.error('Error:', error));
+}
+
+if (document.getElementById('unreadBadge')) {
+    fetchUnreadCount();
+    setInterval(fetchUnreadCount, 30000);
+}
+</script>
+
 </html>
  
 
