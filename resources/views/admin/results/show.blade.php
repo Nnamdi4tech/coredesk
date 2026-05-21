@@ -141,7 +141,7 @@
                 style="display:inline;">
                 @csrf
                 <button type="submit"
-                        onclick="return confirm('Approve this student\'s result? Result has been lock, and move to report card.')"
+                        onclick="return confirm('Approve this student\'s result? Result will be locked, and move to report card.')"
                         class="inline-flex items-center gap-1 px-3 py-1.5 text-xs font-semibold text-white rounded-lg bg-gradient-to-tl from-green-600 to-emerald-500 hover:scale-105 transition-all">
                     <i class="fa fa-check-circle text-xs"></i> Approve
                 </button>
