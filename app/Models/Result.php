@@ -25,10 +25,14 @@ class Result extends Model
         'submitted',
         'term',
         'session',  // ✅ ADD THIS
+        'approved',   // ← ADD THIS
+        'rejected',   // ← ADD THIS
     ];
 
     protected $casts = [
        'submitted' => 'boolean',
+       'approved'  => 'boolean',  // ← ADD THIS
+       'rejected'  => 'boolean',  // ← ADD THIS
      ];
 
     // 🔗 RELATIONSHIPS
