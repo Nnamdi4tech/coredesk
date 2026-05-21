@@ -207,25 +207,6 @@
 
 </div>
 
-<script>
-    // Force refresh after approval to show updated button state
-    (function() {
-        // Check for success message (indicating an approval just happened)
-        const successAlert = document.querySelector('.alert-success');
-        
-        if (successAlert && !sessionStorage.getItem('pageRefreshed')) {
-            // Mark that we're about to refresh
-            sessionStorage.setItem('pageRefreshed', 'true');
-            
-            // Refresh the page after 1.5 seconds
-            setTimeout(function() {
-                window.location.reload();
-            }, 1500);
-        } else {
-            // Clear the flag when page loads normally
-            sessionStorage.removeItem('pageRefreshed');
-        }
-    })();
-</script>
+
 
 @endsection

@@ -184,40 +184,26 @@ public function reject($subdomain, $subjectId, $classId)
     // ✅ APPROVE SINGLE STUDENT RESULT
 public function approveOne($subdomain, $resultId)
 {
-    try {
-        $result = Result::where('id', $resultId)
-            ->where('tenant_id', auth()->user()->tenant_id)
-            ->first();
+    $result = Result::where('id', $resultId)
+        ->where('tenant_id', auth()->user()->tenant_id)
+        ->first();
 
-        if (!$result) {
-            return back()->with('error', 'Result not found.');
-        }
-
-        // Check if already approved
-        if ($result->approved) {
-            return back()->with('error', 'This result is already approved.');
-        }
-
-        // Update the result
-        $result->update([
-            'approved' => true,
-            'rejected' => false,
-            'submitted' => true
-        ]);
-
-        // Get the subject and class to redirect back to the same view
-        $subjectId = $result->subject_id;
-        $classId = $result->class_id;
-
-        return redirect()
-            ->route('tenant.admin.results.show', [$subdomain, $subjectId, $classId])
-            ->with('success', 'Student result approved successfully. Page will refresh.');
-
-    } catch (\Exception $e) {
-        \Log::error('Approve one error: ' . $e->getMessage());
-        return back()->with('error', 'An error occurred while approving the result.');
+    if (!$result) {
+        return back()->with('error', 'Result not found.');
     }
+
+    if ($result->approved) {
+        return back()->with('error', 'This result is already approved.');
+    }
+
+    $result->update([
+        'approved' => true,
+        'rejected' => false,
+    ]);
+
+    return back()->with('success', 'Student result approved successfully.');
 }
+
 
     public function rejectOne($subdomain, $resultId)
 {
