@@ -82,7 +82,7 @@
             <ul class="flex flex-row justify-end pl-0 mb-0 list-none md-max:w-full">
                 {{-- Before the user dropdown, add this bell icon --}}
 <li class="relative">
-    <a href="{{ route('tenant.support.index', $subdomain) }}" 
+    <a href="{{ route('tenant.admin.helpline.index', request()->route('subdomain')) }}" 
        class="relative block p-2 text-slate-500 hover:text-slate-700 transition">
         <i class="fa fa-bell text-lg"></i>
         <span id="unreadBadge" class="absolute -top-1 -right-1 bg-red-500 text-white text-[10px] font-bold rounded-full min-w-[18px] h-[18px] flex items-center justify-center px-1 hidden">
