@@ -885,6 +885,7 @@ $subdomain = request()->route('subdomain');
             <li><i class="fa fa-check-circle"></i> Full dashboard access</li>
             <li><i class="fa fa-check-circle"></i> Result management</li>
             <li><i class="fa fa-check-circle"></i> Timetable & exams</li>
+            <li><i class="fa fa-smile fa-bounce"></i> Annual billing: Pay 10 months, get 2 months FREE (Save 17%)</li>
         </ul>
         <div class="plan-badge {{ $badgeClass }}">{{ $badgeText }}</div>
         @if($isCurrentPlan)

@@ -21,9 +21,9 @@ class GeneralAnnouncement extends Model
     }
 
     public function reads()
-    {
-        return $this->hasMany(AnnouncementRead::class);
-    }
+{
+    return $this->hasMany(AnnouncementRead::class, 'announcement_id');
+}
 
     public function isReadByTenant($tenantId)
     {
