@@ -30,11 +30,11 @@
     @if(session('success'))
         <div class="p-4 mb-6 text-sm text-green-700 bg-green-50 border border-green-200 rounded-2xl flex items-center gap-3">
             <div class="w-8 h-8 rounded-lg bg-gradient-to-tl from-green-500 to-emerald-400 flex items-center justify-center flex-shrink-0">
-                <i class="fa fa-check text-white text-xs"></i>
+                <i class="fa fa-check text-success text-xs"></i>
             </div>
             <p class="font-semibold">{{ session('success') }}</p>
             <button onclick="this.parentElement.remove()" class="ml-auto text-green-400 hover:text-green-600">
-                <i class="fa fa-times text-xs"></i>
+                <i class="fa fa-times text-success text-xs"></i>
             </button>
         </div>
     @endif
@@ -42,11 +42,11 @@
     @if(session('error'))
         <div class="p-4 mb-6 text-sm text-red-700 bg-red-50 border border-red-200 rounded-2xl flex items-center gap-3">
             <div class="w-8 h-8 rounded-lg bg-gradient-to-tl from-red-500 to-rose-400 flex items-center justify-center flex-shrink-0">
-                <i class="fa fa-exclamation-circle text-white text-xs"></i>
+                <i class="fa fa-exclamation-circle text-danger text-xs"></i>
             </div>
             <p class="font-semibold">{{ session('error') }}</p>
             <button onclick="this.parentElement.remove()" class="ml-auto text-red-400 hover:text-red-600">
-                <i class="fa fa-times text-xs"></i>
+                <i class="fa fa-times text-xs text-danger"></i>
             </button>
         </div>
     @endif
