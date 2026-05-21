@@ -8,7 +8,7 @@
             <p class="text-sm text-slate-400">Send messages to all schools</p>
         </div>
         <div>
-            <a href="{{ route('owner.support.index') }}" 
+            <a href="{{ route('owner.helpline.index') }}" 
                class="px-5 py-2.5 text-sm font-semibold text-white rounded-lg bg-gradient-to-tl from-blue-600 to-cyan-500 shadow-soft-md hover:shadow-soft-xl hover:scale-105 transition-all">
                 <i class="fa fa-ticket-alt mr-1"></i> Back to Tickets
             </a>
@@ -21,7 +21,7 @@
             <h6 class="font-bold text-slate-700">Create New Announcement</h6>
             <p class="text-xs text-slate-400">This will be visible to ALL schools</p>
         </div>
-        <form method="POST" action="{{ route('owner.support.store-announcement') }}" class="p-6">
+        <form method="POST" action="{{ route('owner.helpline.store-announcement') }}" class="p-6">
             @csrf
             <div class="mb-4">
                 <label class="block text-xs font-semibold text-slate-600 mb-1.5">Title</label>
@@ -77,13 +77,13 @@
                                 class="text-blue-600 hover:text-blue-800 text-sm">
                             <i class="fa fa-edit"></i>
                         </button>
-                        <form action="{{ route('owner.support.toggle-announcement', $announcement->id) }}" method="POST" class="inline">
+                        <form action="{{ route('owner.helpline.toggle-announcement', $announcement->id) }}" method="POST" class="inline">
                             @csrf
                             <button type="submit" class="text-amber-600 hover:text-amber-800 text-sm">
                                 <i class="fa {{ $announcement->is_active ? 'fa-pause' : 'fa-play' }}"></i>
                             </button>
                         </form>
-                        <form action="{{ route('owner.support.delete-announcement', $announcement->id) }}" method="POST" class="inline" 
+                        <form action="{{ route('owner.helpline.delete-announcement', $announcement->id) }}" method="POST" class="inline" 
                               onsubmit="return confirm('Delete this announcement?')">
                             @csrf
                             @method('DELETE')
@@ -136,7 +136,7 @@
 function editAnnouncement(id, title, content) {
     const modal = document.getElementById('editModal');
     const form = document.getElementById('editForm');
-    form.action = '{{ route("owner.support.update-announcement", "") }}/' + id;
+    form.action = '{{ route("owner.helpline.update-announcement", "") }}/' + id;
     document.getElementById('edit_title').value = title;
     document.getElementById('edit_content').value = content;
     modal.classList.remove('hidden');

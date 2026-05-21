@@ -8,7 +8,7 @@
             <p class="text-sm text-slate-400">Manage all support tickets from schools</p>
         </div>
         <div>
-            <a href="{{ route('owner.support.announcements') }}" 
+            <a href="{{ route('owner.helpline.announcements') }}" 
                class="px-5 py-2.5 text-sm font-semibold text-white rounded-lg bg-gradient-to-tl from-purple-600 to-pink-500 shadow-soft-md hover:shadow-soft-xl hover:scale-105 transition-all">
                 <i class="fa fa-bullhorn mr-1"></i> Announcements
             </a>
@@ -91,7 +91,7 @@
                 <button type="submit" class="px-4 py-2 text-sm font-semibold text-white bg-blue-600 rounded-lg hover:bg-blue-700">
                     <i class="fa fa-filter mr-1"></i> Filter
                 </button>
-                <a href="{{ route('owner.support.index') }}" class="px-4 py-2 text-sm font-semibold text-slate-600 border border-gray-300 rounded-lg hover:bg-gray-50">
+                <a href="{{ route('owner.helpline.index') }}" class="px-4 py-2 text-sm font-semibold text-slate-600 border border-gray-300 rounded-lg hover:bg-gray-50">
                     <i class="fa fa-times mr-1"></i> Clear
                 </a>
             </div>
@@ -146,7 +146,7 @@
                             </span>
                         </td>
                         <td class="px-6 py-4">
-                            <form action="{{ route('owner.support.update-status', $ticket->id) }}" method="POST" class="inline">
+                            <form action="{{ route('owner.helpline.update-status', $ticket->id) }}" method="POST" class="inline">
                                 @csrf
                                 <select name="status" onchange="this.form.submit()" 
                                         class="text-xs px-2 py-1 rounded-full border-0 cursor-pointer
@@ -163,7 +163,7 @@
                         </td>
                         <td class="px-6 py-4 text-sm text-slate-500">{{ $ticket->created_at->format('M d, Y') }}</td>
                         <td class="px-6 py-4 text-center">
-                            <a href="{{ route('owner.support.show', $ticket->id) }}" 
+                            <a href="{{ route('owner.helpline.show', $ticket->id) }}" 
                                class="text-blue-600 hover:text-blue-800 text-sm font-semibold">
                                 <i class="fa fa-eye mr-1"></i> View
                             </a>

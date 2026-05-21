@@ -7,7 +7,7 @@
 <div class="w-full px-6 py-6 mx-auto">
     <div class="flex items-center justify-between mb-6">
         <div class="flex items-center gap-3">
-            <a href="{{ route('tenant.support.index', $subdomain) }}" class="text-slate-400 hover:text-slate-600">
+            <a href="{{ route('tenant.helpline.index', $subdomain) }}" class="text-slate-400 hover:text-slate-600">
                 <i class="fa fa-arrow-left"></i>
             </a>
             <div>
@@ -178,11 +178,11 @@
                             <p class="text-sm font-semibold">+234 813 715 9867</p>
                         </div>
                     </a>
-                    <a href="mailto:support@coredesk.com.ng" class="flex items-center gap-3 p-3 bg-white rounded-xl hover:shadow-md transition">
+                    <a href="mailto:hammocktechglobal@gmail.com" class="flex items-center gap-3 p-3 bg-white rounded-xl hover:shadow-md transition">
                         <i class="fa fa-envelope text-blue-500 text-lg"></i>
                         <div>
                             <p class="text-xs text-slate-400">Email</p>
-                            <p class="text-sm font-semibold">support@coredesk.com.ng</p>
+                            <p class="text-sm font-semibold">hammocktechglobal@gmail.com</p>
                         </div>
                     </a>
                 </div>

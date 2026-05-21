@@ -4,7 +4,7 @@
 <div class="container mx-auto px-4 py-8">
     <div class="flex items-center justify-between mb-6">
         <div class="flex items-center gap-3">
-            <a href="{{ route('owner.support.index') }}" class="text-slate-400 hover:text-slate-600">
+            <a href="{{ route('owner.helpline.index') }}" class="text-slate-400 hover:text-slate-600">
                 <i class="fa fa-arrow-left"></i>
             </a>
             <div>
@@ -13,7 +13,7 @@
             </div>
         </div>
         <div>
-            <form action="{{ route('owner.support.update-status', $ticket->id) }}" method="POST" class="inline">
+            <form action="{{ route('owner.helpline.update-status', $ticket->id) }}" method="POST" class="inline">
                 @csrf
                 <select name="status" onchange="this.form.submit()" 
                         class="text-sm px-3 py-1.5 rounded-lg border border-gray-200
@@ -112,7 +112,7 @@
                 <div class="px-6 py-4 border-b border-gray-100">
                     <h6 class="font-bold text-slate-700">Reply to {{ $ticket->tenant->name }}</h6>
                 </div>
-                <form method="POST" action="{{ route('owner.support.reply', $ticket->id) }}" class="p-6">
+                <form method="POST" action="{{ route('owner.helpline.reply', $ticket->id) }}" class="p-6">
                     @csrf
                     <textarea name="reply" rows="5" required 
                               placeholder="Type your reply here..."

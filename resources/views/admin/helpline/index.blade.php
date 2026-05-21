@@ -11,7 +11,7 @@
             <p class="text-sm text-slate-400">Get help, report issues, or suggest features</p>
         </div>
         <div>
-            <a href="{{ route('tenant.support.create', $subdomain) }}" 
+            <a href="{{ route('tenant.helpline.create', $subdomain) }}" 
                class="px-5 py-2.5 text-sm font-semibold text-white rounded-lg bg-gradient-to-tl from-blue-600 to-cyan-500 shadow-soft-md hover:shadow-soft-xl hover:scale-105 transition-all">
                 <i class="fa fa-plus mr-1"></i> New Ticket
             </a>
@@ -107,7 +107,7 @@
                         </td>
                         <td class="px-6 py-4 text-sm text-slate-500">{{ $ticket->created_at->format('M d, Y') }}</td>
                         <td class="px-6 py-4 text-center">
-                            <a href="{{ route('tenant.support.show', [$subdomain, $ticket->id]) }}" 
+                            <a href="{{ route('tenant.helpline.show', [$subdomain, $ticket->id]) }}" 
                                class="text-blue-600 hover:text-blue-800 text-sm font-semibold">
                                 <i class="fa fa-eye mr-1"></i> View
                             </a>
@@ -127,7 +127,7 @@
             </div>
             <p class="text-slate-500 font-semibold text-lg">No support tickets yet</p>
             <p class="text-slate-400 text-sm mt-1">Need help? Create your first support ticket</p>
-            <a href="{{ route('tenant.support.create', $subdomain) }}" 
+            <a href="{{ route('tenant.helpline.create', $subdomain) }}" 
                class="inline-block mt-4 px-4 py-2 text-sm font-semibold text-white bg-blue-600 rounded-lg hover:bg-blue-700">
                 <i class="fa fa-plus mr-1"></i> Create Ticket
             </a>
@@ -169,7 +169,7 @@
 
 <script>
 function markAnnouncementRead(announcementId) {
-    fetch('{{ route("tenant.support.announcement.read", [$subdomain, ""]) }}/' + announcementId, {
+    fetch('{{ route("tenant.helpline.announcement.read", [$subdomain, ""]) }}/' + announcementId, {
         method: 'POST',
         headers: {
             'X-CSRF-TOKEN': '{{ csrf_token() }}',
