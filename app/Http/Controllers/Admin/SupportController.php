@@ -12,38 +12,38 @@ use App\Models\GeneralAnnouncement;
 class SupportController extends Controller
 {
     // Display all tickets for the current school
-    public function index($subdomain)
-    {
-        $tenantId = auth()->user()->tenant_id;
-        
-        $tickets = SupportTicket::where('tenant_id', $tenantId)
-            ->with('user')
-            ->orderBy('created_at', 'desc')
-            ->paginate(10);
-        
-        // Get unread count for navbar
-        $unreadCount = SupportReply::whereHas('ticket', function($q) use ($tenantId) {
-                $q->where('tenant_id', $tenantId);
-            })
-            ->where('is_read', false)
-            ->where('is_owner_reply', true)
-            ->count();
-        
-        // Get unread announcements
-        $announcements = GeneralAnnouncement::where('is_active', true)
-            ->whereDoesntHave('reads', function($q) use ($tenantId) {
-                $q->where('tenant_id', $tenantId);
-            })
-            ->count();
-        
-        $stats = [
-            'open' => SupportTicket::where('tenant_id', $tenantId)->where('status', 'open')->count(),
-            'in_progress' => SupportTicket::where('tenant_id', $tenantId)->where('status', 'in_progress')->count(),
-            'resolved' => SupportTicket::where('tenant_id', $tenantId)->where('status', 'resolved')->count(),
-        ];
-        
-        return view('admin.helpline.index', compact('tickets', 'stats', 'unreadCount', 'announcements', 'subdomain'));
-    }
+public function index($subdomain)
+{
+    $tenantId = auth()->user()->tenant_id;
+    
+    $tickets = SupportTicket::where('tenant_id', $tenantId)
+        ->with('user')
+        ->orderBy('created_at', 'desc')
+        ->paginate(10);
+    
+    // Get unread count for navbar
+    $unreadCount = SupportReply::whereHas('ticket', function($q) use ($tenantId) {
+            $q->where('tenant_id', $tenantId);
+        })
+        ->where('is_read', false)
+        ->where('is_owner_reply', true)
+        ->count();
+    
+    // Get unread announcements ← CHANGED count() to get()
+    $announcements = GeneralAnnouncement::where('is_active', true)
+        ->whereDoesntHave('reads', function($q) use ($tenantId) {
+            $q->where('tenant_id', $tenantId);
+        })
+        ->get();
+    
+    $stats = [
+        'open' => SupportTicket::where('tenant_id', $tenantId)->where('status', 'open')->count(),
+        'in_progress' => SupportTicket::where('tenant_id', $tenantId)->where('status', 'in_progress')->count(),
+        'resolved' => SupportTicket::where('tenant_id', $tenantId)->where('status', 'resolved')->count(),
+    ];
+    
+    return view('admin.helpline.index', compact('tickets', 'stats', 'unreadCount', 'announcements', 'subdomain'));
+}
     
     // Show create ticket form
     public function create($subdomain)
