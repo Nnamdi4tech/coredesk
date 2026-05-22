@@ -151,48 +151,48 @@
 </div>
 
                 {{-- Assign Teacher --}}
-                <div>
-                    <label class="block text-xs font-semibold text-slate-600 mb-1.5">
-                        Assign Teacher
-                    </label>
-                    <select name="teacher_id"
-                            class="text-sm w-full rounded-lg border border-gray-300 bg-white py-2 px-3 text-gray-700 focus:outline-none focus:border-fuchsia-300 transition-all @error('teacher_id') border-red-400 @enderror">
-                        <option value="">-- Select Teacher --</option>
-                        @foreach($teachers as $teacher)
-                            <option value="{{ $teacher->id }}"
-                                {{ old('teacher_id') == $teacher->id ? 'selected' : '' }}>
-                                {{ $teacher->user->name ?? $teacher->name }}
-                                @if($teacher->department)
-                                    — {{ $teacher->department }}
-                                @endif
-                            </option>
-                        @endforeach
-                    </select>
-                    @error('teacher_id')
-                        <p class="text-xs text-red-500 mt-1">{{ $message }}</p>
-                    @enderror
-                    @if($teachers->isEmpty())
-                        <p class="text-xs text-amber-500 mt-1">
-                            <i class="fa fa-exclamation-triangle mr-1"></i>
-                            No teachers found.
-                            <a href="{{ route('tenant.teachers.create', $subdomain) }}" class="underline">Add a teacher first.</a>
-                        </p>
-                    @endif
-                </div>
+<div>
+    <label class="block text-xs font-semibold text-slate-600 mb-1.5">
+        Assign Teacher <span class="text-red-500">*</span>
+    </label>
+    <select name="teacher_id" required
+            class="text-sm w-full rounded-lg border border-gray-300 bg-white py-2 px-3 text-gray-700 focus:outline-none focus:border-fuchsia-300 transition-all @error('teacher_id') border-red-400 @enderror">
+        <option value="">-- Select Teacher --</option>
+        @foreach($teachers as $teacher)
+            <option value="{{ $teacher->id }}"
+                {{ old('teacher_id') == $teacher->id ? 'selected' : '' }}>
+                {{ $teacher->user->name ?? $teacher->name }}
+                @if($teacher->department)
+                    — {{ $teacher->department }}
+                @endif
+            </option>
+        @endforeach
+    </select>
+    @error('teacher_id')
+        <p class="text-xs text-red-500 mt-1">{{ $message }}</p>
+    @enderror
+    @if($teachers->isEmpty())
+        <p class="text-xs text-amber-500 mt-1">
+            <i class="fa fa-exclamation-triangle mr-1"></i>
+            No teachers found.
+            <a href="{{ route('tenant.teachers.create', $subdomain) }}" class="underline">Add a teacher first.</a>
+        </p>
+    @endif
+</div>
 
-                {{-- Description --}}
-                <div>
-                    <label class="block text-xs font-semibold text-slate-600 mb-1.5">
-                        Description
-                    </label>
-                    <textarea name="description"
-                              rows="3"
-                              placeholder="Brief description of this subject..."
-                              class="text-sm w-full rounded-lg border border-gray-300 bg-white py-2 px-3 text-gray-700 focus:outline-none focus:border-fuchsia-300 transition-all resize-none @error('description') border-red-400 @enderror">{{ old('description') }}</textarea>
-                    @error('description')
-                        <p class="text-xs text-red-500 mt-1">{{ $message }}</p>
-                    @enderror
-                </div>
+{{-- Description --}}
+<div>
+    <label class="block text-xs font-semibold text-slate-600 mb-1.5">
+        Description
+    </label>
+    <textarea name="description"
+              rows="3"
+              placeholder="Brief description of this subject..."
+              class="text-sm w-full rounded-lg border border-gray-300 bg-white py-2 px-3 text-gray-700 focus:outline-none focus:border-fuchsia-300 transition-all resize-none @error('description') border-red-400 @enderror">{{ old('description') }}</textarea>
+    @error('description')
+        <p class="text-xs text-red-500 mt-1">{{ $message }}</p>
+    @enderror
+</div>
 
             </div>
         </div>

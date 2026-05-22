@@ -112,25 +112,25 @@ class TeacherController extends Controller
 {
     $tenant = app('tenant');
 
-if ($tenant->plan === 'free') {
+    if ($tenant->plan === 'free') {
     // ✅ Use auth()->user()->tenant_id directly — guaranteed to match the teachers table
     $count = Teacher::where('tenant_id', auth()->user()->tenant_id)->count();
 
     if ($count >= 2) {
         return back()->with('error', 'Free plan allows only 2 teachers. Upgrade your plan.');
     }
-}
+   }
 
     // ✅ MANUAL CHECK: Does this email already exist in THIS tenant?
     $tenantId = auth()->user()->tenant_id;
 
-$existingUser = User::where('email', $request->email)
+   $existingUser = User::where('email', $request->email)
                     ->where('tenant_id', $tenantId)
                     ->exists();
 
-if ($existingUser) {
+   if ($existingUser) {
     return back()->withInput()->with('error', 'This email is already registered in your school. Please use a different email.');
-}
+  }
 
     // ✅ Validate other fields
     $request->validate([
@@ -140,7 +140,7 @@ if ($existingUser) {
         'dob'             => 'nullable|date',
         'address'         => 'nullable|string',
         'password'        => 'required|string|min:6',
-        'staff_id'        => 'required|string|max:255|unique:teachers,staff_id',
+        'staff_id'        => 'required|string|max:255|unique:teachers,staff_id,NULL,id,tenant_id,' . $tenantId,
         'employee_id'     => 'nullable|string|max:255',
         'employment_date' => 'nullable|date',
         'employment_type' => 'nullable|in:full_time,part_time,contract,volunteer',
@@ -236,7 +236,7 @@ public function update(Request $request, $subdomain, $id)
         'dob'             => 'nullable|date',
         'address'         => 'nullable|string',
         'password'        => 'nullable|string|min:6',
-        'staff_id'        => 'required|string|max:255|unique:teachers,staff_id,' . $teacher->id,
+        'staff_id'        => 'required|string|max:255|unique:teachers,staff_id,' . $teacher->id . ',id,tenant_id,' . $tenantId,
         'employee_id'     => 'nullable|string|max:255',
         'employment_date' => 'nullable|date',
         'employment_type' => 'nullable|in:full_time,part_time,contract,volunteer',

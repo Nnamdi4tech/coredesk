@@ -197,9 +197,11 @@
     @error('staff_id') <p class="text-xs text-red-500 mt-1">{{ $message }}</p> @enderror
 </div>
 
-                {{-- Employee ID --}}
+                
                 {{-- Employee ID (Auto-generated, editable) --}}
-<div>
+
+                //Remove the employee id alight if you need it later
+<!-- <div>
     <label class="block text-xs font-semibold text-slate-600 mb-1.5">Employee ID</label>
     <div class="relative">
         <input type="text" name="employee_id" value="{{ old('employee_id', $generatedEmployeeId) }}"
@@ -210,7 +212,7 @@
         </button>
     </div>
     <p class="text-xs text-slate-400 mt-1">Auto-generated, can be edited</p>
-</div>
+</div> -->
 
                 {{-- Employment Date --}}
                 <div>

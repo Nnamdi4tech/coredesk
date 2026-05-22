@@ -49,7 +49,7 @@
         <div class="bg-white shadow-soft-xl rounded-2xl p-6 mb-5">
             <div class="flex items-center gap-3 mb-5 pb-4 border-b border-gray-100">
                 <div class="w-8 h-8 rounded-lg bg-gradient-to-tl from-blue-500 to-cyan-400 flex items-center justify-center shadow-soft-md">
-                    <i class="fa fa-id-card text-white text-xs"></i>
+                    <i class="fa fa-id-card text-black text-xs"></i>
                 </div>
                 <div>
                     <h6 class="font-bold text-slate-700 mb-0">Personal Information</h6>
@@ -141,7 +141,7 @@
         <div class="bg-white shadow-soft-xl rounded-2xl p-6 mb-5">
             <div class="flex items-center gap-3 mb-5 pb-4 border-b border-gray-100">
                 <div class="w-8 h-8 rounded-lg bg-gradient-to-tl from-green-500 to-emerald-400 flex items-center justify-center shadow-soft-md">
-                    <i class="fa fa-briefcase text-white text-xs"></i>
+                    <i class="fa fa-briefcase text-black text-xs"></i>
                 </div>
                 <div>
                     <h6 class="font-bold text-slate-700 mb-0">Employment Details</h6>

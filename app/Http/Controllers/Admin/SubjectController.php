@@ -64,7 +64,7 @@ public function store(Request $request, $subdomain)
 {
     $request->validate([
         'name' => 'required',
-        'teacher_id' => 'nullable|exists:teachers,id',
+        'teacher_id' => 'required|exists:teachers,id',
         'class_id' => 'required|exists:school_classes,id',
     ]);
 
@@ -118,7 +118,7 @@ public function edit($subdomain, $id)
 
         $request->validate([
             'name'       => 'required|string|max:255',
-            'teacher_id' => 'nullable|exists:teachers,id',
+            'teacher_id' => 'required|exists:teachers,id',
             'class_id'   => 'required|exists:school_classes,id',
         ]);
 
