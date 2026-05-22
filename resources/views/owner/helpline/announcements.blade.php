@@ -136,7 +136,7 @@
 function editAnnouncement(id, title, content) {
     const modal = document.getElementById('editModal');
     const form = document.getElementById('editForm');
-    form.action = '{{ route("owner.helpline.update-announcement", "") }}/' + id;
+    form.action = '{{ route("owner.helpline.announcements.update", "__ID__") }}'.replace('__ID__', id);
     document.getElementById('edit_title').value = title;
     document.getElementById('edit_content').value = content;
     modal.classList.remove('hidden');
