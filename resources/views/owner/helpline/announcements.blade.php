@@ -37,8 +37,8 @@
             </div>
             <div class="flex justify-end">
                 <button type="submit"
-                        class="px-6 py-2.5 text-sm font-semibold text-white rounded-lg bg-gradient-to-tl from-purple-600 to-pink-500 shadow-soft-md hover:shadow-soft-xl hover:scale-105 transition-all">
-                    <i class="fa fa-send mr-1 text-info"></i> Send to All Schools
+                        class="px-6 py-2.5 text-sm font-semibold text-black rounded-lg bg-gradient-to-tl from-purple-600 to-pink-500 shadow-soft-md hover:shadow-soft-xl hover:scale-105 transition-all">
+                    <i class="fa fa-send mr-1 text-black"></i> Send to All Schools
                 </button>
             </div>
         </form>
