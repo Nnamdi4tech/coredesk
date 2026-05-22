@@ -110,7 +110,7 @@
                 <div class="px-6 py-4 border-b border-gray-100">
                     <h6 class="font-bold text-slate-700">Add Reply</h6>
                 </div>
-                <form method="POST" action="{{ route('tenant.support.reply', [$subdomain, $ticket->id]) }}" class="p-6">
+                <form method="POST" action="{{ route('tenant.admin.helpline.reply', ['subdomain' => $subdomain, 'id' => $ticket->id]) }}" class="p-6">
                     @csrf
                     <textarea name="reply" rows="4" required 
                               placeholder="Type your reply here..."
