@@ -80,8 +80,8 @@ public function index($subdomain)
             'status' => 'open',
         ]);
         
-        return redirect()->route('tenant.admin.helpline.show', ['id' => $ticket->id])
-             ->with('success', 'Ticket #' . $ticket->ticket_number . ' created successfully.');
+        return redirect()->route('tenant.admin.helpline.show', ['subdomain' => $subdomain, 'id' => $ticket->id])
+          ->with('success', 'Ticket #' . $ticket->ticket_number . ' created successfully.');
     }
     
     // Show single ticket
