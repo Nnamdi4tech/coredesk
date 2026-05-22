@@ -169,7 +169,9 @@
 
 <script>
 function markAnnouncementRead(announcementId) {
-    fetch('{{ route("tenant.admin.helpline.announcement.read", [$subdomain, ""]) }}/' + announcementId, {
+    const url = '{{ route("tenant.admin.helpline.announcement.read", [$subdomain, "__ID__"]) }}'.replace('__ID__', announcementId);
+    
+    fetch(url, {
         method: 'POST',
         headers: {
             'X-CSRF-TOKEN': '{{ csrf_token() }}',
@@ -184,4 +186,6 @@ function markAnnouncementRead(announcementId) {
       });
 }
 </script>
+
+
 @endsection
