@@ -29,9 +29,10 @@ class SupportTicket extends Model
     }
 
     public function replies()
-    {
-        return $this->hasMany(SupportReply::class);
-    }
+{
+    return $this->hasMany(SupportReply::class, 'ticket_id'); // explicit foreign key
+}
+    
 
     public function unreadReplies()
     {

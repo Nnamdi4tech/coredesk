@@ -17,9 +17,9 @@ class SupportReply extends Model
     ];
 
     public function ticket()
-    {
-        return $this->belongsTo(SupportTicket::class);
-    }
+{
+    return $this->belongsTo(SupportTicket::class, 'ticket_id'); // explicit foreign key
+}
 
     public function user()
     {
