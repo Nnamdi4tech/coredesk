@@ -10,11 +10,11 @@
     @if(session('success'))
         <div id="successMsg" class="flex items-center gap-3 px-4 py-3 mb-6 text-sm font-semibold text-green-800 bg-green-50 border border-green-200 rounded-xl">
             <div class="w-7 h-7 rounded-lg bg-gradient-to-tl from-green-500 to-emerald-400 flex items-center justify-center flex-shrink-0">
-                <i class="fa fa-check text-white text-xs"></i>
+                <i class="fa fa-check text-black text-xs"></i>
             </div>
             {{ session('success') }}
             <button onclick="this.parentElement.remove()" class="ml-auto text-green-500 hover:text-green-700">
-                <i class="fa fa-times text-xs"></i>
+                <i class="fa fa-times text-black text-xs"></i>
             </button>
         </div>
     @endif
