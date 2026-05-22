@@ -7,7 +7,7 @@
 <div class="w-full px-6 py-6 mx-auto">
     <div class="flex items-center justify-between mb-6">
         <div class="flex items-center gap-3">
-            <a href="{{ route('tenant.helpline.index', $subdomain) }}" class="text-slate-400 hover:text-slate-600">
+            <a href="{{ route('tenant.admin.helpline.index', $subdomain) }}" class="text-slate-400 hover:text-slate-600">
                 <i class="fa fa-arrow-left"></i>
             </a>
             <div>
