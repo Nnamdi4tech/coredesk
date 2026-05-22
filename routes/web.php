@@ -100,8 +100,10 @@ Route::domain('{subdomain}.coredesk.com.ng')
 Route::prefix('owner')->group(function () {
     Route::get('/login', [OwnerController::class, 'loginForm'])->name('owner.login');
     Route::post('/login', [OwnerController::class, 'login'])->name('owner.login.post');
-    Route::get('/register', [OwnerController::class, 'registerForm'])->name('owner.register');
-    Route::post('/register', [OwnerController::class, 'register'])->name('owner.register.post');
+    //remove the register alight if you want owners to register.
+     
+    // Route::get('/register', [OwnerController::class, 'registerForm'])->name('owner.register');
+    // Route::post('/register', [OwnerController::class, 'register'])->name('owner.register.post');
 
     Route::middleware(\App\Http\Middleware\OwnerAuth::class)->group(function () {
         Route::get('/dashboard', [OwnerController::class, 'dashboard'])->name('owner.dashboard');
@@ -127,13 +129,14 @@ Route::prefix('owner')->group(function () {
 // ================= OWNER SUPPORT/HELPLINE =================
 Route::prefix('owner/helpline')->group(function () {
     Route::get('/', [App\Http\Controllers\Owner\SupportController::class, 'index'])->name('owner.helpline.index');
-    Route::get('/{id}', [App\Http\Controllers\Owner\SupportController::class, 'show'])->name('owner.helpline.show');
     Route::post('/{id}/reply', [App\Http\Controllers\Owner\SupportController::class, 'reply'])->name('owner.helpline.reply');
     Route::post('/{id}/resolve', [App\Http\Controllers\Owner\SupportController::class, 'resolve'])->name('owner.helpline.resolve');
+    Route::post('/{id}/update-status', [App\Http\Controllers\Owner\SupportController::class, 'updateStatus'])->name('owner.helpline.update-status'); // ← ADD THIS
     Route::get('/announcements', [App\Http\Controllers\Owner\SupportController::class, 'announcements'])->name('owner.helpline.announcements');
     Route::post('/announcements/store', [App\Http\Controllers\Owner\SupportController::class, 'storeAnnouncement'])->name('owner.helpline.announcements.store');
     Route::post('/announcements/{id}/toggle', [App\Http\Controllers\Owner\SupportController::class, 'toggleAnnouncement'])->name('owner.helpline.announcements.toggle');
     Route::delete('/announcements/{id}', [App\Http\Controllers\Owner\SupportController::class, 'deleteAnnouncement'])->name('owner.helpline.announcements.delete');
+    Route::get('/{id}', [App\Http\Controllers\Owner\SupportController::class, 'show'])->name('owner.helpline.show'); // ← must stay LAST
 });
 
 //Test mail

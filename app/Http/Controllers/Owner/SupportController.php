@@ -200,4 +200,16 @@ class SupportController extends Controller
             'total' => $unreadTickets
         ]);
     }
+
+public function resolve($ticketId)
+{
+    $ticket = SupportTicket::findOrFail($ticketId);
+    $ticket->update([
+        'status' => 'resolved',
+        'resolved_at' => now(),
+    ]);
+
+    return redirect()->back()->with('success', 'Ticket marked as resolved.');
+}
+
 }
