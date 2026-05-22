@@ -95,7 +95,7 @@ public function create($subdomain)
             'name' => 'required',
             'password' => 'required|min:6',
             'teacher_id' => 'required|exists:teachers,id',
-            'student_id' => 'required|unique:students,student_id',
+            'student_id' => 'required|unique:students,student_id,NULL,id,tenant_id,' . auth()->user()->tenant_id,
             'class_id' => 'required|exists:school_classes,id',
         ]);
 
@@ -159,7 +159,7 @@ public function update(Request $request, $subdomain, $id)
     $request->validate([
         'name' => 'required',
         'teacher_id' => 'required|exists:teachers,id',
-        'student_id' => 'required|unique:students,student_id,' . $student->id,
+        'student_id' => 'required|unique:students,student_id,' . $student->id . ',id,tenant_id,' . auth()->user()->tenant_id,
         'class_id' => 'required|exists:school_classes,id',
         'password' => 'nullable|min:6',
     ]);
