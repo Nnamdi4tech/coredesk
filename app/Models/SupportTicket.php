@@ -72,4 +72,27 @@ class SupportTicket extends Model
             default => 'bg-gray-100 text-gray-800'
         };
     }
+
+
+
+
+
+
+    // app/Models/SupportTicket.php
+
+// For owner: unread replies that came FROM the school (not owner replies)
+public function unreadRepliesForOwner()
+{
+    return $this->hasMany(SupportReply::class, 'ticket_id')
+        ->where('is_owner_reply', false)
+        ->where('is_read', false);
+}
+
+// For admin: unread replies that came FROM the owner
+public function unreadRepliesForAdmin()
+{
+    return $this->hasMany(SupportReply::class, 'ticket_id')
+        ->where('is_owner_reply', true)
+        ->where('is_read', false);
+}
 }
