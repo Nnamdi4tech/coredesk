@@ -63,11 +63,11 @@
         <div class="bg-white shadow-soft-xl rounded-2xl p-6 mb-5">
             <div class="flex items-center gap-3 mb-5 pb-4 border-b border-gray-100">
                 <div class="w-8 h-8 rounded-lg bg-gradient-to-tl from-purple-500 to-fuchsia-400 flex items-center justify-center shadow-soft-md">
-                    <i class="fa fa-chalkboard text-white text-xs"></i>
+                    <i class="fa fa-chalkboard text-black text-xs"></i>
                 </div>
                 <div>
                     <h6 class="font-bold text-slate-700 mb-0">Class Information</h6>
-                    <p class="text-xs text-slate-400">Enter the class name e.g. JSS1, SS2</p>
+                    <p class="text-xs text-slate-400">Enter the class name e.g. JSS1B, SS2C, JSS2A, Basic4A</p>
                 </div>
             </div>
 
@@ -81,7 +81,7 @@
                     <input type="text"
                            name="name"
                            value="{{ old('name') }}"
-                           placeholder="e.g. JSS1, SS2"
+                           placeholder="e.g. JSS1A, SS2B, JSS2C"
                            class="text-sm w-full rounded-lg border border-gray-300 bg-white py-2 px-3 text-gray-700 focus:outline-none focus:border-fuchsia-300 transition-all @error('name') border-red-400 @enderror"
                            required />
                     @error('name')
