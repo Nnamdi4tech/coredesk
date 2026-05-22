@@ -21,7 +21,7 @@
             <h6 class="font-bold text-slate-700">Create New Announcement</h6>
             <p class="text-xs text-slate-400">This will be visible to ALL schools</p>
         </div>
-        <form method="POST" action="{{ route('owner.helpline.store-announcement') }}" class="p-6">
+        <form method="POST" action="{{ route('owner.helpline.announcements.store') }}" class="p-6">
             @csrf
             <div class="mb-4">
                 <label class="block text-xs font-semibold text-slate-600 mb-1.5">Title</label>
@@ -77,13 +77,13 @@
                                 class="text-blue-600 hover:text-blue-800 text-sm">
                             <i class="fa fa-edit"></i>
                         </button>
-                        <form action="{{ route('owner.helpline.toggle-announcement', $announcement->id) }}" method="POST" class="inline">
+                        <form action="{{ route('owner.helpline.announcements.toggle', $announcement->id) }}" method="POST" class="inline">
                             @csrf
                             <button type="submit" class="text-amber-600 hover:text-amber-800 text-sm">
                                 <i class="fa {{ $announcement->is_active ? 'fa-pause' : 'fa-play' }}"></i>
                             </button>
                         </form>
-                        <form action="{{ route('owner.helpline.delete-announcement', $announcement->id) }}" method="POST" class="inline" 
+                        <form action="{{ route('owner.helpline.announcements.delete', $announcement->id) }}" method="POST" class="inline" 
                               onsubmit="return confirm('Delete this announcement?')">
                             @csrf
                             @method('DELETE')

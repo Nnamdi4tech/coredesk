@@ -120,11 +120,11 @@
                     <div class="flex items-center justify-end gap-3 mt-4">
                         <button type="submit" name="status" value="in_progress"
                                 class="px-6 py-2.5 text-sm font-semibold text-white rounded-lg bg-gradient-to-tl from-amber-500 to-orange-500 shadow-soft-md hover:shadow-soft-xl hover:scale-105 transition-all">
-                            <i class="fa fa-paper-plane mr-1"></i> Send & Keep Open
+                            <i class="fa fa-paper-plane mr-1 text-black"></i> Send & Keep Open
                         </button>
                         <button type="submit" name="status" value="resolved"
                                 class="px-6 py-2.5 text-sm font-semibold text-white rounded-lg bg-gradient-to-tl from-green-600 to-emerald-500 shadow-soft-md hover:shadow-soft-xl hover:scale-105 transition-all">
-                            <i class="fa fa-check-circle mr-1"></i> Send & Resolve
+                            <i class="fa fa-check-circle mr-1 text-black"></i> Send & Resolve
                         </button>
                     </div>
                 </form>

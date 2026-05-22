@@ -131,12 +131,13 @@ Route::prefix('owner/helpline')->group(function () {
     Route::get('/', [App\Http\Controllers\Owner\SupportController::class, 'index'])->name('owner.helpline.index');
     Route::post('/{id}/reply', [App\Http\Controllers\Owner\SupportController::class, 'reply'])->name('owner.helpline.reply');
     Route::post('/{id}/resolve', [App\Http\Controllers\Owner\SupportController::class, 'resolve'])->name('owner.helpline.resolve');
-    Route::post('/{id}/update-status', [App\Http\Controllers\Owner\SupportController::class, 'updateStatus'])->name('owner.helpline.update-status'); // ← ADD THIS
+    Route::post('/{id}/update-status', [App\Http\Controllers\Owner\SupportController::class, 'updateStatus'])->name('owner.helpline.update-status');
     Route::get('/announcements', [App\Http\Controllers\Owner\SupportController::class, 'announcements'])->name('owner.helpline.announcements');
     Route::post('/announcements/store', [App\Http\Controllers\Owner\SupportController::class, 'storeAnnouncement'])->name('owner.helpline.announcements.store');
+    Route::post('/announcements/{id}/update', [App\Http\Controllers\Owner\SupportController::class, 'updateAnnouncement'])->name('owner.helpline.announcements.update'); // ← ADD THIS
     Route::post('/announcements/{id}/toggle', [App\Http\Controllers\Owner\SupportController::class, 'toggleAnnouncement'])->name('owner.helpline.announcements.toggle');
     Route::delete('/announcements/{id}', [App\Http\Controllers\Owner\SupportController::class, 'deleteAnnouncement'])->name('owner.helpline.announcements.delete');
-    Route::get('/{id}', [App\Http\Controllers\Owner\SupportController::class, 'show'])->name('owner.helpline.show'); // ← must stay LAST
+    Route::get('/{id}', [App\Http\Controllers\Owner\SupportController::class, 'show'])->name('owner.helpline.show');
 });
 
 //Test mail

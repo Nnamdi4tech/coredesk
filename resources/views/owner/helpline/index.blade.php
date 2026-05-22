@@ -9,8 +9,8 @@
         </div>
         <div>
             <a href="{{ route('owner.helpline.announcements') }}" 
-               class="px-5 py-2.5 text-sm font-semibold text-white rounded-lg bg-gradient-to-tl from-purple-600 to-pink-500 shadow-soft-md hover:shadow-soft-xl hover:scale-105 transition-all">
-                <i class="fa fa-bullhorn mr-1"></i> Announcements
+               class="px-5 py-2.5 text-sm font-semibold text-black rounded-lg bg-gradient-to-tl from-purple-600 to-pink-500 shadow-soft-md hover:shadow-soft-xl hover:scale-105 transition-all">
+                <i class="fa fa-bullhorn mr-1 text-black"></i> Announcements
             </a>
         </div>
     </div>
