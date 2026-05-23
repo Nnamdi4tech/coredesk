@@ -163,12 +163,13 @@
                 </div>
 
                 {{-- Employee ID --}}
-                <div>
+                <!-- remove the alight for employees if you need it. -->
+                <!-- <div>
                     <label class="block text-xs font-semibold text-slate-600 mb-1.5">Employee ID</label>
                     <input type="text" name="employee_id" value="{{ old('employee_id', $teacher->employee_id) }}"
                            placeholder="e.g. EMP-1001"
                            class="text-sm w-full rounded-lg border border-gray-300 bg-white py-2 px-3 text-gray-700 focus:outline-none focus:border-fuchsia-300 transition-all" />
-                </div>
+                </div> -->
 
                 {{-- Employment Date --}}
                 <div>
