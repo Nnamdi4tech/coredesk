@@ -172,7 +172,7 @@
                 <p class="text-slate-400 text-sm mt-1">Try adjusting your filters.</p>
             </div>
 
-            <div class="">
+            <div class="overflow-x-auto">
                 <table class="items-center w-full mb-0 align-top border-gray-200 text-slate-500" id="testTable">
                     <thead class="align-bottom bg-gray-50">
                         <tr>
