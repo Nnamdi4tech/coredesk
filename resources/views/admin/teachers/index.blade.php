@@ -633,14 +633,21 @@ function loadTeachersPage(url) {
     });
 }
 
+// ✅ ONLY intercept pagination links (links with 'page=' in URL)
 document.addEventListener('click', function(e) {
     const link = e.target.closest('a');
     if (!link) return;
     if (!link.closest('#teachersWrapper')) return;
     if (!link.href || link.href === '#' || link.href === window.location.href) return;
-    e.preventDefault();
-    e.stopPropagation();
-    loadTeachersPage(link.href);
+    
+    // ✅ Check if it's a pagination link (contains 'page=' parameter)
+    const url = new URL(link.href);
+    if (url.searchParams.has('page')) {
+        e.preventDefault();
+        e.stopPropagation();
+        loadTeachersPage(link.href);
+    }
+    // ✅ Otherwise, let normal navigation happen (edit, add, view, delete)
 });
 
 window.addEventListener('popstate', () => location.reload());

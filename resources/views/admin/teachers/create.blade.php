@@ -198,9 +198,9 @@
 </div>
 
                 
-                {{-- Employee ID (Auto-generated, editable) --}}
+                <!-- {{-- Employee ID (Auto-generated, editable) --}} -->
 
-                //Remove the employee id alight if you need it later
+                <!-- Remove the employee id alight if you need it later -->
 <!-- <div>
     <label class="block text-xs font-semibold text-slate-600 mb-1.5">Employee ID</label>
     <div class="relative">
