@@ -159,9 +159,9 @@ return [
     // 'domain' => env('SESSION_DOMAIN'),
 
     // 'domain' => env('SESSION_DOMAIN', '.coredesk.local'),
-    'domain' => env('SESSION_DOMAIN', null),
+    'domain' => env('SESSION_DOMAIN', env('APP_ENV') === 'production' ? '.coredesk.com.ng' : null),
 'path' => '/',
-'secure' => false,
+'secure' => env('SESSION_SECURE_COOKIE', false),
 'http_only' => true,
 'same_site' => 'lax',
 

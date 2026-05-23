@@ -47,36 +47,20 @@ class OwnerController extends Controller
 {
     $credentials = $request->only('email', 'password');
 
-    // Invalidate old session completely
-    $request->session()->invalidate();
-    $request->session()->regenerateToken();
-
     if (auth()->attempt($credentials, $request->filled('remember'))) {
-        
-        // Regenerate session multiple times to ensure it sticks
-        $request->session()->regenerate(true); // true = destroy old session
-        $request->session()->regenerateToken();
         
         if (auth()->user()->role !== 'owner') {
             auth()->logout();
             return back()->with('error', 'Unauthorized. Only owners can access this portal.');
         }
 
-        // Manually set session cookie
-        $sessionId = session()->getId();
-        cookie()->queue(cookie('laravel_session', $sessionId, 120, '/', null, false, true, false, 'lax'));
+        // Regenerate session to prevent fixation
+        $request->session()->regenerate();
         
-        // Save session explicitly
+        // Save session
         session()->save();
 
-        // Add a small delay to ensure cookie is set
-        sleep(1);
-
-        return redirect()->route('owner.dashboard')->withHeaders([
-            'Cache-Control' => 'no-cache, no-store, must-revalidate',
-            'Pragma' => 'no-cache',
-            'Expires' => '0'
-        ]);
+        return redirect()->route('owner.dashboard');
     }
 
     return back()->with('error', 'Invalid credentials. Please check your email and password.');
