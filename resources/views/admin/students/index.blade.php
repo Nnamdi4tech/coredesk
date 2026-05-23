@@ -452,7 +452,7 @@
 </div>
 
 <script>
-{{-- ── Print ── --}}
+// ── Print Function ──
 function printStudentCards() {
     document.getElementById('studentPrintDate').textContent = new Date().toLocaleDateString('en-GB', {
         day: '2-digit', month: 'long', year: 'numeric'
@@ -463,12 +463,13 @@ function printStudentCards() {
     area.style.display = 'none';
 }
 
-{{-- ── AJAX Pagination ── --}}
+// ── AJAX Pagination Function ──
 function loadStudentsPage(url) {
     const wrapper = document.getElementById('studentsWrapper');
     if (!wrapper) return;
 
     const overlay = document.createElement('div');
+    overlay.id = 'studentsLoadingOverlay';
     overlay.style.cssText = `
         position:absolute; inset:0; background:rgba(255,255,255,0.75);
         display:flex; flex-direction:column; align-items:center; justify-content:center;
@@ -502,20 +503,26 @@ function loadStudentsPage(url) {
     });
 }
 
+// ✅ ONLY intercept pagination links (links with 'page=' parameter)
 document.addEventListener('click', function(e) {
     const link = e.target.closest('a');
     if (!link) return;
     if (!link.closest('#studentsWrapper')) return;
     if (!link.href || link.href === '#' || link.href === window.location.href) return;
-    if (link.href.includes('/edit/')) return;
-    e.preventDefault();
-    e.stopPropagation();
-    loadStudentsPage(link.href);
+    
+    // ✅ Check if it's a pagination link (contains 'page=' parameter)
+    const url = new URL(link.href);
+    if (url.searchParams.has('page')) {
+        e.preventDefault();
+        e.stopPropagation();
+        loadStudentsPage(link.href);
+    }
+    // ✅ Otherwise, let normal navigation happen (edit, view, delete, add)
 });
 
 window.addEventListener('popstate', () => location.reload());
 
-{{-- ── Client-side filter (current page only) ── --}}
+// ── Client-side filter (current page only) ──
 function filterTable() {
     const searchTerm   = document.getElementById('searchInput').value.toLowerCase();
     const selectedClass = document.getElementById('classFilter').value;
@@ -533,7 +540,7 @@ function filterTable() {
         row.style.display = (matchSearch && matchClass) ? '' : 'none';
     });
 
-// Show "no students in this class" message when filter hides all rows
+    // Show "no students in this class" message when filter hides all rows
     const visibleRows = [...rows].filter(r => r.style.display !== 'none');
     let noResultMsg = document.getElementById('noStudentMsg');
 
@@ -560,7 +567,6 @@ function filterTable() {
     } else {
         if (noResultMsg) noResultMsg.remove();
     }
-
 }
 </script>
 

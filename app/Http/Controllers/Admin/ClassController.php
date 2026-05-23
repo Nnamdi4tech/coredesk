@@ -66,4 +66,69 @@ class ClassController extends Controller
         return redirect()->route('tenant.classes.index', $subdomain)
             ->with('success', 'Class created successfully');
     }
+
+
+    /**
+ * Show the form for editing the specified class.
+ */
+public function edit($subdomain, $id)
+{
+    $class = SchoolClass::where('tenant_id', auth()->user()->tenant_id)
+                        ->where('id', $id)
+                        ->firstOrFail();
+    
+    return view('admin.classes.edit', compact('subdomain', 'class'));
+}
+
+/**
+ * Update the specified class.
+ */
+public function update(Request $request, $subdomain, $id)
+{
+    $class = SchoolClass::where('tenant_id', auth()->user()->tenant_id)
+                        ->where('id', $id)
+                        ->firstOrFail();
+    
+    $request->validate([
+        'name' => 'required|string|max:255',
+    ]);
+    
+    $class->update([
+        'name' => $request->name,
+    ]);
+    
+    return redirect()->route('tenant.classes.index', $subdomain)
+        ->with('success', 'Class updated successfully');
+}
+
+/**
+ * Delete the specified class.
+ */
+public function destroy($subdomain, $id)
+{
+    $class = SchoolClass::where('tenant_id', auth()->user()->tenant_id)
+                        ->where('id', $id)
+                        ->firstOrFail();
+    
+    // Check if there are students in this class
+    $studentCount = Student::where('tenant_id', auth()->user()->tenant_id)
+                           ->where('class_id', $id)
+                           ->count();
+    
+    if ($studentCount > 0) {
+        return redirect()->route('tenant.classes.index', $subdomain)
+            ->with('error', 'Cannot delete class with ' . $studentCount . ' student(s). Reassign students first.');
+    }
+    
+    $class->delete();
+    
+    return redirect()->route('tenant.classes.index', $subdomain)
+        ->with('success', 'Class deleted successfully');
+}
+
+
+
+
+
+
 }

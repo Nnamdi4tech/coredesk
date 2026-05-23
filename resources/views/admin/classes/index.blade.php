@@ -141,6 +141,22 @@
         </div>
     @endif
 
+    {{-- ERROR MESSAGE --}}
+    @if(session('error'))
+        <div class="p-4 mb-6 text-sm text-red-700 bg-red-50 border border-red-200 rounded-2xl flex items-center gap-3">
+            <div class="w-8 h-8 rounded-lg bg-gradient-to-tl from-red-500 to-rose-400 flex items-center justify-center flex-shrink-0">
+                <i class="fa fa-exclamation-circle text-black text-xs"></i>
+            </div>
+            <div>
+                <p class="font-semibold">Error!</p>
+                <p class="text-red-600 text-xs mt-0.5">{{ session('error') }}</p>
+            </div>
+            <button onclick="this.parentElement.remove()" class="ml-auto text-red-400 hover:text-red-600">
+                <i class="fa fa-times text-black text-xs"></i>
+            </button>
+        </div>
+    @endif
+
     {{-- TABLE CARD --}}
     <div class="bg-white shadow-soft-xl rounded-2xl overflow-hidden">
 
@@ -176,6 +192,7 @@
                             <th class="px-6 py-3">Students Count</th>
                             <th class="px-6 py-3">Subjects Assigned</th>
                             <th class="px-6 py-3">Date Added</th>
+                            <th class="px-6 py-3 text-center">Actions</th> {{-- ✅ ADDED --}}
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-gray-100">
@@ -211,6 +228,31 @@
                                 </td>
                                 <td class="px-6 py-4 text-slate-400 text-xs">
                                     {{ $class->created_at->format('d M Y') }}
+                                </td>
+                                {{-- ✅ ACTIONS COLUMN --}}
+                                <td class="px-6 py-4 text-center">
+                                    <div class="flex items-center justify-center gap-2">
+                                        {{-- Edit Button --}}
+                                        <a href="{{ route('tenant.classes.edit', [$subdomain, $class->id]) }}"
+                                           class="w-7 h-7 rounded-lg bg-amber-50 text-amber-500 flex items-center justify-center hover:bg-amber-100 transition-colors"
+                                           title="Edit Class">
+                                            <i class="fa fa-pen text-xs"></i>
+                                        </a>
+                                        
+                                        {{-- Delete Button --}}
+                                        <form method="POST"
+                                              action="{{ route('tenant.classes.destroy', [$subdomain, $class->id]) }}"
+                                              onsubmit="return confirm('Delete class \"{{ $class->name }}\"? This will NOT delete students, but they will need to be reassigned.')"
+                                              class="inline">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit"
+                                                    class="w-7 h-7 rounded-lg bg-red-50 text-red-500 flex items-center justify-center hover:bg-red-100 transition-colors"
+                                                    title="Delete Class">
+                                                <i class="fa fa-trash text-xs"></i>
+                                            </button>
+                                        </form>
+                                    </div>
                                 </td>
                             </tr>
                         @endforeach

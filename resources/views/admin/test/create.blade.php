@@ -13,7 +13,7 @@
             <p class="text-sm text-slate-400">
                 <i class="fa fa-home mr-1"></i> Dashboard
                 <span class="mx-1 text-slate-300">/</span>
-                <a href="{{ route('tenant.test.index', $subdomain) }}" class="hover:text-slate-600">Test Management</a>
+                <a href="{{ route('tenant.test.index', $subdomain) }}" class="hover:text-slate-600">Assessment Management</a>
                 <span class="mx-1 text-slate-300">/</span>
                 <span class="text-slate-600">Add Entry</span>
             </p>

@@ -227,6 +227,9 @@ public function update(Request $request, $subdomain, $id)
     $user = User::where('id', $teacher->user_id)
                 ->where('tenant_id', auth()->user()->tenant_id)
                 ->firstOrFail();
+                
+                 // ✅ ADD THIS LINE - define $tenantId
+    $tenantId = auth()->user()->tenant_id;
     
     // ✅ Validate fields
     $request->validate([

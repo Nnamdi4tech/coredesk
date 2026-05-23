@@ -34,7 +34,7 @@
     {{-- PAGE HEADER --}}
     <div class="flex flex-wrap items-center justify-between mb-6 -mx-3">
         <div class="px-3">
-            <h3 class="text-2xl font-bold text-slate-700 mb-1">Class Tests Timetable</h3>
+            <h3 class="text-2xl font-bold text-slate-700 mb-1">Class Assessment Timetable</h3>
             <p class="text-sm text-slate-400">
                 <i class="fa fa-home mr-1"></i> Dashboard
                 <span class="mx-1 text-slate-300">/</span>

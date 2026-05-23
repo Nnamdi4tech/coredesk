@@ -142,10 +142,13 @@ Route::get('/', function () {
         Route::get('/admin/results/class', [AdminResultController::class, 'classResult'])->name('tenant.admin.results.class');
 
         // CLASSES
-        Route::get('/admin/classes', [ClassController::class, 'index'])->name('tenant.classes.index');
-        Route::get('/admin/classes/create', [ClassController::class, 'create'])->name('tenant.classes.create');
-        Route::post('/admin/classes/store', [ClassController::class, 'store'])->name('tenant.classes.store');
-
+Route::get('/admin/classes', [ClassController::class, 'index'])->name('tenant.classes.index');
+Route::get('/admin/classes/create', [ClassController::class, 'create'])->name('tenant.classes.create');
+Route::post('/admin/classes/store', [ClassController::class, 'store'])->name('tenant.classes.store');
+Route::get('/admin/classes/{id}/edit', [ClassController::class, 'edit'])->name('tenant.classes.edit');      // ✅ ADD THIS
+Route::put('/admin/classes/{id}', [ClassController::class, 'update'])->name('tenant.classes.update');        // ✅ ADD THIS
+Route::delete('/admin/classes/{id}', [ClassController::class, 'destroy'])->name('tenant.classes.destroy');   // ✅ ADD THIS
+        
         // TIMETABLE
        Route::get('/admin/timetable', [AdminTimetableController::class, 'index'])->name('tenant.timetable.index');
        Route::get('/admin/timetable/create', [AdminTimetableController::class, 'create'])->name('tenant.timetable.create');
