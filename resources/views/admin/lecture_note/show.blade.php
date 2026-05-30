@@ -17,9 +17,17 @@
                 <span class="text-slate-600">View</span>
             </p>
         </div>
-        <a href="{{ route('tenant.admin.lecture_note.index', $subdomain) }}" class="px-4 py-2 text-sm border border-gray-300 rounded-lg text-slate-600 hover:bg-gray-50 transition-all">
-            <i class="fa fa-arrow-left mr-1"></i> Back
-        </a>
+        <div class="flex gap-2">
+            @if($lectureNote->type === 'text' && !empty(trim($lectureNote->content ?? '')))
+                <button onclick="printLectureNote()"
+                        class="px-4 py-2 text-sm font-semibold text-white rounded-lg bg-gradient-to-tl from-blue-600 to-cyan-500 shadow-soft-md hover:shadow-soft-xl hover:scale-105 transition-all">
+                    <i class="fa fa-print mr-1"></i> Print
+                </button>
+            @endif
+            <a href="{{ route('tenant.admin.lecture_note.index', $subdomain) }}" class="px-4 py-2 text-sm border border-gray-300 rounded-lg text-slate-600 hover:bg-gray-50 transition-all">
+                <i class="fa fa-arrow-left mr-1"></i> Back
+            </a>
+        </div>
     </div>
 
     <div class="bg-white shadow-soft-xl rounded-2xl overflow-hidden">
@@ -64,7 +72,7 @@
             <div class="border-t border-gray-100 pt-6">
                 @if($lectureNote->type === 'text')
                     <p class="text-xs text-slate-400 mb-2">Content</p>
-                    <div class="bg-gray-50 rounded-xl p-4 text-slate-700 leading-relaxed">
+                    <div class="bg-gray-50 rounded-xl p-4 text-slate-700 leading-relaxed lecture-content">
                         {!! nl2br(e($lectureNote->content)) !!}
                     </div>
                 @elseif($lectureNote->file_path)
@@ -113,6 +121,7 @@
     </div>
 </div>
 
+{{-- Reject Modal --}}
 <div id="rejectModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
     <div class="bg-white rounded-2xl w-full max-w-md mx-4 p-6">
         <h5 class="text-lg font-bold text-slate-700 mb-4">Reject Lecture Note</h5>
@@ -146,6 +155,46 @@ function submitReject() {
     input.value = reason;
     form.appendChild(input);
     form.submit();
+}
+
+function printLectureNote() {
+    const content = document.querySelector('.lecture-content').innerHTML;
+    const title = @json($lectureNote->title);
+    const className = @json($lectureNote->class->name ?? 'N/A');
+    const subject = @json($lectureNote->subject->name ?? 'N/A');
+    const teacher = @json($lectureNote->teacher->name ?? 'N/A');
+    const date = @json($lectureNote->created_at->format('M d, Y'));
+
+    const printWindow = window.open('', '_blank');
+    printWindow.document.write(`
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <title>${title} - Lecture Note</title>
+            <style>
+                body { font-family: Arial, sans-serif; margin: 40px; color: #000; font-size: 12pt; line-height: 1.6; }
+                h1 { font-size: 18pt; margin-bottom: 5px; }
+                .meta { font-size: 10pt; color: #444; margin-bottom: 20px; border-bottom: 1px solid #ccc; padding-bottom: 10px; }
+                .meta span { margin-right: 20px; }
+                .content { margin-top: 20px; white-space: pre-wrap; word-wrap: break-word; }
+            </style>
+        </head>
+        <body>
+            <h1>${title}</h1>
+            <div class="meta">
+                <span><strong>Class:</strong> ${className}</span>
+                <span><strong>Subject:</strong> ${subject}</span>
+                <span><strong>Teacher:</strong> ${teacher}</span>
+                <span><strong>Date:</strong> ${date}</span>
+            </div>
+            <div class="content">${content}</div>
+        </body>
+        </html>
+    `);
+    printWindow.document.close();
+    printWindow.focus();
+    printWindow.print();
+    printWindow.close();
 }
 </script>
 
