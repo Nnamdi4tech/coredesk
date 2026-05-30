@@ -68,7 +68,7 @@
 </div>
 
 <!-- cards row 3 - Additional Features -->
-<div class="flex flex-wrap mt-6 -mx-3">
+<!-- <div class="flex flex-wrap mt-6 -mx-3">
     <div class="w-full max-w-full px-3 lg:w-4/12 lg:flex-none">
         <div class="relative flex flex-col min-w-0 break-words bg-white shadow-soft-xl rounded-2xl bg-clip-border">
             <div class="flex-auto p-4 text-center">
@@ -122,10 +122,10 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->
 
 <!-- cards row 4 - More Features -->
-<div class="flex flex-wrap mt-6 -mx-3">
+<!-- <div class="flex flex-wrap mt-6 -mx-3">
     <div class="w-full max-w-full px-3 lg:w-4/12 lg:flex-none">
         <div class="relative flex flex-col min-w-0 break-words bg-white shadow-soft-xl rounded-2xl bg-clip-border">
             <div class="flex-auto p-4 text-center">
@@ -179,11 +179,11 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->
 
 
 <!-- cards row 3 - Login Guide Header -->
-<div class="flex flex-wrap mt-6 -mx-3">
+<!-- <div class="flex flex-wrap mt-6 -mx-3">
     <div class="w-full max-w-full px-3">
         <div class="relative flex flex-col min-w-0 break-words bg-white shadow-soft-xl rounded-2xl bg-clip-border">
             <div class="flex-auto p-6 text-center">
@@ -197,12 +197,12 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->
 
 <!-- cards row 4 - Login Cards (4 cards per row matching pattern) -->
-<div class="flex flex-wrap mt-6 -mx-3">
+<!-- <div class="flex flex-wrap mt-6 -mx-3">
     
-    <!-- Card 1 - Super Admin / Admin -->
+    Card 1 - Super Admin / Admin 
     <div class="w-full max-w-full px-3 mb-6 lg:mb-0 lg:w-1/4">
         <div class="relative flex flex-col min-w-0 break-words bg-white shadow-soft-xl rounded-2xl bg-clip-border h-full hover:shadow-xl transition-all duration-300">
             <div class="flex-auto p-4 text-center">
@@ -237,8 +237,8 @@
         </div>
     </div>
 
-    <!-- Card 2 - Teacher -->
-    <div class="w-full max-w-full px-3 mb-6 lg:mb-0 lg:w-1/4">
+     Card 2 - Teacher -->
+    <!-- <div class="w-full max-w-full px-3 mb-6 lg:mb-0 lg:w-1/4">
         <div class="relative flex flex-col min-w-0 break-words bg-white shadow-soft-xl rounded-2xl bg-clip-border h-full hover:shadow-xl transition-all duration-300">
             <div class="flex-auto p-4 text-center">
                 <div class="w-16 h-16 mx-auto mb-4 rounded-lg bg-gradient-to-tl from-green-600 to-emerald-400 flex items-center justify-center">
@@ -270,10 +270,10 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
 
     <!-- Card 3 - Student -->
-    <div class="w-full max-w-full px-3 mb-6 lg:mb-0 lg:w-1/4">
+    <!-- <div class="w-full max-w-full px-3 mb-6 lg:mb-0 lg:w-1/4">
         <div class="relative flex flex-col min-w-0 break-words bg-white shadow-soft-xl rounded-2xl bg-clip-border h-full hover:shadow-xl transition-all duration-300">
             <div class="flex-auto p-4 text-center">
                 <div class="w-16 h-16 mx-auto mb-4 rounded-lg bg-gradient-to-tl from-purple-700 to-pink-500 flex items-center justify-center">
@@ -309,10 +309,10 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
 
     <!-- Card 4 - Accountant -->
-    <div class="w-full max-w-full px-3 lg:w-1/4">
+    <!-- <div class="w-full max-w-full px-3 lg:w-1/4">
         <div class="relative flex flex-col min-w-0 break-words bg-white shadow-soft-xl rounded-2xl bg-clip-border h-full hover:shadow-xl transition-all duration-300">
             <div class="flex-auto p-4 text-center">
                 <div class="w-16 h-16 mx-auto mb-4 rounded-lg bg-gradient-to-tl from-purple-700 to-pink-500 flex items-center justify-center">
@@ -347,7 +347,7 @@
         </div>
     </div>
 
-</div>
+</div> -->
 
 <!-- cards row 5 - Important Note (matching pattern) -->
 <div class="flex flex-wrap mt-6 -mx-3">
