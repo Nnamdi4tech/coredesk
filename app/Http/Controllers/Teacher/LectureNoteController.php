@@ -126,7 +126,7 @@ class LectureNoteController extends Controller
         
         $lectureNote->save();
         
-        return redirect()->route('teacher.lecture-note.index', $subdomain)
+        return redirect()->route('teacher.lecture_note.index', $subdomain)
             ->with('success', 'Lecture note submitted for approval.');
     }
     
@@ -141,7 +141,7 @@ class LectureNoteController extends Controller
         
         // Check if already approved - cannot edit if approved
         if ($lectureNote->approved) {
-            return redirect()->route('teacher.lecture-note.index', $subdomain)
+            return redirect()->route('teacher.lecture_note.index', $subdomain)
                 ->with('error', 'Cannot edit an approved lecture note. Contact admin to unlock.');
         }
         
@@ -173,7 +173,7 @@ class LectureNoteController extends Controller
             ->firstOrFail();
         
         if ($lectureNote->approved) {
-            return redirect()->route('teacher.lecture-note.index', $subdomain)
+            return redirect()->route('teacher.lecture_note.index', $subdomain)
                 ->with('error', 'Cannot edit an approved lecture note.');
         }
         
@@ -226,7 +226,7 @@ class LectureNoteController extends Controller
         
         $lectureNote->save();
         
-        return redirect()->route('teacher.lecture-note.index', $subdomain)
+        return redirect()->route('teacher.lecture_note.index', $subdomain)
             ->with('success', 'Lecture note updated and resubmitted for approval.');
     }
     
@@ -240,7 +240,7 @@ class LectureNoteController extends Controller
             ->firstOrFail();
         
         if ($lectureNote->approved) {
-            return redirect()->route('teacher.lecture-note.index', $subdomain)
+            return redirect()->route('teacher.lecture_note.index', $subdomain)
                 ->with('error', 'Cannot delete an approved lecture note. Contact admin to unlock.');
         }
         
@@ -251,7 +251,7 @@ class LectureNoteController extends Controller
         
         $lectureNote->delete();
         
-        return redirect()->route('teacher.lecture-note.index', $subdomain)
+        return redirect()->route('teacher.lecture_note.index', $subdomain)
             ->with('success', 'Lecture note deleted successfully.');
     }
     
