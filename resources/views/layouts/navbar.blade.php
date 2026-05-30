@@ -65,6 +65,17 @@
     <span class="text-xs text-slate-400 font-normal">Stable</span>
 </div>
 <!-- ends here -->
+
+<!-- school name and domain start here -->
+<div class="inline-block ml-2">
+          <span class="block font-semibold transition-all duration-200 ease-nav-brand">
+            {{ app('tenant')->name ?? 'CoreDesk' }}
+          </span>
+          
+           <span class="text-xs text-slate-400 font-normal">
+            {{ $subdomain ?? '' }}.coredesk.local
+          </span>
+<!-- ends here -->
             </div>
         </nav>
 

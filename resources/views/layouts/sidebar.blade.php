@@ -16,9 +16,12 @@ $subdomain = request()->route('subdomain');
           <span class="block font-semibold transition-all duration-200 ease-nav-brand">
             {{ app('tenant')->name ?? 'CoreDesk' }}
           </span>
-           <span class="text-xs text-slate-400 font-normal">
+          <!-- domain link start here -->
+           <!-- <span class="text-xs text-slate-400 font-normal">
             {{ $subdomain ?? '' }}.coredesk.local
-          </span>
+          </span> -->
+
+          <!-- ends here -->
 
 
            </div>
