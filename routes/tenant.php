@@ -193,14 +193,14 @@ Route::prefix('helpline')->group(function () {
         Route::get('/admin/billing/{subdomain?}', [BillingController::class, 'index'])
         ->name('tenant.billing');
 
-        // Admin routes
-Route::prefix('lecture_note')->name('admin.lecture_note.')->group(function () {
-    Route::get('/', [App\Http\Controllers\Admin\LectureNoteController::class, 'index'])->name('index');
-    Route::get('/{id}', [App\Http\Controllers\Admin\LectureNoteController::class, 'show'])->name('show');
-    Route::post('/{id}/approve', [App\Http\Controllers\Admin\LectureNoteController::class, 'approve'])->name('approve');
-    Route::post('/{id}/reject', [App\Http\Controllers\Admin\LectureNoteController::class, 'reject'])->name('reject');
-    Route::delete('/{id}', [App\Http\Controllers\Admin\LectureNoteController::class, 'destroy'])->name('destroy');
-    Route::post('/bulk-approve', [App\Http\Controllers\Admin\LectureNoteController::class, 'bulkApprove'])->name('bulk-approve');
+        // ================= ADMIN LECTURE NOTES =================
+Route::prefix('admin/lecture_note')->group(function () {
+    Route::get('/', [App\Http\Controllers\Admin\LectureNoteController::class, 'index'])->name('tenant.admin.lecture_note.index');
+    Route::get('/{id}', [App\Http\Controllers\Admin\LectureNoteController::class, 'show'])->name('tenant.admin.lecture_note.show');
+    Route::post('/{id}/approve', [App\Http\Controllers\Admin\LectureNoteController::class, 'approve'])->name('tenant.admin.lecture_note.approve');
+    Route::post('/{id}/reject', [App\Http\Controllers\Admin\LectureNoteController::class, 'reject'])->name('tenant.admin.lecture_note.reject');
+    Route::delete('/{id}', [App\Http\Controllers\Admin\LectureNoteController::class, 'destroy'])->name('tenant.admin.lecture_note.destroy');
+    Route::post('/bulk-approve', [App\Http\Controllers\Admin\LectureNoteController::class, 'bulkApprove'])->name('tenant.admin.lecture_note.bulk_approve');
 });
 
          
@@ -231,16 +231,15 @@ Route::prefix('lecture_note')->name('admin.lecture_note.')->group(function () {
         Route::post('/teacher/attendance/store', [AttendanceController::class, 'store'])->name('teacher.attendance.store');
         Route::get('/teacher/attendance/view', [AttendanceController::class, 'viewRecord'])->name('teacher.attendance.view');
         
-        // ================= LECTURE NOTES =================
-// Teacher routes
-Route::prefix('teacher/lecture-note')->name('teacher.lecture-note.')->group(function () {
-    Route::get('/', [App\Http\Controllers\Teacher\LectureNoteController::class, 'index'])->name('index');
-    Route::get('/create', [App\Http\Controllers\Teacher\LectureNoteController::class, 'create'])->name('create');
-    Route::post('/store', [App\Http\Controllers\Teacher\LectureNoteController::class, 'store'])->name('store');
-    Route::get('/{id}/edit', [App\Http\Controllers\Teacher\LectureNoteController::class, 'edit'])->name('edit');
-    Route::put('/{id}', [App\Http\Controllers\Teacher\LectureNoteController::class, 'update'])->name('update');
-    Route::delete('/{id}', [App\Http\Controllers\Teacher\LectureNoteController::class, 'destroy'])->name('destroy');
-    Route::get('/{id}/view', [App\Http\Controllers\Teacher\LectureNoteController::class, 'view'])->name('view');
+        // ================= TEACHER LECTURE NOTES =================
+Route::prefix('teacher/lecture_note')->group(function () {
+    Route::get('/', [App\Http\Controllers\Teacher\LectureNoteController::class, 'index'])->name('teacher.lecture_note.index');
+    Route::get('/create', [App\Http\Controllers\Teacher\LectureNoteController::class, 'create'])->name('teacher.lecture_note.create');
+    Route::post('/store', [App\Http\Controllers\Teacher\LectureNoteController::class, 'store'])->name('teacher.lecture_note.store');
+    Route::get('/{id}/edit', [App\Http\Controllers\Teacher\LectureNoteController::class, 'edit'])->name('teacher.lecture_note.edit');
+    Route::put('/{id}', [App\Http\Controllers\Teacher\LectureNoteController::class, 'update'])->name('teacher.lecture_note.update');
+    Route::delete('/{id}', [App\Http\Controllers\Teacher\LectureNoteController::class, 'destroy'])->name('teacher.lecture_note.destroy');
+    Route::get('/{id}/view', [App\Http\Controllers\Teacher\LectureNoteController::class, 'view'])->name('teacher.lecture_note.view');
 });
 
         // ================= Teachers ROUTES ends here =================
@@ -264,11 +263,11 @@ Route::prefix('teacher/lecture-note')->name('teacher.lecture-note.')->group(func
             Route::post('/logout', [AuthController::class, 'logout'])->name('student.logout');
 
 
-            // Student routes
-Route::prefix('student/lecture-note')->name('student.lecture-note.')->group(function () {
-    Route::get('/', [App\Http\Controllers\Student\LectureNoteController::class, 'index'])->name('index');
-    Route::get('/{id}', [App\Http\Controllers\Student\LectureNoteController::class, 'show'])->name('show');
-    Route::get('/subject/{subjectId}', [App\Http\Controllers\Student\LectureNoteController::class, 'subject'])->name('subject');
+            // ================= STUDENT LECTURE NOTES =================
+Route::prefix('student/lecture_note')->group(function () {
+    Route::get('/', [App\Http\Controllers\Student\LectureNoteController::class, 'index'])->name('student.lecture_note.index');
+    Route::get('/{id}', [App\Http\Controllers\Student\LectureNoteController::class, 'show'])->name('student.lecture_note.show');
+    Route::get('/subject/{subjectId}', [App\Http\Controllers\Student\LectureNoteController::class, 'subject'])->name('student.lecture_note.subject');
 });
             
         });
