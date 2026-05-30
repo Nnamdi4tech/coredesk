@@ -62,9 +62,9 @@
 <div class="mt-1 space-y-1">
     {{-- School Name and Subdomain --}}
     <div class="inline-flex items-center gap-1.5">
-        <span class="block font-semibold transition-all duration-200 ease-nav-brand">
+        <!-- <span class="block font-semibold transition-all duration-200 ease-nav-brand">
             {{ app('tenant')->name ?? 'CoreDesk' }}
-        </span>
+        </span> -->
         <span class="text-xs text-slate-400 font-normal">
             {{ $subdomain ?? '' }}.coredesk.local
         </span>
