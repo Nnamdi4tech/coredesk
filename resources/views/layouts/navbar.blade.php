@@ -57,26 +57,27 @@
                 <p class="mb-0 text-xs text-slate-400">
                     {{ now()->format('l, F j Y') }} &mdash; {{ $sub }}
                 </p>
-                <!-- version start here -->
-<div class="inline-flex items-center gap-1.5 mt-1">
-    <span class="inline-flex items-center px-2 py-0.5 rounded-md text-xs font-semibold bg-slate-100 text-slate-500 border border-slate-200">
-      CoreDesk v2.0
-    </span>
-    <span class="text-xs text-slate-400 font-normal">Stable</span>
-</div>
-<!-- ends here -->
 
-<!-- school name and domain start here -->
-<div class="inline-block ml-2">
-          <span class="block font-semibold transition-all duration-200 ease-nav-brand">
+                <!-- School Info & Version -->
+<div class="mt-1 space-y-1">
+    {{-- School Name and Subdomain --}}
+    <div class="inline-flex items-center gap-1.5">
+        <span class="block font-semibold transition-all duration-200 ease-nav-brand">
             {{ app('tenant')->name ?? 'CoreDesk' }}
-          </span>
-          
-           <span class="text-xs text-slate-400 font-normal">
+        </span>
+        <span class="text-xs text-slate-400 font-normal">
             {{ $subdomain ?? '' }}.coredesk.local
-          </span>
-<!-- ends here -->
-            </div>
+        </span>
+    </div>
+
+    {{-- Version Badge --}}
+    <div class="inline-flex items-center gap-1.5">
+        <span class="inline-flex items-center px-2 py-0.5 rounded-md text-xs font-semibold bg-slate-100 text-slate-500 border border-slate-200">
+            CoreDesk v2.0
+        </span>
+        <span class="text-xs text-slate-400 font-normal">Stable</span>
+    </div>
+</div>
         </nav>
 
         <div class="flex items-center mt-2 grow sm:mt-0 sm:mr-6 md:mr-0 lg:flex lg:basis-auto">

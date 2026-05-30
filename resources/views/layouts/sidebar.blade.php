@@ -14,7 +14,7 @@ $subdomain = request()->route('subdomain');
          alt="main_logo" />
          <div class="inline-block ml-2">
           <span class="block font-semibold transition-all duration-200 ease-nav-brand">
-            {{ app('tenant')->name ?? 'CoreDesk' }}
+            {{ app('tenant')->name ?? 'CoreDesk' }} Dashboard
           </span>
           <!-- domain link start here -->
            <!-- <span class="text-xs text-slate-400 font-normal">
