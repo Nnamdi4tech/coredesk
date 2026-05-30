@@ -194,7 +194,7 @@ Route::prefix('helpline')->group(function () {
         ->name('tenant.billing');
 
         // Admin routes
-Route::prefix('admin/lecture_note')->name('tenant.admin.lecture_note.')->group(function () {
+Route::prefix('lecture_note')->name('admin.lecture_note.')->group(function () {
     Route::get('/', [App\Http\Controllers\Admin\LectureNoteController::class, 'index'])->name('index');
     Route::get('/{id}', [App\Http\Controllers\Admin\LectureNoteController::class, 'show'])->name('show');
     Route::post('/{id}/approve', [App\Http\Controllers\Admin\LectureNoteController::class, 'approve'])->name('approve');
