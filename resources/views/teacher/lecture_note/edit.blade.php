@@ -68,7 +68,7 @@
 
         <div class="flex items-center justify-between">
             <a href="{{ route('teacher.lecture_note.index', $subdomain) }}" class="px-6 py-2.5 text-sm border border-gray-300 rounded-lg text-slate-600 hover:bg-gray-50">Cancel</a>
-            <button type="submit" class="px-8 py-2.5 text-sm font-semibold text-white rounded-lg bg-gradient-to-tl from-amber-500 to-orange-500 shadow-soft-md hover:shadow-soft-xl hover:scale-105 transition-all">Update & Resubmit</button>
+            <button type="submit" class="px-8 py-2.5 text-sm font-semibold text-black rounded-lg bg-gradient-to-tl from-amber-500 to-orange-500 shadow-soft-md hover:shadow-soft-xl hover:scale-105 transition-all">Update & Resubmit</button>
         </div>
     </form>
 </div>
