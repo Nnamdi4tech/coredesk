@@ -356,7 +356,7 @@
             <div class="flex-auto p-4 text-center">
                 <div class="flex items-center justify-center gap-3">
                     <div class="w-10 h-10 rounded-lg bg-amber-500 flex items-center justify-center flex-shrink-0">
-                        <i class="fa fa-info-circle text-white text-sm"></i>
+                        <i class="fa fa-info-circle text-success text-sm"></i>
                     </div>
                     <div>
                         <h6 class="font-bold text-amber-800 text-sm">Important Note</h6>
