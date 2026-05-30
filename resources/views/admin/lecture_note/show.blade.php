@@ -122,7 +122,7 @@
 </div>
 
 {{-- Reject Modal --}}
-<div id="rejectModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
+<div id="rejectModal" style="display:none;" class="fixed inset-0 bg-black bg-opacity-50 items-center justify-center z-50">
     <div class="bg-white rounded-2xl w-full max-w-md mx-4 p-6">
         <h5 class="text-lg font-bold text-slate-700 mb-4">Reject Lecture Note</h5>
         <textarea id="rejectionReason" rows="3" placeholder="Please provide a reason for rejection..." class="w-full text-sm rounded-lg border border-gray-200 p-3 focus:outline-none focus:border-red-300"></textarea>
@@ -135,13 +135,13 @@
 
 <script>
 function showRejectModal() {
-    document.getElementById('rejectModal').classList.remove('hidden');
-    document.getElementById('rejectModal').classList.add('flex');
+    document.getElementById('rejectModal').style.display = 'flex';
 }
+
 function closeRejectModal() {
-    document.getElementById('rejectModal').classList.add('hidden');
-    document.getElementById('rejectModal').classList.remove('flex');
+    document.getElementById('rejectModal').style.display = 'none';
 }
+
 function submitReject() {
     const reason = document.getElementById('rejectionReason').value;
     if (!reason.trim()) {
