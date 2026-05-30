@@ -140,7 +140,7 @@ $user = auth()->user();
     {{-- Staff Lecture notes --}}
     <li class="mt-0.5 w-full">
         <a class="py-2.7 text-sm ease-nav-brand my-0 mx-4 flex items-center whitespace-nowrap px-4 transition-colors"
-           href="{{ route('admin.lecture-note.index', $subdomain) }}">
+           href="{{ route('admin.lecture_note.index', $subdomain) }}">
             <div class="shadow-soft-2xl mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-white bg-center text-center xl:p-2.5">
                 <i class="fa fa-book-open text-slate-700 text-sm"></i>
             </div>
@@ -318,7 +318,7 @@ $user = auth()->user();
           {{-- Lecture Notes --}}
     <li class="mt-0.5 w-full">
         <a class="py-2.7 text-sm ease-nav-brand my-0 mx-4 flex items-center whitespace-nowrap px-4 transition-colors"
-           href="{{ route('teacher.lecture-note.index', $subdomain) }}">
+           href="{{ route('teacher.lecture_note.index', $subdomain) }}">
             <div class="shadow-soft-2xl mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-white bg-center text-center xl:p-2.5">
                 <i class="fa fa-book text-slate-700 text-sm"></i>
             </div>
@@ -528,7 +528,7 @@ $user = auth()->user();
           {{-- My Lecture notes --}}
     <li class="mt-0.5 w-full">
         <a class="py-2.7 text-sm ease-nav-brand my-0 mx-4 flex items-center whitespace-nowrap px-4 transition-colors"
-           href="{{ route('student.lecture-note.index', $subdomain) }}">
+           href="{{ route('student.lecture_note.index', $subdomain) }}">
             <div class="shadow-soft-2xl mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-white bg-center fill-current stroke-0 text-center xl:p-2.5">
                 <svg width="12px" height="12px" viewBox="0 0 45 45" version="1.1" xmlns="#">
                     <title>My Lecture Notes</title>
