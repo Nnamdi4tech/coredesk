@@ -361,7 +361,7 @@
                     <div>
                         <h6 class="font-bold text-amber-800 text-sm">Important Note</h6>
                         <p class="text-xs text-amber-700">
-                            Each school has its own unique subdomain (e.g., <strong>your-school.coredesk.local</strong>). 
+                            Each school has its own unique subdomain {{ $subdomain ?? '' }}.coredesk.com.ng  (e.g., <strong>your-school.coredesk.com.ng</strong>). 
                             Make sure you're logging in through your school's specific subdomain URL. 
                             If you don't know your school's subdomain, contact your school administrator.
                         </p>

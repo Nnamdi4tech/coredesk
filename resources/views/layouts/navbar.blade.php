@@ -66,7 +66,7 @@
             {{ app('tenant')->name ?? 'CoreDesk' }}
         </span> -->
         <span class="text-xs text-slate-400 font-normal">
-            {{ $subdomain ?? '' }}.coredesk.local
+            {{ $subdomain ?? '' }}.coredesk.com.ng
         </span>
     </div>
 
