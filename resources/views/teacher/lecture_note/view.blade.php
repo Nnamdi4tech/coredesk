@@ -96,7 +96,7 @@
                         <i class="fa fa-file-pdf text-red-500 text-5xl mb-3"></i>
                         <p class="text-sm font-semibold text-slate-700">{{ $lectureNote->file_name }}</p>
                         <a href="{{ Storage::url($lectureNote->file_path) }}" target="_blank" class="inline-flex items-center gap-2 mt-3 px-4 py-2 text-sm font-semibold text-white bg-red-600 rounded-lg hover:bg-red-700">
-                            <i class="fa fa-download"></i> Download File
+                            <i class="fa fa-download text-black"></i> Download File
                         </a>
                     </div>
                 </div>
@@ -115,41 +115,50 @@
 {{-- Print Styles --}}
 <style>
 @media print {
-    body * {
-        visibility: hidden;
+    /* Hide everything except printArea */
+    body > *:not(#printArea) {
+        display: none !important;
     }
-    #printArea, #printArea * {
-        visibility: visible;
-    }
-    #printArea {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        margin: 0;
-        padding: 20px;
-        background: white;
-    }
+    
+    aside, nav, header, footer,
+    [class*="sidenav"], [class*="sidebar"],
     .no-print {
         display: none !important;
     }
-    .bg-gradient-to-r, .bg-gradient-to-tl {
+
+    body, html {
+        margin: 0;
+        padding: 0;
         background: white !important;
     }
-    .shadow-soft-xl, .shadow-soft-md {
+
+    #printArea {
+        display: block !important;
+        position: static !important;
+        width: 100% !important;
+        margin: 0 !important;
+        padding: 20px !important;
         box-shadow: none !important;
+        border: none !important;
+        background: white !important;
+        visibility: visible !important;
     }
-    .border, .border-b {
-        border: 1px solid #e2e8f0 !important;
+
+    #printArea * {
+        visibility: visible !important;
+        color: black !important;
+        background: white !important;
+        box-shadow: none !important;
+        border-color: #e2e8f0 !important;
     }
+
     .lecture-content {
-        page-break-inside: avoid;
-        white-space: pre-wrap;
-        word-wrap: break-word;
-    }
-    .prose {
-        font-size: 12pt;
-        line-height: 1.5;
+        white-space: pre-wrap !important;
+        word-wrap: break-word !important;
+        font-size: 12pt !important;
+        line-height: 1.6 !important;
+        color: black !important;
+        background: white !important;
     }
 }
 </style>
