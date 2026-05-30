@@ -5,6 +5,32 @@
 
 @php $subdomain = request()->route('subdomain'); @endphp
 
+<style>
+/* Make scrollbar more visible */
+.overflow-x-auto {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.overflow-x-auto::-webkit-scrollbar {
+    height: 8px;
+}
+
+.overflow-x-auto::-webkit-scrollbar-track {
+    background: #f1f5f9;
+    border-radius: 10px;
+}
+
+.overflow-x-auto::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 10px;
+}
+
+.overflow-x-auto::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8;
+}
+</style>
+
 <div class="w-full px-6 py-6 mx-auto">
     <div class="flex flex-wrap items-center justify-between mb-6 -mx-3">
         <div class="px-3">
@@ -25,7 +51,7 @@
     @if(session('success'))
         <div class="p-4 mb-6 text-sm text-green-700 bg-green-50 border border-green-200 rounded-2xl flex items-center gap-3">
             <div class="w-8 h-8 rounded-lg bg-gradient-to-tl from-green-500 to-emerald-400 flex items-center justify-center flex-shrink-0">
-                <i class="fa fa-check text-white text-xs"></i>
+                <i class="fa fa-check text-black text-xs"></i>
             </div>
             <p class="font-semibold">{{ session('success') }}</p>
             <button onclick="this.parentElement.remove()" class="ml-auto text-green-400 hover:text-green-600">
@@ -37,7 +63,7 @@
     @if(session('error'))
         <div class="p-4 mb-6 text-sm text-red-700 bg-red-50 border border-red-200 rounded-2xl flex items-center gap-3">
             <div class="w-8 h-8 rounded-lg bg-gradient-to-tl from-red-500 to-rose-400 flex items-center justify-center flex-shrink-0">
-                <i class="fa fa-exclamation-circle text-white text-xs"></i>
+                <i class="fa fa-exclamation-circle text-black text-xs"></i>
             </div>
             <p class="font-semibold">{{ session('error') }}</p>
             <button onclick="this.parentElement.remove()" class="ml-auto text-red-400 hover:text-red-600">
@@ -46,6 +72,7 @@
         </div>
     @endif
 
+    {{-- STAT CARDS --}}
     <div class="flex flex-wrap -mx-3 mb-6">
         <div class="w-full max-w-full px-3 mb-6 sm:w-1/2 sm:flex-none xl:mb-0 xl:w-1/4">
             <div class="relative flex flex-col min-w-0 break-words bg-white shadow-soft-xl rounded-2xl bg-clip-border">
@@ -113,62 +140,122 @@
         </div>
     </div>
 
-    <div class="bg-white shadow-soft-xl rounded-2xl overflow-hidden">
+    {{-- FILTER BAR --}}
+    <div class="bg-white shadow-soft-xl rounded-2xl p-4 mb-5">
+        <div class="flex flex-wrap items-end gap-3">
+            {{-- Class Filter --}}
+            <div class="flex-1 min-w-[160px]">
+                <label class="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1 block">Class</label>
+                <select id="filterClass" class="text-sm w-full rounded-lg border border-gray-300 bg-white py-2 px-3 focus:outline-none focus:border-fuchsia-300">
+                    <option value="">All Classes</option>
+                    @foreach($classes ?? [] as $class)
+                        <option value="{{ $class->name }}">{{ $class->name }}</option>
+                    @endforeach
+                </select>
+            </div>
+
+            {{-- Subject Filter --}}
+            <div class="flex-1 min-w-[160px]">
+                <label class="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1 block">Subject</label>
+                <select id="filterSubject" class="text-sm w-full rounded-lg border border-gray-300 bg-white py-2 px-3 focus:outline-none focus:border-fuchsia-300">
+                    <option value="">All Subjects</option>
+                    @foreach($subjects ?? [] as $subject)
+                        <option value="{{ $subject->name }}">{{ $subject->name }}</option>
+                    @endforeach
+                </select>
+            </div>
+
+            {{-- Title Search --}}
+            <div class="flex-1 min-w-[200px]">
+                <label class="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1 block">Search by Title</label>
+                <input type="text" id="filterTitle" placeholder="Search title..." 
+                       class="text-sm w-full rounded-lg border border-gray-300 bg-white py-2 px-3 focus:outline-none focus:border-fuchsia-300">
+            </div>
+
+            {{-- Clear Filters Button --}}
+            <div>
+                <button id="clearFilters" class="inline-flex items-center gap-1.5 px-4 py-2 text-xs font-semibold text-slate-600 rounded-lg border border-gray-200 hover:bg-gray-50 transition-all mt-5">
+                    <i class="fa fa-times text-xs"></i> Clear Filters
+                </button>
+            </div>
+        </div>
+    </div>
+
+    {{-- LECTURE NOTES TABLE --}}
+    <div id="lectureNotesWrapper" class="bg-white shadow-soft-xl rounded-2xl overflow-hidden">
         <div class="px-6 py-4 border-b border-gray-100">
             <h6 class="font-bold text-slate-700">My Lecture Notes</h6>
+            <p class="text-xs text-slate-400">Showing <span id="visibleCount">{{ $lectureNotes->count() }}</span> of {{ $lectureNotes->count() }} entries</p>
         </div>
 
         @if($lectureNotes->count() > 0)
         <div class="overflow-x-auto">
-            <table class="items-center w-full mb-0 align-top border-gray-200 text-slate-500">
-                <thead class="align-bottom bg-gray-50">
-                    <tr>
-                        <th class="px-6 py-3 text-left text-xxs font-bold uppercase tracking-wider">Class</th>
-                        <th class="px-6 py-3 text-left text-xxs font-bold uppercase tracking-wider">Subject</th>
-                        <th class="px-6 py-3 text-left text-xxs font-bold uppercase tracking-wider">Title</th>
-                        <th class="px-6 py-3 text-left text-xxs font-bold uppercase tracking-wider">Type</th>
-                        <th class="px-6 py-3 text-left text-xxs font-bold uppercase tracking-wider">Status</th>
-                        <th class="px-6 py-3 text-center text-xxs font-bold uppercase tracking-wider">Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach($lectureNotes as $note)
-                    <tr class="border-t border-gray-100 hover:bg-gray-50 transition-colors">
-                        <td class="px-6 py-4 text-sm">{{ $note->class->name ?? 'N/A' }}</td>
-                        <td class="px-6 py-4 text-sm">{{ $note->subject->name ?? 'N/A' }}</td>
-                        <td class="px-6 py-4 text-sm font-semibold text-slate-700">{{ Str::limit($note->title, 40) }}</td>
-                        <td class="px-6 py-4">
-                            @if($note->type === 'text')
-                                <span class="text-xs px-2 py-1 rounded-full bg-blue-50 text-blue-600"><i class="fa fa-pencil-alt mr-1"></i> Text</span>
-                            @else
-                                <span class="text-xs px-2 py-1 rounded-full bg-purple-50 text-purple-600"><i class="fa fa-file-pdf mr-1"></i> File</span>
-                            @endif
-                        </td>
-                        <td class="px-6 py-4">
-                            @if($note->approved)
-                                <span class="text-xs font-semibold bg-green-50 text-green-600 px-2.5 py-1 rounded-full"><i class="fa fa-check-circle mr-1"></i> Approved</span>
-                            @elseif($note->rejected)
-                                <span class="text-xs font-semibold bg-red-50 text-red-600 px-2.5 py-1 rounded-full"><i class="fa fa-times-circle mr-1"></i> Rejected</span>
-                            @else
-                                <span class="text-xs font-semibold bg-orange-50 text-orange-600 px-2.5 py-1 rounded-full"><i class="fa fa-clock mr-1"></i> Pending</span>
-                            @endif
-                        </td>
-                        <td class="px-6 py-4 text-center">
-                            <div class="flex items-center justify-center gap-2">
-                                <a href="{{ route('teacher.lecture_note.view', [$subdomain, $note->id]) }}" class="w-7 h-7 rounded-lg bg-blue-50 text-blue-500 flex items-center justify-center hover:bg-blue-100"><i class="fa fa-eye text-xs"></i></a>
-                                @if(!$note->approved)
-                                <a href="{{ route('teacher.lecture_note.edit', [$subdomain, $note->id]) }}" class="w-7 h-7 rounded-lg bg-amber-50 text-amber-500 flex items-center justify-center hover:bg-amber-100"><i class="fa fa-pen text-xs"></i></a>
-                                <form method="POST" action="{{ route('teacher.lecture_note.destroy', [$subdomain, $note->id]) }}" onsubmit="return confirm('Delete this lecture note?')" class="inline">
-                                    @csrf @method('DELETE')
-                                    <button type="submit" class="w-7 h-7 rounded-lg bg-red-50 text-red-500 flex items-center justify-center hover:bg-red-100"><i class="fa fa-trash text-xs"></i></button>
-                                </form>
-                                @endif
-                            </div>
-                        </td>
-                    </tr>
-                    @endforeach
-                </tbody>
-            </table>
+    <table class="items-center w-full mb-0 align-top border-gray-200 text-slate-500 min-w-[900px]" id="lectureNotesTable">
+        <thead class="align-bottom bg-gray-50">
+            <tr>
+                <th class="px-6 py-3 text-left text-xxs font-bold uppercase tracking-wider">Class</th>
+                <th class="px-6 py-3 text-left text-xxs font-bold uppercase tracking-wider">Subject</th>
+                <th class="px-6 py-3 text-left text-xxs font-bold uppercase tracking-wider">Title</th>
+                <th class="px-6 py-3 text-left text-xxs font-bold uppercase tracking-wider">Type</th>
+                <th class="px-6 py-3 text-left text-xxs font-bold uppercase tracking-wider">Status</th>
+                <th class="px-6 py-3 text-left text-xxs font-bold uppercase tracking-wider">Date/Time</th>
+                <th class="px-6 py-3 text-center text-xxs font-bold uppercase tracking-wider">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach($lectureNotes as $note)
+            <tr class="lecture-row border-t border-gray-100 hover:bg-gray-50 transition-colors"
+                data-class="{{ $note->class->name ?? '' }}"
+                data-subject="{{ $note->subject->name ?? '' }}"
+                data-title="{{ strtolower($note->title ?? '') }}">
+                <td class="px-6 py-4 text-sm">{{ $note->class->name ?? 'N/A' }}</td>
+                <td class="px-6 py-4 text-sm">{{ $note->subject->name ?? 'N/A' }}</td>
+                <td class="px-6 py-4 text-sm font-semibold text-slate-700">{{ Str::limit($note->title, 40) }}</td>
+                <td class="px-6 py-4">
+                    @if($note->type === 'text')
+                        <span class="text-xs px-2 py-1 rounded-full bg-blue-50 text-blue-600"><i class="fa fa-pencil-alt mr-1"></i> Text</span>
+                    @else
+                        <span class="text-xs px-2 py-1 rounded-full bg-purple-50 text-purple-600"><i class="fa fa-file-pdf mr-1"></i> File</span>
+                    @endif
+                </td>
+                <td class="px-6 py-4">
+                    @if($note->approved)
+                        <span class="text-xs font-semibold bg-green-50 text-green-600 px-2.5 py-1 rounded-full"><i class="fa fa-check-circle mr-1"></i> Approved</span>
+                    @elseif($note->rejected)
+                        <span class="text-xs font-semibold bg-red-50 text-red-600 px-2.5 py-1 rounded-full"><i class="fa fa-times-circle mr-1"></i> Rejected</span>
+                    @else
+                        <span class="text-xs font-semibold bg-orange-50 text-orange-600 px-2.5 py-1 rounded-full"><i class="fa fa-clock mr-1"></i> Pending</span>
+                    @endif
+                </td>
+                <td class="px-6 py-4">
+                    <div class="flex flex-col">
+                        <span class="text-xs text-slate-600">{{ $note->created_at->format('M d, Y') }}</span>
+                        <span class="text-xs text-slate-400">{{ $note->created_at->format('h:i A') }}</span>
+                    </div>
+                </td>
+                <td class="px-6 py-4 text-center">
+                    <div class="flex items-center justify-center gap-2">
+                        <a href="{{ route('teacher.lecture_note.view', [$subdomain, $note->id]) }}" class="w-7 h-7 rounded-lg bg-blue-50 text-blue-500 flex items-center justify-center hover:bg-blue-100"><i class="fa fa-eye text-xs"></i></a>
+                        @if(!$note->approved)
+                        <a href="{{ route('teacher.lecture_note.edit', [$subdomain, $note->id]) }}" class="w-7 h-7 rounded-lg bg-amber-50 text-amber-500 flex items-center justify-center hover:bg-amber-100"><i class="fa fa-pen text-xs"></i></a>
+                        <form method="POST" action="{{ route('teacher.lecture_note.destroy', [$subdomain, $note->id]) }}" onsubmit="return confirm('Delete this lecture note?')" class="inline">
+                            @csrf @method('DELETE')
+                            <button type="submit" class="w-7 h-7 rounded-lg bg-red-50 text-red-500 flex items-center justify-center hover:bg-red-100"><i class="fa fa-trash text-xs"></i></button>
+                        </form>
+                        @endif
+                    </div>
+                </td>
+            </tr>
+            @endforeach
+        </tbody>
+    </table>
+</div>
+        <div id="noResults" class="p-12 text-center hidden">
+            <div class="w-20 h-20 rounded-2xl bg-gray-100 flex items-center justify-center mb-4 mx-auto">
+                <i class="fa fa-search text-gray-400 text-3xl"></i>
+            </div>
+            <p class="text-slate-500 font-semibold text-lg">No matching lecture notes</p>
+            <p class="text-slate-400 text-sm mt-1">Try adjusting your filters.</p>
         </div>
         @else
         <div class="p-12 text-center">
@@ -179,5 +266,72 @@
         @endif
     </div>
 </div>
+
+<script>
+// Filter functionality
+const filterClass = document.getElementById('filterClass');
+const filterSubject = document.getElementById('filterSubject');
+const filterTitle = document.getElementById('filterTitle');
+const rows = document.querySelectorAll('.lecture-row');
+const noResultsDiv = document.getElementById('noResults');
+const visibleCountSpan = document.getElementById('visibleCount');
+const table = document.querySelector('#lectureNotesTable');
+const tableBody = document.querySelector('#lectureNotesTable tbody');
+
+function applyFilters() {
+    const classValue = filterClass?.value.toLowerCase() || '';
+    const subjectValue = filterSubject?.value.toLowerCase() || '';
+    const titleValue = filterTitle?.value.toLowerCase() || '';
+    
+    let visible = 0;
+    
+    rows.forEach(row => {
+        const rowClass = row.dataset.class?.toLowerCase() || '';
+        const rowSubject = row.dataset.subject?.toLowerCase() || '';
+        const rowTitle = row.dataset.title?.toLowerCase() || '';
+        
+        const matchesClass = !classValue || rowClass === classValue;
+        const matchesSubject = !subjectValue || rowSubject === subjectValue;
+        const matchesTitle = !titleValue || rowTitle.includes(titleValue);
+        
+        if (matchesClass && matchesSubject && matchesTitle) {
+            row.style.display = '';
+            visible++;
+        } else {
+            row.style.display = 'none';
+        }
+    });
+    
+    // Update visible count
+    if (visibleCountSpan) visibleCountSpan.textContent = visible;
+    
+    // Show/hide no results message
+    if (noResultsDiv) {
+        if (visible === 0 && rows.length > 0) {
+            noResultsDiv.classList.remove('hidden');
+            if (table) table.style.display = 'none';
+        } else {
+            noResultsDiv.classList.add('hidden');
+            if (table) table.style.display = '';
+        }
+    }
+}
+
+// Event listeners
+if (filterClass) filterClass.addEventListener('change', applyFilters);
+if (filterSubject) filterSubject.addEventListener('change', applyFilters);
+if (filterTitle) filterTitle.addEventListener('input', applyFilters);
+
+// Clear filters button
+const clearBtn = document.getElementById('clearFilters');
+if (clearBtn) {
+    clearBtn.addEventListener('click', function() {
+        if (filterClass) filterClass.value = '';
+        if (filterSubject) filterSubject.value = '';
+        if (filterTitle) filterTitle.value = '';
+        applyFilters();
+    });
+}
+</script>
 
 @endsection

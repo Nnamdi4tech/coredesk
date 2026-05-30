@@ -37,10 +37,19 @@
     }
 @endphp
 
+
 <!-- Navbar -->
 <nav class="relative flex flex-wrap items-center justify-between px-0 py-2 mx-6 transition-all shadow-none duration-250 ease-soft-in rounded-2xl lg:flex-nowrap lg:justify-start"
      navbar-main navbar-scroll="true">
     <div class="flex items-center justify-between w-full px-4 py-1 mx-auto flex-wrap-inherit">
+        
+        {{-- ✅ HAMBURGER MENU TOGGLE BUTTON --}}
+        <button class="block p-2 mr-2 text-slate-500 rounded-lg xl:hidden hover:bg-slate-100 focus:outline-none transition-all z-50" 
+                id="menuToggleBtn"
+                onclick="toggleSidebar()">
+            <i class="fa fa-bars text-lg"></i>
+        </button>
+
         <nav>
             <ol class="flex flex-wrap pt-1 mr-12 bg-transparent rounded-lg sm:mr-16">
                 <li class="text-sm leading-normal">
@@ -59,25 +68,20 @@
                 </p>
 
                 <!-- School Info & Version -->
-<div class="mt-1 space-y-1">
-    {{-- School Name and Subdomain --}}
-    <div class="inline-flex items-center gap-1.5">
-        <!-- <span class="block font-semibold transition-all duration-200 ease-nav-brand">
-            {{ app('tenant')->name ?? 'CoreDesk' }}
-        </span> -->
-        <span class="text-xs text-slate-400 font-normal">
-            {{ $subdomain ?? '' }}.coredesk.com.ng
-        </span>
-    </div>
-
-    {{-- Version Badge --}}
-    <div class="inline-flex items-center gap-1.5">
-        <span class="inline-flex items-center px-2 py-0.5 rounded-md text-xs font-semibold bg-slate-100 text-slate-500 border border-slate-200">
-            CoreDesk v2.0
-        </span>
-        <span class="text-xs text-slate-400 font-normal">Stable</span>
-    </div>
-</div>
+                <div class="mt-1 space-y-1">
+                    <div class="inline-flex items-center gap-1.5">
+                        <span class="text-xs text-slate-400 font-normal">
+                            {{ $subdomain ?? '' }}.coredesk.com.ng
+                        </span>
+                    </div>
+                    <div class="inline-flex items-center gap-1.5">
+                        <span class="inline-flex items-center px-2 py-0.5 rounded-md text-xs font-semibold bg-slate-100 text-slate-500 border border-slate-200">
+                            CoreDesk v2.0
+                        </span>
+                        <span class="text-xs text-slate-400 font-normal">Stable</span>
+                    </div>
+                </div>
+            </div>
         </nav>
 
         <div class="flex items-center mt-2 grow sm:mt-0 sm:mr-6 md:mr-0 lg:flex lg:basis-auto">
@@ -191,3 +195,27 @@
         </div>
     </div>
 </nav>
+
+
+
+{{-- ✅ JavaScript to toggle sidebar --}}
+<script>
+function toggleSidebar() {
+    const sidebar = document.querySelector('.sidebar');
+    if (sidebar) {
+        sidebar.classList.toggle('-translate-x-full');
+        sidebar.classList.toggle('translate-x-0');
+    }
+}
+
+// Close sidebar when clicking outside on mobile
+document.addEventListener('click', function(e) {
+    const sidebar = document.querySelector('.sidebar');
+    const toggleBtn = document.getElementById('menuToggleBtn');
+    
+    if (window.innerWidth < 1280 && sidebar && !sidebar.contains(e.target) && !toggleBtn?.contains(e.target)) {
+        sidebar.classList.add('-translate-x-full');
+        sidebar.classList.remove('translate-x-0');
+    }
+});
+</script>
