@@ -12,12 +12,12 @@
             <p class="text-sm text-slate-400">
                 <i class="fa fa-home mr-1"></i> Dashboard
                 <span class="mx-1 text-slate-300">/</span>
-                <a href="{{ route('tenant.admin.lecture-note.index', $subdomain) }}" class="hover:text-slate-600">Lecture Notes</a>
+                <a href="{{ route('tenant.admin.lecture_note.index', $subdomain) }}" class="hover:text-slate-600">Lecture Notes</a>
                 <span class="mx-1 text-slate-300">/</span>
                 <span class="text-slate-600">View</span>
             </p>
         </div>
-        <a href="{{ route('tenant.admin.lecture-note.index', $subdomain) }}" class="px-4 py-2 text-sm border border-gray-300 rounded-lg text-slate-600 hover:bg-gray-50 transition-all">
+        <a href="{{ route('tenant.admin.lecture_note.index', $subdomain) }}" class="px-4 py-2 text-sm border border-gray-300 rounded-lg text-slate-600 hover:bg-gray-50 transition-all">
             <i class="fa fa-arrow-left mr-1"></i> Back
         </a>
     </div>
@@ -87,13 +87,13 @@
 
             <div class="flex items-center justify-end gap-3 mt-6 pt-4 border-t border-gray-100">
                 @if(!$lectureNote->approved && !$lectureNote->rejected)
-                <form action="{{ route('tenant.admin.lecture-note.reject', [$subdomain, $lectureNote->id]) }}" method="POST" id="rejectForm" class="inline">
+                <form action="{{ route('tenant.admin.lecture_note.reject', [$subdomain, $lectureNote->id]) }}" method="POST" id="rejectForm" class="inline">
                     @csrf
                     <button type="button" onclick="showRejectModal()" class="px-6 py-2.5 text-sm font-semibold text-white rounded-lg bg-gradient-to-tl from-red-600 to-rose-500 shadow-soft-md hover:shadow-soft-xl hover:scale-105 transition-all">
                         <i class="fa fa-times-circle mr-1"></i> Reject
                     </button>
                 </form>
-                <form action="{{ route('tenant.admin.lecture-note.approve', [$subdomain, $lectureNote->id]) }}" method="POST" class="inline">
+                <form action="{{ route('tenant.admin.lecture_note.approve', [$subdomain, $lectureNote->id]) }}" method="POST" class="inline">
                     @csrf
                     <button type="submit" onclick="return confirm('Approve this lecture note?')" class="px-6 py-2.5 text-sm font-semibold text-white rounded-lg bg-gradient-to-tl from-green-600 to-emerald-500 shadow-soft-md hover:shadow-soft-xl hover:scale-105 transition-all">
                         <i class="fa fa-check-circle mr-1"></i> Approve

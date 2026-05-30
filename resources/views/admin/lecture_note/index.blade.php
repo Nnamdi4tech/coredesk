@@ -176,7 +176,7 @@
                 <p class="text-xs text-slate-400 mt-0.5">{{ $lectureNotes->total() }} note(s) total</p>
             </div>
             <div class="flex gap-2">
-                <form id="bulkApproveForm" action="{{ route('tenant.admin.lecture-note.bulk-approve', $subdomain) }}" method="POST">
+                <form id="bulkApproveForm" action="{{ route('tenant.admin.lecture_note.bulk-approve', $subdomain) }}" method="POST">
                     @csrf
                     <button type="submit" id="bulkApproveBtn" class="px-4 py-2 text-xs font-semibold text-white rounded-lg bg-gradient-to-tl from-green-600 to-emerald-500 shadow-soft-sm hover:scale-105 transition-all">
                         <i class="fa fa-check-circle mr-1"></i> Bulk Approve
@@ -259,12 +259,12 @@
                         </td>
                         <td class="px-6 py-4 align-middle text-center">
                             <div class="flex items-center justify-center gap-2">
-                                <a href="{{ route('tenant.admin.lecture-note.show', [$subdomain, $note->id]) }}"
+                                <a href="{{ route('tenant.admin.lecture_note.show', [$subdomain, $note->id]) }}"
                                    class="w-7 h-7 rounded-lg bg-blue-50 text-blue-500 flex items-center justify-center hover:bg-blue-100 transition-colors">
                                     <i class="fa fa-eye text-xs"></i>
                                 </a>
                                 @if(!$note->approved)
-                                <form action="{{ route('tenant.admin.lecture-note.approve', [$subdomain, $note->id]) }}" method="POST" class="inline">
+                                <form action="{{ route('tenant.admin.lecture_note.approve', [$subdomain, $note->id]) }}" method="POST" class="inline">
                                     @csrf
                                     <button type="submit" onclick="return confirm('Approve this lecture note?')"
                                             class="w-7 h-7 rounded-lg bg-green-50 text-green-500 flex items-center justify-center hover:bg-green-100 transition-colors">
@@ -272,7 +272,7 @@
                                     </button>
                                 </form>
                                 @endif
-                                <form action="{{ route('tenant.admin.lecture-note.destroy', [$subdomain, $note->id]) }}" method="POST" class="inline"
+                                <form action="{{ route('tenant.admin.lecture_note.destroy', [$subdomain, $note->id]) }}" method="POST" class="inline"
                                       onsubmit="return confirm('Delete this lecture note?')">
                                     @csrf @method('DELETE')
                                     <button type="submit" class="w-7 h-7 rounded-lg bg-red-50 text-red-500 flex items-center justify-center hover:bg-red-100 transition-colors">
