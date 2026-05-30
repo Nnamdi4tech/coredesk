@@ -291,17 +291,6 @@
 
 {{-- Live search script --}}
 <script>
-function filterTable() {
-    const input = document.getElementById('searchInput').value.toLowerCase();
-    const rows = document.querySelectorAll('#subjectsTable tbody tr');
-    rows.forEach(row => {
-        const text = row.innerText.toLowerCase();
-        row.style.display = text.includes(input) ? '' : 'none';
-    });
-}
-</script>
-
-<script>
 function loadSubjectsPage(url) {
     const wrapper = document.getElementById('subjectsWrapper');
     if (!wrapper) return;
@@ -345,11 +334,15 @@ document.addEventListener('click', function(e) {
     if (!link) return;
     if (!link.closest('#subjectsWrapper')) return;
     if (!link.href || link.href === '#' || link.href === window.location.href) return;
-    // Don't intercept edit links — let them navigate normally
-    if (link.href.includes('/edit/')) return;
-    e.preventDefault();
-    e.stopPropagation();
-    loadSubjectsPage(link.href);
+    
+    // ✅ Only intercept pagination links
+    const url = new URL(link.href);
+    if (url.searchParams.has('page')) {
+        e.preventDefault();
+        e.stopPropagation();
+        loadSubjectsPage(link.href);
+    }
+    // ✅ Everything else (Add Subject, Edit, etc.) works normally
 });
 
 function filterTable() {
