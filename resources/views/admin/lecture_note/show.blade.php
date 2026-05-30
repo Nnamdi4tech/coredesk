@@ -122,40 +122,80 @@
 </div>
 
 {{-- Reject Modal --}}
-<div id="rejectModal" style="display:none;" class="fixed inset-0 bg-black bg-opacity-50 items-center justify-center z-50">
-    <div class="bg-white rounded-2xl w-full max-w-md mx-4 p-6">
-        <h5 class="text-lg font-bold text-slate-700 mb-4">Reject Lecture Note</h5>
-        <textarea id="rejectionReason" rows="3" placeholder="Please provide a reason for rejection..." class="w-full text-sm rounded-lg border border-gray-200 p-3 focus:outline-none focus:border-red-300"></textarea>
-        <div class="flex justify-end gap-3 mt-4">
-            <button onclick="closeRejectModal()" class="px-4 py-2 text-sm font-semibold text-slate-600 border border-gray-300 rounded-lg">Cancel</button>
-            <button onclick="submitReject()" class="px-4 py-2 text-sm font-semibold text-white bg-red-600 rounded-lg">Reject</button>
+<div id="rejectModal" class="fixed inset-0 bg-black bg-opacity-50 z-[9999]" style="display: none;">
+    <div class="flex items-center justify-center min-h-screen p-4">
+        <div class="bg-white rounded-2xl w-full max-w-md p-6 shadow-xl relative">
+            <div class="flex items-center justify-between mb-4">
+                <h5 class="text-lg font-bold text-slate-700">Reject Lecture Note</h5>
+                <button onclick="closeRejectModal()" class="text-gray-400 hover:text-gray-600">
+                    <i class="fa fa-times"></i>
+                </button>
+            </div>
+            <p class="text-sm text-slate-600 mb-3">Please provide a reason for rejecting this lecture note:</p>
+            <textarea id="rejectionReason" rows="4" 
+                      placeholder="e.g., Contains errors, incomplete content, off-topic, etc." 
+                      class="w-full text-sm rounded-lg border border-gray-300 p-3 focus:outline-none focus:border-red-400 focus:ring-1 focus:ring-red-200"></textarea>
+            <div class="flex justify-end gap-3 mt-5">
+                <button onclick="closeRejectModal()" class="px-4 py-2 text-sm font-semibold text-slate-600 border border-gray-300 rounded-lg hover:bg-gray-50 transition">
+                    Cancel
+                </button>
+                <button onclick="submitReject()" class="px-4 py-2 text-sm font-semibold text-white bg-gradient-to-tl from-red-600 to-rose-500 rounded-lg hover:shadow-md transition">
+                    <i class="fa fa-check-circle mr-1"></i> Confirm Rejection
+                </button>
+            </div>
         </div>
     </div>
 </div>
 
 <script>
 function showRejectModal() {
-    document.getElementById('rejectModal').style.display = 'flex';
+    const modal = document.getElementById('rejectModal');
+    modal.style.display = 'block';
+    document.getElementById('rejectionReason').value = '';
+    // Auto focus on textarea
+    setTimeout(() => {
+        document.getElementById('rejectionReason').focus();
+    }, 100);
 }
 
 function closeRejectModal() {
-    document.getElementById('rejectModal').style.display = 'none';
+    const modal = document.getElementById('rejectModal');
+    modal.style.display = 'none';
 }
 
 function submitReject() {
-    const reason = document.getElementById('rejectionReason').value;
-    if (!reason.trim()) {
+    const reason = document.getElementById('rejectionReason').value.trim();
+    if (!reason) {
         alert('Please provide a reason for rejection.');
         return;
     }
+    
     const form = document.getElementById('rejectForm');
+    
+    // Remove any existing rejection reason input
+    const oldInput = form.querySelector('input[name="rejection_reason"]');
+    if (oldInput) oldInput.remove();
+    
+    // Add new hidden input with reason
     const input = document.createElement('input');
     input.type = 'hidden';
     input.name = 'rejection_reason';
     input.value = reason;
     form.appendChild(input);
+    
+    // Submit the form
     form.submit();
 }
+
+// Close modal when clicking outside
+document.addEventListener('click', function(e) {
+    const modal = document.getElementById('rejectModal');
+    if (modal && modal.style.display === 'block') {
+        if (e.target === modal) {
+            closeRejectModal();
+        }
+    }
+});
 
 function printLectureNote() {
     const content = document.querySelector('.lecture-content').innerHTML;
