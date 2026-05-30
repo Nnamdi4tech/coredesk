@@ -18,7 +18,7 @@
                   >
 
                   for 
-                  <span class="w-full"> {{ $subdomain ?? '' }}.coredesk.local </span>
+                  <span class="w-full"> {{ $subdomain ?? '' }}.coredesk.com.ng </span>
                 </div>
               </div>
               <div

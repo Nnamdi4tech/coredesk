@@ -193,6 +193,16 @@ Route::prefix('helpline')->group(function () {
         Route::get('/admin/billing/{subdomain?}', [BillingController::class, 'index'])
         ->name('tenant.billing');
 
+        // Admin routes
+Route::prefix('admin/lecture-note')->name('tenant.admin.lecture-note.')->group(function () {
+    Route::get('/', [App\Http\Controllers\Admin\LectureNoteController::class, 'index'])->name('index');
+    Route::get('/{id}', [App\Http\Controllers\Admin\LectureNoteController::class, 'show'])->name('show');
+    Route::post('/{id}/approve', [App\Http\Controllers\Admin\LectureNoteController::class, 'approve'])->name('approve');
+    Route::post('/{id}/reject', [App\Http\Controllers\Admin\LectureNoteController::class, 'reject'])->name('reject');
+    Route::delete('/{id}', [App\Http\Controllers\Admin\LectureNoteController::class, 'destroy'])->name('destroy');
+    Route::post('/bulk-approve', [App\Http\Controllers\Admin\LectureNoteController::class, 'bulkApprove'])->name('bulk-approve');
+});
+
          
         // ================= Teachers ROUTES start here =================
         // TEACHER STUDENTS
@@ -220,6 +230,18 @@ Route::prefix('helpline')->group(function () {
         Route::get('/teacher/attendance', [AttendanceController::class, 'index'])->name('teacher.attendance.index');
         Route::post('/teacher/attendance/store', [AttendanceController::class, 'store'])->name('teacher.attendance.store');
         Route::get('/teacher/attendance/view', [AttendanceController::class, 'viewRecord'])->name('teacher.attendance.view');
+        
+        // ================= LECTURE NOTES =================
+// Teacher routes
+Route::prefix('teacher/lecture-note')->name('teacher.lecture-note.')->group(function () {
+    Route::get('/', [App\Http\Controllers\Teacher\LectureNoteController::class, 'index'])->name('index');
+    Route::get('/create', [App\Http\Controllers\Teacher\LectureNoteController::class, 'create'])->name('create');
+    Route::post('/store', [App\Http\Controllers\Teacher\LectureNoteController::class, 'store'])->name('store');
+    Route::get('/{id}/edit', [App\Http\Controllers\Teacher\LectureNoteController::class, 'edit'])->name('edit');
+    Route::put('/{id}', [App\Http\Controllers\Teacher\LectureNoteController::class, 'update'])->name('update');
+    Route::delete('/{id}', [App\Http\Controllers\Teacher\LectureNoteController::class, 'destroy'])->name('destroy');
+    Route::get('/{id}/view', [App\Http\Controllers\Teacher\LectureNoteController::class, 'view'])->name('view');
+});
 
         // ================= Teachers ROUTES ends here =================
     }); // end auth middleware
@@ -240,6 +262,14 @@ Route::prefix('helpline')->group(function () {
             Route::get('/tests', [TestController::class, 'index'])->name('student.tests');
             Route::get('/exams', [ExamController::class, 'index'])->name('student.exams');
             Route::post('/logout', [AuthController::class, 'logout'])->name('student.logout');
+
+
+            // Student routes
+Route::prefix('student/lecture-note')->name('student.lecture-note.')->group(function () {
+    Route::get('/', [App\Http\Controllers\Student\LectureNoteController::class, 'index'])->name('index');
+    Route::get('/{id}', [App\Http\Controllers\Student\LectureNoteController::class, 'show'])->name('show');
+    Route::get('/subject/{subjectId}', [App\Http\Controllers\Student\LectureNoteController::class, 'subject'])->name('subject');
+});
             
         });
 

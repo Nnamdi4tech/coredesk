@@ -9,7 +9,7 @@
                             <p class="pt-2 mb-1 font-semibold text-purple-700">School Management</p>
                             <h5 class="font-bold">Complete Control at Your Fingertips</h5>
                             <p class="mb-12">
-                                Manage students, teachers, classes, results, and finances all from one powerful dashboard. 
+                                Manage students, teachers, classes, results, Lecture Note, and finances all from one powerful dashboard. 
                                 Streamline your school operations and focus on what matters most — education.
                             </p>
                             <a class="mt-auto mb-0 text-sm font-semibold leading-normal group text-purple-700" 

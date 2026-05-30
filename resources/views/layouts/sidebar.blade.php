@@ -137,6 +137,17 @@ $user = auth()->user();
         </a>
     </li>
 
+    {{-- Staff Lecture notes --}}
+    <li class="mt-0.5 w-full">
+        <a class="py-2.7 text-sm ease-nav-brand my-0 mx-4 flex items-center whitespace-nowrap px-4 transition-colors"
+           href="{{ route('tenant.admin.lecture-note.index', $subdomain) }}">
+            <div class="shadow-soft-2xl mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-white bg-center text-center xl:p-2.5">
+                <i class="fa fa-book-open text-slate-700 text-sm"></i>
+            </div>
+            <span class="ml-1 duration-300 opacity-100 pointer-events-none ease-soft">Staff Lecture Notes</span>
+        </a>
+    </li>
+
     
 
     {{-- Upgrade Plan --}}
@@ -303,6 +314,17 @@ $user = auth()->user();
             </a>
           </li>
           <!-- ends here -->
+
+          {{-- Lecture Notes --}}
+    <li class="mt-0.5 w-full">
+        <a class="py-2.7 text-sm ease-nav-brand my-0 mx-4 flex items-center whitespace-nowrap px-4 transition-colors"
+           href="{{ route('teacher.lecture-note.index', $subdomain) }}">
+            <div class="shadow-soft-2xl mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-white bg-center text-center xl:p-2.5">
+                <i class="fa fa-book text-slate-700 text-sm"></i>
+            </div>
+            <span class="ml-1 duration-300 opacity-100 pointer-events-none ease-soft">My Lecture Notes</span>
+        </a>
+    </li>
 
     {{-- My Classes --}}
     <li class="mt-0.5 w-full">
@@ -502,6 +524,28 @@ $user = auth()->user();
             </a>
           </li>
           <!-- ends here -->
+
+          {{-- My Lecture notes --}}
+    <li class="mt-0.5 w-full">
+        <a class="py-2.7 text-sm ease-nav-brand my-0 mx-4 flex items-center whitespace-nowrap px-4 transition-colors"
+           href="{{ route('student.lecture-note.index', $subdomain) }}">
+            <div class="shadow-soft-2xl mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-white bg-center fill-current stroke-0 text-center xl:p-2.5">
+                <svg width="12px" height="12px" viewBox="0 0 45 45" version="1.1" xmlns="#">
+                    <title>My Lecture Notes</title>
+                    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                        <g fill-rule="nonzero">
+                            <path class="fill-slate-800 opacity-60"
+                                  d="M0,2 C0,0.9 0.9,0 2,0 L18,0 C19.1,0 20,0.9 20,2 L20,18 C20,19.1 19.1,20 18,20 L2,20 C0.9,20 0,19.1 0,18 Z"/>
+                            <path class="fill-slate-800"
+                                  d="M25,2 C25,0.9 25.9,0 27,0 L43,0 C44.1,0 45,0.9 45,2 L45,18 C45,19.1 44.1,20 43,20 L27,20 C25.9,20 25,19.1 25,18 Z M0,27 C0,25.9 0.9,25 2,25 L18,25 C19.1,25 20,25.9 20,27 L20,43 C20,44.1 19.1,45 18,45 L2,45 C0.9,45 0,44.1 0,43 Z M25,27 C25,25.9 25.9,25 27,25 L43,25 C44.1,25 45,25.9 45,27 L45,43 C45,44.1 44.1,45 43,45 L27,45 C25.9,45 25,44.1 25,43 Z"/>
+                        </g>
+                    </g>
+                </svg>
+            </div>
+            <span class="ml-1 duration-300 opacity-100 pointer-events-none ease-soft">My Lecture Notes</span>
+        </a>
+    </li>
+
 
     {{-- My Results --}}
     <li class="mt-0.5 w-full">
