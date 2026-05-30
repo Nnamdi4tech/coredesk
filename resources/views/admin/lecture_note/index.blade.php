@@ -169,21 +169,20 @@
     </div>
 
     {{-- LECTURE NOTES TABLE --}}
-    <div class="bg-white shadow-soft-xl rounded-2xl overflow-hidden">
-        <div class="flex flex-wrap items-center justify-between px-6 py-4 border-b border-gray-100 gap-3">
-            <div>
-                <h6 class="font-bold text-slate-700">Submitted Lecture Notes</h6>
-                <p class="text-xs text-slate-400 mt-0.5">{{ $lectureNotes->total() }} note(s) total</p>
-            </div>
-            <div class="flex gap-2">
-                <form id="bulkApproveForm" action="{{ route('tenant.admin.lecture_note.bulk_approve', $subdomain) }}" method="POST">
-                    @csrf
-                    <button type="submit" id="bulkApproveBtn" class="px-4 py-2 text-xs font-semibold text-white rounded-lg bg-gradient-to-tl from-green-600 to-emerald-500 shadow-soft-sm hover:scale-105 transition-all">
-                        <i class="fa fa-check-circle mr-1"></i> Bulk Approve
-                    </button>
-                </form>
-            </div>
+<form id="bulkApproveForm" action="{{ route('tenant.admin.lecture_note.bulk_approve', $subdomain) }}" method="POST">
+@csrf
+<div class="bg-white shadow-soft-xl rounded-2xl overflow-hidden">
+    <div class="flex flex-wrap items-center justify-between px-6 py-4 border-b border-gray-100 gap-3">
+        <div>
+            <h6 class="font-bold text-slate-700">Submitted Lecture Notes</h6>
+            <p class="text-xs text-slate-400 mt-0.5">{{ $lectureNotes->total() }} note(s) total</p>
         </div>
+        <div class="flex gap-2">
+            <button type="submit" id="bulkApproveBtn" class="px-4 py-2 text-xs font-semibold text-white rounded-lg bg-gradient-to-tl from-green-600 to-emerald-500 shadow-soft-sm hover:scale-105 transition-all">
+                <i class="fa fa-check-circle mr-1"></i> Bulk Approve
+            </button>
+        </div>
+    </div>
 
         @if($lectureNotes->count() > 0)
         <div class="overflow-x-auto">
@@ -299,6 +298,7 @@
         </div>
         @endif
     </div>
+    </form>
 
     {{-- Info Card --}}
     <div class="mt-5 p-4 bg-gradient-to-r from-blue-50 to-cyan-50 rounded-xl border border-blue-100">

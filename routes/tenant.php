@@ -196,13 +196,12 @@ Route::prefix('helpline')->group(function () {
         // ================= ADMIN LECTURE NOTES =================
 Route::prefix('admin/lecture_note')->group(function () {
     Route::get('/', [App\Http\Controllers\Admin\LectureNoteController::class, 'index'])->name('tenant.admin.lecture_note.index');
+    Route::post('/bulk-approve', [App\Http\Controllers\Admin\LectureNoteController::class, 'bulkApprove'])->name('tenant.admin.lecture_note.bulk_approve');
     Route::get('/{id}', [App\Http\Controllers\Admin\LectureNoteController::class, 'show'])->name('tenant.admin.lecture_note.show');
     Route::post('/{id}/approve', [App\Http\Controllers\Admin\LectureNoteController::class, 'approve'])->name('tenant.admin.lecture_note.approve');
     Route::post('/{id}/reject', [App\Http\Controllers\Admin\LectureNoteController::class, 'reject'])->name('tenant.admin.lecture_note.reject');
     Route::delete('/{id}', [App\Http\Controllers\Admin\LectureNoteController::class, 'destroy'])->name('tenant.admin.lecture_note.destroy');
-    Route::post('/bulk-approve', [App\Http\Controllers\Admin\LectureNoteController::class, 'bulkApprove'])->name('tenant.admin.lecture_note.bulk_approve');
 });
-
          
         // ================= Teachers ROUTES start here =================
         // TEACHER STUDENTS

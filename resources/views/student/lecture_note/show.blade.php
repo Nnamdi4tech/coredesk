@@ -47,8 +47,8 @@
                     <i class="fa fa-file-pdf text-red-500 text-5xl mb-3"></i>
                     <p class="text-sm font-semibold text-slate-700">{{ $lectureNote->file_name }}</p>
                     <a href="{{ Storage::url($lectureNote->file_path) }}" target="_blank"
-                       class="inline-flex items-center gap-2 mt-3 px-4 py-2 text-sm font-semibold text-white bg-red-600 rounded-lg hover:bg-red-700">
-                        <i class="fa fa-download"></i> Download File
+                       class="inline-flex items-center gap-2 mt-3 px-4 py-2 text-sm font-semibold text-black bg-red-600 rounded-lg hover:bg-red-700">
+                        <i class="fa fa-download text-black"></i> Download File
                     </a>
                 </div>
             @endif
