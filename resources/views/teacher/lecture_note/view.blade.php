@@ -13,7 +13,7 @@
         </div>
         <div class="flex gap-2">
             {{-- ✅ PRINT BUTTON - Only show for text content --}}
-            @if($lectureNote->type === 'text')
+            @if($lectureNote->type === 'text' && !empty(trim($lectureNote->content)))
                 <button onclick="printLectureNote()"
                         class="px-4 py-2 text-sm font-semibold text-white rounded-lg bg-gradient-to-tl from-blue-600 to-cyan-500 shadow-soft-md hover:shadow-soft-xl hover:scale-105 transition-all">
                     <i class="fa fa-print mr-1"></i> Print
@@ -41,9 +41,16 @@
 
         <div class="p-6">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-                <div><p class="text-xs text-slate-400">Class</p><p class="text-sm font-semibold">{{ $lectureNote->class->name ?? 'N/A' }}</p></div>
-                <div><p class="text-xs text-slate-400">Subject</p><p class="text-sm font-semibold">{{ $lectureNote->subject->name ?? 'N/A' }}</p></div>
-                <div><p class="text-xs text-slate-400">Status</p>
+                <div>
+                    <p class="text-xs text-slate-400">Class</p>
+                    <p class="text-sm font-semibold">{{ $lectureNote->class->name ?? 'N/A' }}</p>
+                </div>
+                <div>
+                    <p class="text-xs text-slate-400">Subject</p>
+                    <p class="text-sm font-semibold">{{ $lectureNote->subject->name ?? 'N/A' }}</p>
+                </div>
+                <div>
+                    <p class="text-xs text-slate-400">Status</p>
                     @if($lectureNote->approved)
                         <span class="text-xs font-semibold bg-green-50 text-green-600 px-2 py-1 rounded-full"><i class="fa fa-check-circle mr-1"></i> Approved</span>
                     @elseif($lectureNote->rejected)
@@ -56,8 +63,32 @@
 
             @if($lectureNote->type === 'text')
                 <div class="border-t border-gray-100 pt-6">
-                    <p class="text-xs text-slate-400 mb-2">Content</p>
-                    <div class="bg-gray-50 rounded-xl p-4 text-slate-700 leading-relaxed lecture-content">{!! nl2br(e($lectureNote->content)) !!}</div>
+                    <div class="flex items-center justify-between mb-3">
+                        <p class="text-xs font-semibold text-slate-600">
+                            <i class="fa fa-file-alt mr-1"></i> Content
+                        </p>
+                        @if(!empty(trim($lectureNote->content)))
+                            <p class="text-xs text-slate-400">
+                                <i class="fa fa-file-text-o mr-1"></i> 
+                                {{ str_word_count(strip_tags($lectureNote->content)) }} words
+                            </p>
+                        @endif
+                    </div>
+                    
+                    @if(empty(trim($lectureNote->content)))
+                        <div class="bg-yellow-50 border border-yellow-200 rounded-xl p-6 text-yellow-700 text-center">
+                            <i class="fa fa-exclamation-triangle text-2xl mb-2 block"></i>
+                            <p class="font-semibold">No content has been added to this lecture note yet.</p>
+                            <a href="{{ route('teacher.lecture_note.edit', [$subdomain, $lectureNote->id]) }}" 
+                               class="inline-block mt-3 px-3 py-1 text-xs bg-yellow-100 text-yellow-700 rounded-lg hover:bg-yellow-200">
+                                <i class="fa fa-pen mr-1"></i> Edit Note
+                            </a>
+                        </div>
+                    @else
+                        <div class="bg-gray-50 rounded-xl p-6 text-slate-700 leading-relaxed lecture-content prose prose-sm max-w-none">
+                            {!! nl2br(e($lectureNote->content)) !!}
+                        </div>
+                    @endif
                 </div>
             @elseif($lectureNote->file_path)
                 <div class="border-t border-gray-100 pt-6">
@@ -116,27 +147,18 @@
         white-space: pre-wrap;
         word-wrap: break-word;
     }
-    .text-xs {
-        font-size: 10px !important;
-    }
-    .text-sm {
-        font-size: 12px !important;
-    }
-    .text-lg {
-        font-size: 14px !important;
+    .prose {
+        font-size: 12pt;
+        line-height: 1.5;
     }
 }
 </style>
 
 <script>
 function printLectureNote() {
-    // Store original title
     const originalTitle = document.title;
-    // Set print title
     document.title = "{{ $lectureNote->title }} - Lecture Note";
-    // Trigger print
     window.print();
-    // Restore original title
     document.title = originalTitle;
 }
 </script>
