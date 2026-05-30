@@ -81,7 +81,7 @@
                 </a>
                 <button type="submit"
                         class="px-8 py-2.5 text-sm font-semibold text-white rounded-lg bg-gradient-to-tl from-gray-900 to-slate-700 shadow-soft-md hover:shadow-soft-xl hover:scale-105 transition-all">
-                    <i class="fa fa-save mr-1"></i> Update Class
+                    <i class="fa fa-save text-black mr-1"></i> Update Class
                 </button>
             </div>
         </div>

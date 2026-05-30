@@ -176,7 +176,7 @@
                 <p class="text-xs text-slate-400 mt-0.5">{{ $lectureNotes->total() }} note(s) total</p>
             </div>
             <div class="flex gap-2">
-                <form id="bulkApproveForm" action="{{ route('tenant.admin.lecture_note.bulk-approve', $subdomain) }}" method="POST">
+                <form id="bulkApproveForm" action="{{ route('tenant.admin.lecture_note.bulk_approve', $subdomain) }}" method="POST">
                     @csrf
                     <button type="submit" id="bulkApproveBtn" class="px-4 py-2 text-xs font-semibold text-white rounded-lg bg-gradient-to-tl from-green-600 to-emerald-500 shadow-soft-sm hover:scale-105 transition-all">
                         <i class="fa fa-check-circle mr-1"></i> Bulk Approve
