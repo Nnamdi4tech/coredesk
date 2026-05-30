@@ -165,10 +165,47 @@
 
 <script>
 function printLectureNote() {
-    const originalTitle = document.title;
-    document.title = "{{ $lectureNote->title }} - Lecture Note";
-    window.print();
-    document.title = originalTitle;
+    const content = document.querySelector('.lecture-content').innerHTML;
+    const title = "{{ $lectureNote->title }}";
+    const className = "{{ $lectureNote->class->name ?? 'N/A' }}";
+    const subject = "{{ $lectureNote->subject->name ?? 'N/A' }}";
+    const date = "{{ $lectureNote->created_at->format('M d, Y') }}";
+
+    const printWindow = window.open('', '_blank');
+    printWindow.document.write(`
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <title>${title} - Lecture Note</title>
+            <style>
+                body {
+                    font-family: Arial, sans-serif;
+                    margin: 40px;
+                    color: #000;
+                    font-size: 12pt;
+                    line-height: 1.6;
+                }
+                h1 { font-size: 18pt; margin-bottom: 5px; }
+                .meta { font-size: 10pt; color: #444; margin-bottom: 20px; border-bottom: 1px solid #ccc; padding-bottom: 10px; }
+                .meta span { margin-right: 20px; }
+                .content { margin-top: 20px; white-space: pre-wrap; word-wrap: break-word; }
+            </style>
+        </head>
+        <body>
+            <h1>${title}</h1>
+            <div class="meta">
+                <span><strong>Class:</strong> ${className}</span>
+                <span><strong>Subject:</strong> ${subject}</span>
+                <span><strong>Date:</strong> ${date}</span>
+            </div>
+            <div class="content">${content}</div>
+        </body>
+        </html>
+    `);
+    printWindow.document.close();
+    printWindow.focus();
+    printWindow.print();
+    printWindow.close();
 }
 </script>
 
