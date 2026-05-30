@@ -16,7 +16,7 @@
             </p>
         </div>
         <div class="px-3 mt-3 md:mt-0">
-            <a href="{{ route('teacher.lecture-note.create', $subdomain) }}" class="px-5 py-2 text-sm font-semibold text-white rounded-lg bg-gradient-to-tl from-green-600 to-emerald-500 shadow-soft-md hover:shadow-soft-xl hover:scale-105 transition-all">
+            <a href="{{ route('teacher.lecture_note.create', $subdomain) }}" class="px-5 py-2 text-sm font-semibold text-white rounded-lg bg-gradient-to-tl from-green-600 to-emerald-500 shadow-soft-md hover:shadow-soft-xl hover:scale-105 transition-all">
                 <i class="fa fa-plus mr-1"></i> Add Lecture Note
             </a>
         </div>
@@ -155,10 +155,10 @@
                         </td>
                         <td class="px-6 py-4 text-center">
                             <div class="flex items-center justify-center gap-2">
-                                <a href="{{ route('teacher.lecture-note.view', [$subdomain, $note->id]) }}" class="w-7 h-7 rounded-lg bg-blue-50 text-blue-500 flex items-center justify-center hover:bg-blue-100"><i class="fa fa-eye text-xs"></i></a>
+                                <a href="{{ route('teacher.lecture_note.view', [$subdomain, $note->id]) }}" class="w-7 h-7 rounded-lg bg-blue-50 text-blue-500 flex items-center justify-center hover:bg-blue-100"><i class="fa fa-eye text-xs"></i></a>
                                 @if(!$note->approved)
-                                <a href="{{ route('teacher.lecture-note.edit', [$subdomain, $note->id]) }}" class="w-7 h-7 rounded-lg bg-amber-50 text-amber-500 flex items-center justify-center hover:bg-amber-100"><i class="fa fa-pen text-xs"></i></a>
-                                <form method="POST" action="{{ route('teacher.lecture-note.destroy', [$subdomain, $note->id]) }}" onsubmit="return confirm('Delete this lecture note?')" class="inline">
+                                <a href="{{ route('teacher.lecture_note.edit', [$subdomain, $note->id]) }}" class="w-7 h-7 rounded-lg bg-amber-50 text-amber-500 flex items-center justify-center hover:bg-amber-100"><i class="fa fa-pen text-xs"></i></a>
+                                <form method="POST" action="{{ route('teacher.lecture_note.destroy', [$subdomain, $note->id]) }}" onsubmit="return confirm('Delete this lecture note?')" class="inline">
                                     @csrf @method('DELETE')
                                     <button type="submit" class="w-7 h-7 rounded-lg bg-red-50 text-red-500 flex items-center justify-center hover:bg-red-100"><i class="fa fa-trash text-xs"></i></button>
                                 </form>

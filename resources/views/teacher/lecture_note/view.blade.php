@@ -11,7 +11,7 @@
             <h3 class="text-2xl font-bold text-slate-700 mb-1">{{ $lectureNote->title }}</h3>
             <p class="text-sm text-slate-400">Viewing lecture note</p>
         </div>
-        <a href="{{ route('teacher.lecture-note.index', $subdomain) }}" class="px-4 py-2 text-sm border border-gray-300 rounded-lg text-slate-600 hover:bg-gray-50">Back</a>
+        <a href="{{ route('teacher.lecture_note.index', $subdomain) }}" class="px-4 py-2 text-sm border border-gray-300 rounded-lg text-slate-600 hover:bg-gray-50">Back</a>
     </div>
 
     <div class="bg-white shadow-soft-xl rounded-2xl overflow-hidden">

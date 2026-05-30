@@ -45,7 +45,7 @@
         <div class="divide-y divide-gray-100">
             @foreach($notes as $note)
             <div class="p-4 hover:bg-gray-50 transition">
-                <a href="{{ route('student.lecture-note.show', [$subdomain, $note->id]) }}" class="block">
+                <a href="{{ route('student.lecture_note.show', [$subdomain, $note->id]) }}" class="block">
                     <div class="flex items-start justify-between">
                         <div class="flex-1">
                             <h5 class="text-sm font-bold text-slate-700 mb-1">{{ $note->title }}</h5>

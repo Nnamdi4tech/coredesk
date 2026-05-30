@@ -12,12 +12,12 @@
             <p class="text-sm text-slate-400">
                 <i class="fa fa-home mr-1"></i> Dashboard
                 <span class="mx-1 text-slate-300">/</span>
-                <a href="{{ route('teacher.lecture-note.index', $subdomain) }}" class="hover:text-slate-600">Lecture Notes</a>
+                <a href="{{ route('teacher.lecture_note.index', $subdomain) }}" class="hover:text-slate-600">Lecture Notes</a>
                 <span class="mx-1 text-slate-300">/</span>
                 <span class="text-slate-600">Add</span>
             </p>
         </div>
-        <a href="{{ route('teacher.lecture-note.index', $subdomain) }}" class="px-4 py-2 text-sm border border-gray-300 rounded-lg text-slate-600 hover:bg-gray-50">Back</a>
+        <a href="{{ route('teacher.lecture_note.index', $subdomain) }}" class="px-4 py-2 text-sm border border-gray-300 rounded-lg text-slate-600 hover:bg-gray-50">Back</a>
     </div>
 
     @if($errors->any())
@@ -26,7 +26,7 @@
     </div>
     @endif
 
-    <form method="POST" action="{{ route('teacher.lecture-note.store', $subdomain) }}" enctype="multipart/form-data">
+    <form method="POST" action="{{ route('teacher.lecture_note.store', $subdomain) }}" enctype="multipart/form-data">
         @csrf
 
         <div class="bg-white shadow-soft-xl rounded-2xl p-6 mb-5">
@@ -83,7 +83,7 @@
         </div>
 
         <div class="flex items-center justify-between">
-            <a href="{{ route('teacher.lecture-note.index', $subdomain) }}" class="px-6 py-2.5 text-sm border border-gray-300 rounded-lg text-slate-600 hover:bg-gray-50">Cancel</a>
+            <a href="{{ route('teacher.lecture_note.index', $subdomain) }}" class="px-6 py-2.5 text-sm border border-gray-300 rounded-lg text-slate-600 hover:bg-gray-50">Cancel</a>
             <button type="submit" class="px-8 py-2.5 text-sm font-semibold text-white rounded-lg bg-gradient-to-tl from-green-600 to-emerald-500 shadow-soft-md hover:shadow-soft-xl hover:scale-105 transition-all">Submit for Approval</button>
         </div>
     </form>
